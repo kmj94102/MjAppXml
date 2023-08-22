@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="isCurrentItem"
+            type="Boolean" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="imageRes"
+            type="Integer" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@{isCurrentItem ? @color/sky_blue : @android:color/transparent}"
+            app:cardCornerRadius="10dp"
+            app:strokeColor="@{isCurrentItem ? @color/black : @android:color/transparent}"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:text="@{isCurrentItem ? title : ``}"
+                app:startDrawable="@{imageRes}"
+                tools:drawableStart="@drawable/ic_home"
+                tools:text="home" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</layout>

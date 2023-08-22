@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MjAppXml</string>
+    <string name="content_description_pokemon_image">pokemon image</string>
 </resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.mjappxml.ui.home.HomeFragment"
+        android:label="홈"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/navigation_game"
+        android:name="com.example.mjappxml.ui.home.HomeFragment"
+        android:label="게임"
+        tools:layout="@layout/fragment_game"/>
+
+    <fragment
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.mjappxml.ui.home.HomeFragment"
+        android:label="달력"
+        tools:layout="@layout/fragment_schedule"/>
+
+    <fragment
+        android:id="@+id/navigation_account_book"
+        android:name="com.example.mjappxml.ui.home.HomeFragment"
+        android:label="가계부"
+        tools:layout="@layout/fragment_account_book"/>
+
+    <fragment
+        android:id="@+id/navigation_other"
+        android:name="com.example.mjappxml.ui.home.HomeFragment"
+        android:label="기타"
+        tools:layout="@layout/fragment_other"/>
+
+</navigation>

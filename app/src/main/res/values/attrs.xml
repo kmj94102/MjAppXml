@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomBottomNavigationItem">
+        <attr name="navigationTitle" format="string"/>
+        <attr name="navigationIcon" format="reference"/>
+        <attr name="isCurrentItem" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="DoubleCardView">
+        <attr name="doubleCardRadius" format="integer"/>
+        <attr name="topCardColor" format="reference|color"/>
+        <attr name="bottomCardColor" format="reference|color"/>
+    </declare-styleable>
+
+    <declare-styleable name="WeekCalendarItem">
+        <attr name="dayOfWeek" format="string"/>
+        <attr name="date" format="string"/>
+        <attr name="isSelect" format="boolean"/>
+        <attr name="isToday" format="boolean"/>
+        <attr name="isHoliday" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="IconButton">
+        <attr name="iconSize" format="dimension"/>
+        <attr name="res" format="reference"/>
+    </declare-styleable>
+</resources>

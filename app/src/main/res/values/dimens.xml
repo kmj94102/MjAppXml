@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="icon_button_default_size">24dp</dimen>
+    <dimen name="icon_default_size">24dp</dimen>
+    <dimen name="icon_button_default_corner_size">12dp</dimen>
+    <dimen name="double_card_default_corner_size">10dp</dimen>
+</resources>
