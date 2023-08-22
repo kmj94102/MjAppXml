@@ -8,31 +8,31 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.mjappxml.ui.home.HomeFragment"
-        android:label="홈"
+        android:label="home"
         tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/navigation_game"
-        android:name="com.example.mjappxml.ui.home.HomeFragment"
-        android:label="게임"
+        android:name="com.example.mjappxml.ui.game.GameFragment"
+        android:label="game"
         tools:layout="@layout/fragment_game"/>
 
     <fragment
         android:id="@+id/navigation_schedule"
-        android:name="com.example.mjappxml.ui.home.HomeFragment"
-        android:label="달력"
+        android:name="com.example.mjappxml.ui.schedule.ScheduleFragment"
+        android:label="schedule"
         tools:layout="@layout/fragment_schedule"/>
 
     <fragment
         android:id="@+id/navigation_account_book"
-        android:name="com.example.mjappxml.ui.home.HomeFragment"
-        android:label="가계부"
+        android:name="com.example.mjappxml.ui.accountbook.AccountBookFragment"
+        android:label="accountBook"
         tools:layout="@layout/fragment_account_book"/>
 
     <fragment
         android:id="@+id/navigation_other"
-        android:name="com.example.mjappxml.ui.home.HomeFragment"
-        android:label="기타"
+        android:name="com.example.mjappxml.ui.other.OtherFragment"
+        android:label="other"
         tools:layout="@layout/fragment_other"/>
 
 </navigation>

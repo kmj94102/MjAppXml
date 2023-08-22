@@ -5,49 +5,41 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import com.example.mjappxml.MainActivity
 import com.example.mjappxml.databinding.CustomBottomNavigationBinding
 
 class CustomBottomNavigation : LinearLayout {
 
     private val binding = CustomBottomNavigationBinding.inflate(LayoutInflater.from(context))
-    private var beforeSelectId: Int? = null
+    private var activity: MainActivity? = null
 
-    constructor(context: Context) : super(context) {
-        initViews()
-    }
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
-        initViews()
-    }
+    constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
 
     constructor(context: Context, attributeSet: AttributeSet, defStyle: Int) : super(
         context,
         attributeSet,
         defStyle
-    ) {
-        initViews()
-    }
+    )
 
     init {
         binding.custom = this@CustomBottomNavigation
         addView(binding.root)
-        binding.root.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        beforeSelectId = binding.itemHome.id
-
-        initViews()
+        binding.root.layoutParams =
+            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
-    private fun initViews() {
+    fun setActivity(activity: MainActivity) { this.activity = activity }
 
-    }
+    fun goToHome(view: View) { activity?.run { goToHome() } }
 
-    fun onItemClick(view: View) {
-        if (beforeSelectId == view.id) return
-        runCatching {
-            beforeSelectId?.let {
-                findViewById<CustomBottomNavigationItem>(it).updateCurrentItem(false)
-            }
-            (view as? CustomBottomNavigationItem)?.updateCurrentItem(true)
-        }.onSuccess { beforeSelectId = view.id }.onFailure { it.printStackTrace() }
-    }
+    fun goToGame(view: View) { activity?.run { goToGame() } }
+
+    fun goToSchedule(view: View) { activity?.run { goToSchedule() } }
+
+    fun goToAccountBook(view: View) { activity?.run { goToAccountBook() } }
+
+    fun goToOther(view: View) { activity?.run { goToOther() } }
+
 }

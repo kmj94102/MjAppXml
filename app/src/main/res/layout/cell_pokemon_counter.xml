@@ -3,12 +3,10 @@
 
     <com.example.mjappxml.custom.DoubleCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bottomCardColor="@color/red"
-        app:doubleCardRadius="10"
-        tools:layout_width="match_parent">
+        app:doubleCardRadius="10">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

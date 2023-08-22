@@ -79,6 +79,7 @@ class DoubleCardView : MaterialCardView {
         addView(binding.root)
         setBackgroundColor(ContextCompat.getColor(context, R.color.white))
         strokeWidth = 0
+        radius = context.dpToPx(10).toFloat()
     }
 
     fun setTopCardColor(@ColorRes color: Int) {

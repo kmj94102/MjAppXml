@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:onClick="@{custom::onItemClick}"
+                android:onClick="@{custom::goToHome}"
                 app:isCurrentItem="true"
                 app:navigationIcon="@drawable/ic_home"
                 app:navigationTitle="홈" />
@@ -41,7 +41,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::onItemClick}"
+                android:onClick="@{custom::goToGame}"
                 app:isCurrentItem="false"
                 app:navigationIcon="@drawable/ic_game_pad"
                 app:navigationTitle="게임" />
@@ -51,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::onItemClick}"
+                android:onClick="@{custom::goToSchedule}"
                 app:isCurrentItem="false"
                 app:navigationIcon="@drawable/ic_calendar"
                 app:navigationTitle="달력" />
@@ -61,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::onItemClick}"
+                android:onClick="@{custom::goToAccountBook}"
                 app:isCurrentItem="false"
                 app:navigationIcon="@drawable/ic_flower"
                 app:navigationTitle="가계부" />
@@ -71,7 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::onItemClick}"
+                android:onClick="@{custom::goToOther}"
                 app:isCurrentItem="false"
                 app:navigationIcon="@drawable/ic_other"
                 app:navigationTitle="기타" />

@@ -1,22 +1,29 @@
 package com.example.mjappxml.ui.game
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import com.example.mjappxml.BaseViewFragment
 import com.example.mjappxml.R
+import com.example.mjappxml.databinding.FragmentGameBinding
 
-class GameFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class GameFragment : BaseViewFragment<FragmentGameBinding>(R.layout.fragment_game) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.fragment = this
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_game, container, false)
+    fun goToPokemonDex(view: View) {
+    }
+
+    fun goToPokemonCounter(view: View) {
+    }
+
+    fun goToElswordIntroduce(view: View) {
+    }
+
+    fun goToElswordCounter(view: View) {
     }
 
 }
