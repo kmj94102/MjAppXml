@@ -4,15 +4,16 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.Gravity
-import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.google.android.material.card.MaterialCardView
 
 class IconButton : MaterialCardView {
+
+    private lateinit var icon: ImageView
 
     constructor(context: Context) : super(context) {
         initViews()
@@ -53,7 +54,7 @@ class IconButton : MaterialCardView {
         )
 
 
-        val icon = ImageView(context)
+        icon = ImageView(context)
         addView(icon)
 
         val layoutPram = LayoutParams(iconSize.toInt(), iconSize.toInt())
@@ -62,6 +63,12 @@ class IconButton : MaterialCardView {
         icon.setImageResource(iconRes)
 
         typedArray.recycle()
+    }
+
+    fun setImageRes(@DrawableRes iconRes: Int) {
+        runCatching {
+            icon.setImageResource(iconRes)
+        }
     }
 
 }

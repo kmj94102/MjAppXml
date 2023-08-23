@@ -4,9 +4,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.LinearLayout
 import androidx.annotation.ColorRes
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
@@ -80,6 +78,7 @@ class DoubleCardView : MaterialCardView {
         setBackgroundColor(ContextCompat.getColor(context, R.color.white))
         strokeWidth = 0
         radius = context.dpToPx(10).toFloat()
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
     fun setTopCardColor(@ColorRes color: Int) {

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.game.pokemon.dex.PokemonDexFragment" />
+
+        <variable
+            name="adapter"
+            type="com.example.mjappxml.ui.game.pokemon.dex.PokemonSelectAdapter" />
+
+        <variable
+            name="viewModel"
+            type="com.example.mjappxml.ui.game.pokemon.dex.PokemonDexViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="22dp">
+
+        <com.example.mjappxml.custom.IconButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cardBackgroundColor="@color/red"
+            app:cardCornerRadius="5dp"
+            app:iconSize="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:res="@drawable/ic_back" />
+
+        <com.example.mjappxml.custom.IconButton
+            android:id="@+id/btnShinyState"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            app:cardBackgroundColor="@color/white"
+            android:onClick="@{() -> fragment.onShinyStateChange()}"
+            app:cardCornerRadius="5dp"
+            app:iconSize="24dp"
+            app:layout_constraintEnd_toStartOf="@id/btnSearch"
+            app:layout_constraintTop_toTopOf="parent"
+            app:res="@drawable/ic_normal" />
+
+        <com.example.mjappxml.custom.IconButton
+            android:id="@+id/btnSearch"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cardBackgroundColor="@color/beige"
+            app:cardCornerRadius="5dp"
+            app:iconSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:res="@drawable/ic_search" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="30dp"
+            android:clipToPadding="false"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/cell_pokemon_select"
+            app:adapter="@{adapter}"
+            app:submitList="@{viewModel.pokemonList}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

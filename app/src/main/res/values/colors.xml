@@ -8,4 +8,6 @@
     <color name="red">#FFFFAAA7</color>
     <color name="sky_blue">#FFD6F2FF</color>
     <color name="blue">#FF8AC3F9</color>
+    <color name="light_gray">#FFD9D9D9</color>
+    <color name="gray">#FF999999</color>
 </resources>

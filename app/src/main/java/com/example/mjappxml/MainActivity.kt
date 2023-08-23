@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import com.example.mjappxml.databinding.ActivityMainBinding
@@ -48,5 +47,9 @@ class MainActivity : AppCompatActivity() {
 
     fun goToOther() {
         navController.navigate(R.id.navigation_other)
+    }
+
+    fun goToPage(resId: Int) {
+        navController.navigate(resId)
     }
 }
