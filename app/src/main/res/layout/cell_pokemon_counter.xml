@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="pokemon"
+            type="com.example.communication.model.PokemonCounter" />
+    </data>
+
     <com.example.mjappxml.custom.DoubleCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:bottomCardColor="@color/red"
@@ -43,38 +51,53 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:contentDescription="@string/content_description_pokemon_image"
-                android:src="@drawable/img_egg"
+                app:imageAddress="@{pokemon.image}"
                 app:layout_constraintEnd_toStartOf="@id/imageShiny"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnClose" />
+                app:layout_constraintTop_toBottomOf="@id/btnClose"
+                app:loadingRes="@{@drawable/img_egg}"
+                tools:src="@drawable/img_egg" />
 
             <ImageView
                 android:id="@+id/imageShiny"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:contentDescription="@string/content_description_pokemon_image"
-                android:src="@drawable/img_egg"
+                app:imageAddress="@{pokemon.shinyImage}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/imageNormal"
-                app:layout_constraintTop_toTopOf="@id/imageNormal" />
+                app:layout_constraintTop_toTopOf="@id/imageNormal"
+                app:loadingRes="@{@drawable/img_egg}"
+                tools:src="@drawable/img_egg" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/editLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp"
                 app:layout_constraintEnd_toEndOf="@id/btnClose"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageNormal">
+                app:layout_constraintTop_toBottomOf="@id/imageNormal"
+                app:strokeColor="@color/black">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="카운터"
-                    android:textAlignment="textEnd" />
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginVertical="3dp"
+                    android:maxLength="6"
+                    android:maxLines="1"
+                    android:text="@{String.valueOf(pokemon.count)}"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/red"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="999999" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btnDecreaseOne"
@@ -119,10 +142,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="3dp"
-                    android:text="- 1"
+                    android:text="@{`- `.concat(String.valueOf(pokemon.customIncrease))}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="- 1" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -169,10 +193,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginVertical="3dp"
-                    android:text="+ 1"
+                    android:text="@{`+ `.concat(String.valueOf(pokemon.customIncrease))}"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="+ 1" />
 
             </com.google.android.material.card.MaterialCardView>
 

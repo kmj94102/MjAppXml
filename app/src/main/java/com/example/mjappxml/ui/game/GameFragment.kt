@@ -20,6 +20,7 @@ class GameFragment : BaseViewFragment<FragmentGameBinding>(R.layout.fragment_gam
     }
 
     fun goToPokemonCounter(view: View) {
+        (activity as? MainActivity)?.goToPage(R.id.navigation_pokemon_counter)
     }
 
     fun goToElswordIntroduce(view: View) {
