@@ -2,6 +2,7 @@ package com.example.mjappxml.custom
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.ImageView
@@ -65,10 +66,12 @@ class IconButton : MaterialCardView {
         typedArray.recycle()
     }
 
-    fun setImageRes(@DrawableRes iconRes: Int) {
-        runCatching {
-            icon.setImageResource(iconRes)
-        }
+    fun setImageRes(@DrawableRes iconRes: Int) = runCatching {
+        icon.setImageResource(iconRes)
+    }
+
+    fun setImageDrawable(drawable: Drawable) = runCatching {
+        icon.setImageDrawable(drawable)
     }
 
 }

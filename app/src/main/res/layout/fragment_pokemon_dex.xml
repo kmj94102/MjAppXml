@@ -75,6 +75,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/cell_pokemon_select"
             app:adapter="@{adapter}"
+            app:gridSpacing="@{10}"
+            app:gridSpan="@{2}"
             app:submitList="@{viewModel.pokemonList}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

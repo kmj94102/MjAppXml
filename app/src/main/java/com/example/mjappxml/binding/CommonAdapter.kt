@@ -1,5 +1,7 @@
 package com.example.mjappxml.binding
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
@@ -10,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.example.mjappxml.common.dpToPx
+import com.google.android.material.chip.Chip
 
 @BindingAdapter("imageRes")
 fun imageLoad(imageView: ImageView, @DrawableRes resId: Int) {
@@ -40,4 +43,25 @@ fun applyGrayScaleFilter(imageView: ImageView, isGrayScale: Boolean) {
 
     val colorFilter = ColorMatrixColorFilter(colorMatrix)
     imageView.colorFilter = colorFilter
+}
+
+@BindingAdapter("chipBackgroundHex")
+fun setChipBackgroundColorHex(chip: Chip, chipBackgroundHex: Long) {
+    val color = Color.argb(
+        ((chipBackgroundHex shr 24) and 0xFF).toInt(),
+        ((chipBackgroundHex shr 16) and 0xFF).toInt(),
+        ((chipBackgroundHex shr 8) and 0xFF).toInt(),
+        (chipBackgroundHex and 0xFF).toInt()
+    )
+
+    chip.chipBackgroundColor = ColorStateList(
+        arrayOf(
+            intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked)),
+        intArrayOf(color, color)
+    )
+}
+
+@BindingAdapter("chipIconRes")
+fun setChipIcon(chip: Chip, chipIconRes: Int) {
+    chip.chipIcon = ContextCompat.getDrawable(chip.context, chipIconRes)
 }

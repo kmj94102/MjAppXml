@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MjAppXml</string>
     <string name="content_description_pokemon_image">pokemon image</string>
+    <string name="week">약점</string>
+    <string name="pokemon">포켓몬</string>
+    <string name="hp">HP</string>
+    <string name="attack">공격</string>
+    <string name="defence">방어</string>
+    <string name="special_attack">특공</string>
+    <string name="special_defence">특방</string>
+    <string name="speed">스피드</string>
 </resources>

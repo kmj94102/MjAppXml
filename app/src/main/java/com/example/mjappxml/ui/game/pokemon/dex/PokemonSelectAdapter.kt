@@ -9,7 +9,9 @@ import com.example.communication.model.PokemonSummary
 import com.example.mjappxml.databinding.CellPokemonSelectBinding
 import com.example.mjappxml.R
 
-class PokemonSelectAdapter : ListAdapter<PokemonSummary, PokemonSelectViewHolder>(diffUtil) {
+class PokemonSelectAdapter(
+    private val onItemClick: (String) -> Unit
+) : ListAdapter<PokemonSummary, PokemonSelectViewHolder>(diffUtil) {
 
     private var isShiny = false
 
@@ -22,7 +24,7 @@ class PokemonSelectAdapter : ListAdapter<PokemonSummary, PokemonSelectViewHolder
         )
 
     override fun onBindViewHolder(holder: PokemonSelectViewHolder, position: Int) {
-        holder.bind(currentList[position], isShiny)
+        holder.bind(currentList[position], isShiny, onItemClick)
     }
 
     companion object {
@@ -44,11 +46,16 @@ class PokemonSelectAdapter : ListAdapter<PokemonSummary, PokemonSelectViewHolder
 
 class PokemonSelectViewHolder(val binding: CellPokemonSelectBinding) :
     RecyclerView.ViewHolder(binding.root) {
-        fun bind(pokemonSummary: PokemonSummary, isShiny: Boolean) = with(binding) {
-            pokemon = pokemonSummary
-            this.isShiny = isShiny
-            cardPokemon.setTopCardColor(
-                if (pokemonSummary.isCatch) R.color.white else R.color.light_gray
-            )
-        }
+    fun bind(
+        pokemonSummary: PokemonSummary,
+        isShiny: Boolean,
+        onItemClick: (String) -> Unit
+    ) = with(binding) {
+        root.setOnClickListener { onItemClick(pokemonSummary.number) }
+        pokemon = pokemonSummary
+        this.isShiny = isShiny
+        cardPokemon.setTopCardColor(
+            if (pokemonSummary.isCatch) R.color.white else R.color.light_gray
+        )
+    }
 }

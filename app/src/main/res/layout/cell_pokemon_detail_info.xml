@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="info"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailItem.Detail" />
+
+        <variable
+            name="adapter"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailAdapter" />
+
+        <import type="com.example.communication.model.TypeInfo" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@drawable/bg_gradient_pokemon_dialog">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:text="@{info.number}"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="No.0006" />
+
+            <LinearLayout
+                android:id="@+id/layoutWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal"
+                app:pokemonWeekList="@{info.weekList}"
+                app:layout_constraintBottom_toBottomOf="@id/txtNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtNumber" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text="@string/week"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/layoutWeek"
+                app:layout_constraintEnd_toStartOf="@id/layoutWeek"
+                app:layout_constraintTop_toTopOf="@id/layoutWeek" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@{info.name}"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/txtNumber"
+                app:layout_constraintTop_toBottomOf="@id/txtNumber"
+                tools:text="리자몽" />
+
+            <TextView
+                android:id="@+id/txtClassification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{info.classAndCharacter}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/txtName"
+                app:layout_constraintTop_toBottomOf="@id/txtName"
+                tools:text="화염포켓몬 | 맹화, 선파워" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/layoutType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:chipSpacing="10dp"
+                app:layout_constraintStart_toStartOf="@id/txtNumber"
+                app:layout_constraintTop_toBottomOf="@id/txtClassification">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipFirstType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{info.firstTypeInfo.koreanName}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="@{info.firstTypeInfo == TypeInfo.Unknown ? View.GONE : View.VISIBLE}"
+                    app:chipBackgroundHex="@{info.firstTypeInfo.color}"
+                    app:chipCornerRadius="30dp"
+                    app:chipIconRes="@{info.firstTypeInfo.imageRes}"
+                    app:chipIconSize="20dp"
+                    app:chipMinHeight="25dp"
+                    app:chipMinTouchTargetSize="20dp"
+                    app:chipStrokeWidth="0dp"
+                    tools:chipBackgroundColor="#FF9741"
+                    tools:text="불꽃" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipSecondType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{info.secondTypeInfo.koreanName}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="@{info.secondTypeInfo == TypeInfo.Unknown ? View.GONE : View.VISIBLE}"
+                    app:chipBackgroundHex="@{info.secondTypeInfo.color}"
+                    app:chipCornerRadius="30dp"
+                    app:chipIconRes="@{info.secondTypeInfo.imageRes}"
+                    app:chipIconSize="20dp"
+                    app:chipMinHeight="25dp"
+                    app:chipMinTouchTargetSize="20dp"
+                    app:chipStrokeWidth="0dp"
+                    tools:chipBackgroundColor="#FF9741"
+                    tools:text="불꽃" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@{info.description}"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/layoutWeek"
+                app:layout_constraintStart_toStartOf="@id/txtNumber"
+                app:layout_constraintTop_toBottomOf="@id/layoutType"
+                tools:text="강한 상대를 찾아 하늘을 날아다닌다. 무엇이든 다 녹여버리는 고열의 불꽃을 자신보다 약한 자에게 들이대지 않는다." />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCurrentPokemon"
+                android:layout_width="178dp"
+                android:layout_height="178dp"
+                android:layout_marginTop="40dp"
+                app:cardBackgroundColor="#0F3061"
+                app:cardCornerRadius="90dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtDescription"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:layout_width="128dp"
+                    android:layout_height="128dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/pokemon"
+                    app:imageAddress="@{adapter.isShiny() ? info.currentShinyImage : info.currentImage}"
+                    app:loadingRes="@{@drawable/img_egg}"
+                    tools:src="@drawable/img_egg" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBeforePokemon"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_marginStart="-37dp"
+                android:visibility="@{info.beforeNum.empty ? View.GONE : View.VISIBLE, default = visible}"
+                app:cardBackgroundColor="#1F789B"
+                app:cardCornerRadius="90dp"
+                app:layout_constraintBottom_toBottomOf="@id/cardCurrentPokemon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardCurrentPokemon"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/pokemon"
+                    app:imageAddress="@{adapter.isShiny() ? info.beforeShinyImage : info.beforeImage}"
+                    app:loadingRes="@{@drawable/img_egg}"
+                    tools:src="@drawable/img_egg" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNextPokemon"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_marginEnd="-37dp"
+                android:visibility="@{info.afterNum.empty ? View.GONE : View.VISIBLE, default = visible}"
+                app:cardBackgroundColor="#1F789B"
+                app:cardCornerRadius="90dp"
+                app:layout_constraintBottom_toBottomOf="@id/cardCurrentPokemon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cardCurrentPokemon"
+                app:strokeColor="@color/white"
+                app:strokeWidth="2dp">
+
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/pokemon"
+                    app:imageAddress="@{adapter.isShiny() ? info.afterShinyImage : info.afterImage}"
+                    app:loadingRes="@{@drawable/img_egg}"
+                    tools:src="@drawable/img_egg" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/white"
+                android:visibility="@{info.beforeNum.empty ? View.GONE : View.VISIBLE, default = visible}"
+                app:layout_constraintBottom_toBottomOf="@id/cardCurrentPokemon"
+                app:layout_constraintEnd_toStartOf="@id/cardCurrentPokemon"
+                app:layout_constraintStart_toEndOf="@id/cardBeforePokemon"
+                app:layout_constraintTop_toTopOf="@id/cardCurrentPokemon" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/white"
+                android:visibility="@{info.afterNum.empty ? View.GONE : View.VISIBLE, default = visible}"
+                app:layout_constraintBottom_toBottomOf="@id/cardCurrentPokemon"
+                app:layout_constraintEnd_toStartOf="@id/cardNextPokemon"
+                app:layout_constraintStart_toEndOf="@id/cardCurrentPokemon"
+                app:layout_constraintTop_toTopOf="@id/cardCurrentPokemon" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>
