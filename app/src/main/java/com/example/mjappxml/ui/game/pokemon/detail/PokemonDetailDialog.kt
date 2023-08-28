@@ -66,6 +66,10 @@ class PokemonDetailDialog : DialogFragment() {
         }
     }
 
+    fun insertCounter() {
+        viewModel.insertPokemonCounter(number)
+    }
+
     fun onDismiss(view: View) {
         dismiss()
     }
