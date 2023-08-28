@@ -47,7 +47,8 @@
             app:iconSize="24dp"
             app:layout_constraintEnd_toStartOf="@id/btnSearch"
             app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_normal" />
+            app:stateRes="@{viewModel.isShiny() ? @drawable/ic_shiny : @drawable/ic_normal}"
+            tools:res="@drawable/ic_normal" />
 
         <com.example.mjappxml.custom.IconButton
             android:id="@+id/btnSearch"
@@ -75,8 +76,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@layout/cell_pokemon_select"
             app:adapter="@{adapter}"
-            app:gridSpacing="@{10}"
-            app:gridSpan="@{2}"
             app:submitList="@{viewModel.pokemonList}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
