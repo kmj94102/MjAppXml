@@ -16,7 +16,7 @@ class PokemonDexFragment :
 
     override val viewModel: PokemonDexViewModel by viewModels()
     private var adapter: PokemonSelectAdapter = PokemonSelectAdapter(::onDetailClick)
-    private val detailDialog= PokemonDetailDialog()
+    private val detailDialog = PokemonDetailDialog()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,8 +28,9 @@ class PokemonDexFragment :
         binding.recyclerView.addItemDecoration(
             GridSpaceItemDecoration(4, 10)
         )
-        binding.recyclerView.setOnScrollChangeListener { view, i, i2, i3, i4 ->
-            if (view.canScrollVertically(1).not()) {
+
+        binding.recyclerView.setOnScrollChangeListener { recyclerView, _, _, _, _ ->
+            if (recyclerView.canScrollVertically(1).not()) {
                 viewModel.fetchPokemonList()
             }
         }
@@ -43,6 +44,12 @@ class PokemonDexFragment :
     private fun onDetailClick(number: String) {
         detailDialog.setNumber(number)
         detailDialog.show(parentFragmentManager, "PokemonDetailDialog")
+    }
+
+    fun showSearchDialog() {
+        PokemonSearchDialog {
+            viewModel.updateName(it)
+        }.show(parentFragmentManager, "PokemonSearchDialog")
     }
 
 }

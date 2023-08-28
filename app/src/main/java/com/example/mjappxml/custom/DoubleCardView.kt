@@ -75,7 +75,7 @@ class DoubleCardView : MaterialCardView {
 
     private fun initViews() {
         addView(binding.root)
-        setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+        setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
         strokeWidth = 0
         radius = context.dpToPx(10).toFloat()
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)

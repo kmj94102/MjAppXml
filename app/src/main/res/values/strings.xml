@@ -9,4 +9,6 @@
     <string name="special_attack">특공</string>
     <string name="special_defence">특방</string>
     <string name="speed">스피드</string>
+    <string name="pokemon_name">포켓몬 이름</string>
+    <string name="search">검색하기</string>
 </resources>

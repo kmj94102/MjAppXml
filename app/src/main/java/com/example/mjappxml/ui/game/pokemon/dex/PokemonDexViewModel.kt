@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonDexViewModel @Inject constructor(
     private val repository: PokemonRepository
-): ViewModel() {
+) : ViewModel() {
 
     private var _isShiny = MutableStateFlow(false)
     val isShiny: StateFlow<Boolean> = _isShiny
@@ -27,6 +27,7 @@ class PokemonDexViewModel @Inject constructor(
     private var isMore = true
     private var skip = 0
     private val limit = 100
+    private var name = ""
 
     init {
         fetchPokemonList()
@@ -36,22 +37,30 @@ class PokemonDexViewModel @Inject constructor(
         _isShiny.value = _isShiny.value.not()
     }
 
+    fun updateName(name: String) {
+        _pokemonList.value = listOf()
+        this.name = name
+        skip = 0
+        isMore = true
+        fetchPokemonList()
+    }
+
     fun fetchPokemonList() {
         if (isMore.not()) return
 
         repository
             .fetchPokemonList(
-                name = "",
+                name = name,
                 skip = skip,
                 limit = limit
             )
-            .onStart {  }
+            .onStart { }
             .onEach { (isMore, list) ->
                 this.isMore = isMore
                 skip += 1
                 _pokemonList.value = _pokemonList.value + list
             }
-            .onCompletion {  }
+            .onCompletion { }
             .launchIn(viewModelScope)
     }
 

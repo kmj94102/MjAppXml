@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="dialog"
+            type="com.example.mjappxml.ui.game.pokemon.dex.PokemonSearchDialog" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="25dp"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.example.mjappxml.custom.IconButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="end"
+                android:layout_marginVertical="5dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/red"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/black"
+                android:onClick="@{() -> dialog.onDismiss()}"
+                app:cardCornerRadius="15dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/bg_gradient_pokemon_dialog"
+                android:orientation="vertical"
+                android:paddingVertical="28dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="17dp">
+
+                <com.example.mjappxml.custom.DoubleCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:bottomCardColor="@color/red">
+
+                    <com.example.mjappxml.custom.CustomEditTextView
+                        android:id="@+id/editName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="13dp"
+                        android:hint="@string/pokemon_name"
+                        android:maxLines="1"
+                        android:textColor="@color/black" />
+
+                </com.example.mjappxml.custom.DoubleCardView>
+
+                <com.example.mjappxml.custom.DoubleCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:onClick="@{() -> dialog.onSearchClick()}"
+                    app:topCardColor="@color/red">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="13dp"
+                        android:orientation="horizontal">
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:layout_gravity="center"
+                            android:text="@string/search"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_search"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.example.mjappxml.custom.DoubleCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
