@@ -14,6 +14,7 @@ fun setIconButtonImage(iconButton: IconButton, stateRes: Drawable) {
 
 @BindingAdapter("pokemonWeekList")
 fun setPokemonWeekList(layout: LinearLayout, weekList: List<Int>) {
+    layout.removeAllViews()
     weekList.forEach { imageRes ->
         val imageView = ImageView(layout.context).also {
             val layoutParams = LinearLayout.LayoutParams(
