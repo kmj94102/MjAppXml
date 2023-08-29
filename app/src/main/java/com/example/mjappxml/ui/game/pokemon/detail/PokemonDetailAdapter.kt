@@ -2,6 +2,7 @@ package com.example.mjappxml.ui.game.pokemon.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.forEach
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.mjappxml.R
+import com.example.mjappxml.custom.EvolutionItemView
 import com.example.mjappxml.databinding.CellPokemonDetailInfoBinding
 import com.example.mjappxml.databinding.CellPokemonEvolutionInfoBinding
 
@@ -100,10 +102,25 @@ class PokemonEvolutionViewHolder(
         if (detailInfo is PokemonDetailItem.Evolution) {
             binding.info = detailInfo
 
+            binding.layoutEvolution.removeAllViews()
+            detailInfo.evolutionList.forEach { info ->
+                binding.layoutEvolution.addView(
+                    EvolutionItemView(binding.layoutEvolution.context).also {
+                        it.setEvolutionInfo(info)
+                    }
+                )
+            }
+
             lifecycleOwner?.let {
-                adapter.isShiny.observe(it) { binding.invalidateAll() }
+                adapter.isShiny.observe(it) { value ->
+                    binding.invalidateAll()
+                    binding.layoutEvolution.forEach { view ->
+                        if (view is EvolutionItemView) {
+                            view.updateShinyState(value)
+                        }
+                    }
+                }
             }
         }
     }
-
 }

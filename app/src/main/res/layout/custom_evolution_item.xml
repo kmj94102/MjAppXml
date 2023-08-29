@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="info"
+            type="com.example.communication.model.EvolutionInfo" />
+
+        <variable
+            name="item"
+            type="com.example.mjappxml.custom.EvolutionItemView" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBeforePokemon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp">
+
+            <ImageView
+                android:id="@+id/imgBeforePokemon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                app:imageAddress="@{item.isShiny ? info.beforeShinyDot : info.beforeDot}"
+                app:loadingRes="@{@drawable/img_egg}"
+                tools:src="@drawable/img_egg" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAfterPokemon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp">
+
+            <ImageView
+                android:id="@+id/imgAfterPokemon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center"
+                app:imageAddress="@{item.isShiny ? info.afterShinyDot : info.afterDot}"
+                app:loadingRes="@{@drawable/img_egg}"
+                tools:src="@drawable/img_egg" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/cardBeforePokemon"
+            app:layout_constraintEnd_toStartOf="@id/cardAfterPokemon"
+            app:layout_constraintStart_toEndOf="@id/cardBeforePokemon"
+            app:layout_constraintTop_toTopOf="@id/cardBeforePokemon" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="5dp"
+            app:imageAddress="@{info.evolutionImage}"
+            app:layout_constraintBottom_toTopOf="@id/viewDivider"
+            app:layout_constraintEnd_toEndOf="@id/viewDivider"
+            app:layout_constraintStart_toStartOf="@id/viewDivider"
+            app:loadingRes="@{@drawable/img_egg}"
+            tools:src="@drawable/img_egg" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{info.evolutionCondition}"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/viewDivider"
+            app:layout_constraintStart_toStartOf="@id/viewDivider"
+            app:layout_constraintTop_toBottomOf="@id/viewDivider"
+            tools:text="Lv.16" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

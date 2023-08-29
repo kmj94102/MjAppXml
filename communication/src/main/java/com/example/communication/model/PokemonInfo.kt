@@ -35,7 +35,20 @@ data class EvolutionInfo(
     val afterNumber: String,
     val evolutionImage: String,
     val evolutionCondition: String
-)
+) {
+    companion object {
+        fun init() = EvolutionInfo(
+            beforeDot = "",
+            beforeShinyDot = "",
+            beforeNumber = "",
+            afterDot = "",
+            afterShinyDot = "",
+            afterNumber = "",
+            evolutionImage = "",
+            evolutionCondition = ""
+        )
+    }
+}
 
 data class PokemonImageInfo(
     val number: String,

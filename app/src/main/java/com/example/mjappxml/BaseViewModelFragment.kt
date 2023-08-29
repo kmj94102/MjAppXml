@@ -34,7 +34,7 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : ViewModel>(
         return binding.root
     }
 
-    protected fun onBack() {
+    fun onBack() {
         parentFragmentManager.popBackStack()
     }
 

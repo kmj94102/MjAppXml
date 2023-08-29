@@ -32,6 +32,7 @@
             app:cardBackgroundColor="@color/red"
             app:cardCornerRadius="5dp"
             app:iconSize="24dp"
+            android:onClick="@{() -> fragment.onBack()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:res="@drawable/ic_back" />

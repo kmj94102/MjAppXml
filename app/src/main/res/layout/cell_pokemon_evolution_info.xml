@@ -46,6 +46,7 @@
                 tools:text="리자몽" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardStatus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
@@ -227,6 +228,16 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <LinearLayout
+                android:id="@+id/layoutEvolution"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/cardStatus"
+                app:layout_constraintStart_toStartOf="@id/cardStatus"
+                app:layout_constraintEnd_toEndOf="@id/cardStatus"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
