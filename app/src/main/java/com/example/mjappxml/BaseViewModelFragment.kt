@@ -34,6 +34,10 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : ViewModel>(
         return binding.root
     }
 
+    protected fun onBack() {
+        parentFragmentManager.popBackStack()
+    }
+
     protected fun showDialog() {
 //        dialog = LoadingDialog().also {
 //            it.show(parentFragmentManager, null)

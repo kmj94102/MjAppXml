@@ -12,14 +12,21 @@ import com.example.mjappxml.ui.game.pokemon.counter.PokemonCounterAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
+class HomeFragment :
+    BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
     override val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PokemonCounterAdapter()
+        val adapter = PokemonCounterAdapter(
+            onSetting = { _, _ -> },
+            onDelete = {},
+            onGet = {},
+            onUpdate = { _, _ -> },
+            onAdd = {}
+        )
 
         adapter.submitList(
             listOf(

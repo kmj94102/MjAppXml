@@ -32,17 +32,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:res="@drawable/ic_back" />
 
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnAdd"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:cardBackgroundColor="@color/beige"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_plus" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:layout_height="0dp"

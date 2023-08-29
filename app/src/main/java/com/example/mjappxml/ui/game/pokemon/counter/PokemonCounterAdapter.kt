@@ -10,7 +10,13 @@ import com.example.mjappxml.databinding.CellPokemonCounterBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.databinding.CellPokemonCounterAddBinding
 
-class PokemonCounterAdapter : ListAdapter<PokemonCounter, ViewHolder>(diffUtil) {
+class PokemonCounterAdapter(
+    private val onSetting: (String, Int) -> Unit,
+    private val onDelete: (String) -> Unit,
+    private val onUpdate: (String, Int) -> Unit,
+    private val onGet: (String) -> Unit,
+    private val onAdd: () -> Unit
+) : ListAdapter<PokemonCounter, ViewHolder>(diffUtil) {
 
     override fun getItemViewType(position: Int) =
         if (currentList[position].number.isEmpty()) Add
@@ -34,12 +40,19 @@ class PokemonCounterAdapter : ListAdapter<PokemonCounter, ViewHolder>(diffUtil) 
         }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is PokemonCounterViewHolder -> {
-                holder.bind(currentList[position])
+                holder.bind(
+                    pokemonCounter = currentList[position],
+                    onSetting = onSetting,
+                    onDelete = onDelete,
+                    onUpdate = onUpdate,
+                    onGet = onGet
+                )
             }
+
             is PokemonAddViewHolder -> {
-                holder.bind()
+                holder.bind(onAdd = onAdd)
             }
         }
     }
@@ -65,15 +78,58 @@ class PokemonCounterAdapter : ListAdapter<PokemonCounter, ViewHolder>(diffUtil) 
 class PokemonCounterViewHolder(
     val binding: CellPokemonCounterBinding
 ) : ViewHolder(binding.root) {
-    fun bind(pokemonCounter: PokemonCounter) {
-        binding.pokemon = pokemonCounter
+    fun bind(
+        pokemonCounter: PokemonCounter,
+        onSetting: (String, Int) -> Unit,
+        onUpdate: (String, Int) -> Unit,
+        onDelete: (String) -> Unit,
+        onGet: (String) -> Unit
+    ) = with(binding) {
+        pokemon = pokemonCounter
+        btnSetting.setOnClickListener {
+            onSetting(
+                pokemonCounter.number,
+                pokemonCounter.customIncrease
+            )
+        }
+        btnClose.setOnClickListener { onDelete(pokemonCounter.number) }
+        btnGet.setOnClickListener { onGet(pokemonCounter.number) }
+
+        btnDecreaseOne.setOnClickListener {
+            onUpdate(
+                pokemonCounter.number,
+                pokemonCounter.count - 1
+            )
+        }
+        btnDecreaseCustom.setOnClickListener {
+            onUpdate(
+                pokemonCounter.number,
+                pokemonCounter.count - pokemonCounter.customIncrease
+            )
+        }
+        btnIncreaseOne.setOnClickListener {
+            onUpdate(
+                pokemonCounter.number,
+                pokemonCounter.count + 1
+            )
+        }
+        btnIncreaseCustom.setOnClickListener {
+            onUpdate(
+                pokemonCounter.number,
+                pokemonCounter.count + pokemonCounter.customIncrease
+            )
+        }
+    }
+
+    private fun calculate(increase : Int) {
+
     }
 }
 
 class PokemonAddViewHolder(
     val binding: CellPokemonCounterAddBinding
 ) : ViewHolder(binding.root) {
-    fun bind() {
-
+    fun bind(onAdd: () -> Unit) {
+        binding.root.setOnClickListener { onAdd() }
     }
 }

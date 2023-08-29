@@ -18,7 +18,32 @@ class PokemonCountFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.vm = viewModel
-        binding.adapter = PokemonCounterAdapter()
+        binding.btnBack.setOnClickListener { onBack() }
+        binding.adapter = PokemonCounterAdapter(
+            onSetting = { number, increase ->
+                showIncreaseSettingDialog(number, increase)
+            },
+            onDelete = {
+                viewModel.deleteCounter(it)
+            },
+            onUpdate = { number, increase ->
+                viewModel.updateCounter(increase, number)
+            },
+            onGet = {
+                viewModel.updateCatch(it)
+            },
+            onAdd = {}
+        )
+    }
+
+    private fun showIncreaseSettingDialog(
+        number: String,
+        customIncrease: Int
+    ) {
+        IncreaseSettingDialog(
+            increase = customIncrease,
+            onSetting = { viewModel.updateCustomIncrease(number, it) }
+        ).show(parentFragmentManager, "IncreaseSettingDialog")
     }
 
 }

@@ -11,4 +11,7 @@
     <string name="speed">스피드</string>
     <string name="pokemon_name">포켓몬 이름</string>
     <string name="search">검색하기</string>
+    <string name="increase_setting">증가폭 설정</string>
+    <string name="input_increase">증가폭 입력</string>
+    <string name="do_setting">설정하기</string>
 </resources>
