@@ -1,9 +1,10 @@
 package com.example.mjappxml.ui.game.pokemon.dex
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.communication.model.PokemonSummary
 import com.example.communication.repository.PokemonRepository
+import com.example.mjappxml.BaseViewModel
+import com.example.mjappxml.common.customCatch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonDexViewModel @Inject constructor(
     private val repository: PokemonRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private var _isShiny = MutableStateFlow(false)
     val isShiny: StateFlow<Boolean> = _isShiny
@@ -54,13 +55,18 @@ class PokemonDexViewModel @Inject constructor(
                 skip = skip,
                 limit = limit
             )
-            .onStart { }
+            .onStart { startLoading() }
             .onEach { (isMore, list) ->
                 this.isMore = isMore
                 skip += 1
                 _pokemonList.value = _pokemonList.value + list
+                updateNetworkErrorState(false)
             }
-            .onCompletion { }
+            .customCatch(
+                onError = { updateMessage(it ?: "조회 중 오류가 발생하였습니다.") },
+                onNetworkError = { updateNetworkErrorState(true) }
+            )
+            .onCompletion { endLoading() }
             .launchIn(viewModelScope)
     }
 

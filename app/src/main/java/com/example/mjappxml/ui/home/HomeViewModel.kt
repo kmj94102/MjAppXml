@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.communication.model.HomeInfoResult
 import com.example.communication.model.HomeParam
 import com.example.communication.repository.HomeRepository
+import com.example.mjappxml.BaseViewModel
 import com.example.mjappxml.common.getLastDayOfWeek
 import com.example.mjappxml.common.getStartDayOfWeek
 import com.example.mjappxml.common.getToday
@@ -14,9 +15,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -26,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
-): ViewModel() {
+): BaseViewModel() {
 
     private val today = getToday()
     val yearMonth

@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.MjAppXml" parent="Base.Theme.MjAppXml" />
+
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

@@ -1,10 +1,10 @@
 package com.example.mjappxml.ui.game.pokemon.counter
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.communication.model.PokemonCounter
 import com.example.communication.model.UpdatePokemonCatch
 import com.example.communication.repository.PokemonRepository
+import com.example.mjappxml.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonCounterViewModel @Inject constructor(
     private val repository: PokemonRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val sharedFlow = MutableSharedFlow<Unit>(replay = 1)
     val counterList = sharedFlow.flatMapLatest {

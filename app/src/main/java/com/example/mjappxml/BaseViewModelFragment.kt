@@ -8,15 +8,19 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
+import com.example.mjappxml.common.repeatOnStarted
+import com.example.mjappxml.common.toast
+import com.example.mjappxml.ui.dialog.LoadingDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 
-abstract class BaseViewModelFragment<B : ViewDataBinding, VM : ViewModel>(
-    @LayoutRes private val layoutId : Int
+abstract class BaseViewModelFragment<B : ViewDataBinding, VM : BaseViewModel>(
+    @LayoutRes private val layoutId: Int
 ) : Fragment() {
 
     protected lateinit var binding: B
-    abstract val viewModel : VM
-//    protected lateinit var dialog : LoadingDialog
+    abstract val viewModel: VM
+    private val loadingDialog = LoadingDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +35,30 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : ViewModel>(
             setVariable(BR.homeViewModel, viewModel)
         }
 
+        val status = viewModel.status.value
+        repeatOnStarted {
+            status.message.collectLatest {
+                if (it.isEmpty()) return@collectLatest
+                runCatching {
+                    requireActivity().toast(it)
+                    delay(500)
+                    status.updateMessage("")
+                }
+            }
+        }
+
+        repeatOnStarted {
+            status.isLoading.collectLatest { if (it) showDialog() else dismissDialog() }
+        }
+
+        repeatOnStarted {
+            status.isNetworkError.collectLatest { updateNetworkErrorState(it) }
+        }
+
+        repeatOnStarted {
+            status.isFinish.collectLatest { if (it) onBack() }
+        }
+
         return binding.root
     }
 
@@ -38,15 +66,13 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : ViewModel>(
         parentFragmentManager.popBackStack()
     }
 
-    protected fun showDialog() {
-//        dialog = LoadingDialog().also {
-//            it.show(parentFragmentManager, null)
-//        }
+    private fun showDialog() {
+        loadingDialog.show(parentFragmentManager, null)
     }
 
-    protected fun dismissDialog(){
-//        if (this::dialog.isInitialized) {
-//            dialog.dismissDialog()
-//        }
+    private fun dismissDialog() = runCatching {
+        loadingDialog.dismiss()
     }
+
+    open fun updateNetworkErrorState(value: Boolean) {}
 }
