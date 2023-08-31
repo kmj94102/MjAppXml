@@ -45,4 +45,9 @@
         android:name="com.example.mjappxml.ui.game.pokemon.counter.PokemonCountFragment"
         tools:layout="@layout/cell_pokemon_counter"/>
 
+    <fragment
+        android:id="@+id/navigation_elsword_introduce"
+        android:name="com.example.mjappxml.ui.game.elsword.introduce.ElswordIntroduceFragment"
+        tools:layout="@layout/fragment_elsword_introduce"/>
+
 </navigation>

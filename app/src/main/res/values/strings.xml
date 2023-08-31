@@ -15,4 +15,5 @@
     <string name="input_increase">증가폭 입력</string>
     <string name="do_setting">설정하기</string>
     <string name="reload">다시 조회</string>
+    <string name="elsword_character">엘소드 캐릭터</string>
 </resources>

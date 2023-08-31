@@ -16,17 +16,22 @@ class GameFragment : BaseViewFragment<FragmentGameBinding>(R.layout.fragment_gam
     }
 
     fun goToPokemonDex(view: View) {
-        (activity as? MainActivity)?.goToPage(R.id.navigation_pokemon_dex)
+        goToPage(R.id.navigation_pokemon_dex)
     }
 
     fun goToPokemonCounter(view: View) {
-        (activity as? MainActivity)?.goToPage(R.id.navigation_pokemon_counter)
+        goToPage(R.id.navigation_pokemon_counter)
     }
 
     fun goToElswordIntroduce(view: View) {
+        goToPage(R.id.navigation_elsword_introduce)
     }
 
     fun goToElswordCounter(view: View) {
+    }
+
+    private fun goToPage(id: Int) {
+        (activity as? MainActivity)?.goToPage(id)
     }
 
 }

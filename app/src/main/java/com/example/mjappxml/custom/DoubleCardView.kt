@@ -1,7 +1,9 @@
 package com.example.mjappxml.custom
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.annotation.ColorRes
@@ -83,6 +85,10 @@ class DoubleCardView : MaterialCardView {
 
     fun setTopCardColor(@ColorRes color: Int) {
         binding.topCard.setCardBackgroundColor(ContextCompat.getColor(context, color))
+    }
+
+    fun setBottomCardColor(color: String) {
+        binding.bottomCard.setCardBackgroundColor(ColorStateList.valueOf(Color.parseColor(color)))
     }
 
 }
