@@ -6,8 +6,10 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View.OnFocusChangeListener
+import androidx.core.content.ContextCompat
 import com.example.mjappxml.common.dpToPx
 import com.google.android.material.textfield.TextInputEditText
+import com.example.mjappxml.R
 
 class CustomEditTextView : TextInputEditText {
 
@@ -30,6 +32,8 @@ class CustomEditTextView : TextInputEditText {
     private fun initView() {
         setBackgroundResource(android.R.color.transparent)
         setPadding(getPadding(5), getPadding(3), getPadding(3), getPadding(0))
+        setTextColor(ContextCompat.getColor(context, R.color.black))
+        setHintTextColor(ContextCompat.getColor(context, R.color.light_gray))
         compoundDrawablePadding = context.dpToPx(10)
         gravity = Gravity.CENTER_VERTICAL
 

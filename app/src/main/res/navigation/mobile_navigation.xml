@@ -50,4 +50,14 @@
         android:name="com.example.mjappxml.ui.game.elsword.introduce.ElswordIntroduceFragment"
         tools:layout="@layout/fragment_elsword_introduce"/>
 
+    <fragment
+        android:id="@+id/navigation_elsword_counter"
+        android:name="com.example.mjappxml.ui.game.elsword.counter.ElswordCounterFragment"
+        tools:layout="@layout/fragment_elsword_counter"/>
+
+    <fragment
+        android:id="@+id/navigation_elsword_counter_add"
+        android:name="com.example.mjappxml.ui.game.elsword.counter.ElswordCounterAddFragment"
+        tools:layout="@layout/fragment_elsword_counter_add"/>
+
 </navigation>

@@ -13,6 +13,7 @@ import androidx.databinding.BindingAdapter
 import coil.load
 import com.example.mjappxml.common.dpToPx
 import com.google.android.material.chip.Chip
+import com.google.android.material.progressindicator.LinearProgressIndicator
 
 @BindingAdapter("imageRes")
 fun imageLoad(imageView: ImageView, @DrawableRes resId: Int) {
@@ -64,4 +65,9 @@ fun setChipBackgroundColorHex(chip: Chip, chipBackgroundHex: Long) {
 @BindingAdapter("chipIconRes")
 fun setChipIcon(chip: Chip, chipIconRes: Int) {
     chip.chipIcon = ContextCompat.getDrawable(chip.context, chipIconRes)
+}
+
+@BindingAdapter("animationProgress")
+fun setAnimationProgress(progressIndicator: LinearProgressIndicator, progress: Float) {
+    progressIndicator.setProgressCompat(progress.toInt(), true)
 }

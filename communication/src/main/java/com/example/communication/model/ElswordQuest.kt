@@ -25,4 +25,10 @@ data class ElswordQuestSimple(
     val progress: Float,
     val id: Int,
     val name: String
-)
+) {
+    fun getProgressFormat() = if (progress % 1 == 0.0f) {
+        "%.0f".format(progress) + " %"
+    } else {
+        "%.2f".format(progress) + " %"
+    }
+}

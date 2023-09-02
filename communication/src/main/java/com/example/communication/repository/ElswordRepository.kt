@@ -5,19 +5,20 @@ import com.example.communication.model.ElswordQuest
 import com.example.communication.model.ElswordQuestDetail
 import com.example.communication.model.ElswordQuestSimple
 import com.example.communication.model.ElswordQuestUpdate
+import kotlinx.coroutines.flow.Flow
 
 interface ElswordRepository {
     /** 퀘스트 등록 */
-    suspend fun insertQuest(quest: ElswordQuest): String
+    suspend fun insertQuest(quest: ElswordQuest): Result<String>
 
     /** 퀘스트 삭제 **/
-    suspend fun deleteQuest(id: Int)
+    suspend fun deleteQuest(id: Int): Result<Unit>
 
     /** 퀘스트 조회 **/
-    suspend fun fetchQuestList(): List<ElswordQuestSimple>
+    fun fetchQuestList(): Flow<List<ElswordQuestSimple>>
 
     /** 퀘스트 상세 조회 **/
-    suspend fun fetchQuestDetailList(): List<ElswordQuestDetail>
+    fun fetchQuestDetailList(): Flow<List<ElswordQuestDetail>>
 
     /** 퀘스트 업데이트 **/
     suspend fun updateQuest(item: ElswordQuestUpdate)

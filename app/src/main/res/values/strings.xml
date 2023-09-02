@@ -16,4 +16,7 @@
     <string name="do_setting">설정하기</string>
     <string name="reload">다시 조회</string>
     <string name="elsword_character">엘소드 캐릭터</string>
+    <string name="quest_count">퀘스트 개수</string>
+    <string name="add">추가</string>
+    <string name="quest_name">퀘스트 명</string>
 </resources>
