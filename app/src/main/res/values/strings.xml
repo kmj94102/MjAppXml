@@ -19,4 +19,6 @@
     <string name="quest_count">퀘스트 개수</string>
     <string name="add">추가</string>
     <string name="quest_name">퀘스트 명</string>
+    <string name="cancel">취소</string>
+    <string name="ok">확인</string>
 </resources>

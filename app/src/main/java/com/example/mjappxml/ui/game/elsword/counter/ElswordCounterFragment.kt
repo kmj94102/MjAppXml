@@ -1,0 +1,64 @@
+package com.example.mjappxml.ui.game.elsword.counter
+
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.viewModels
+import com.example.mjappxml.BaseViewModelFragment
+import com.example.mjappxml.MainActivity
+import com.example.mjappxml.databinding.FragmentElswordCounterBinding
+import com.example.mjappxml.R
+import com.example.mjappxml.common.repeatOnStarted
+import com.example.mjappxml.ui.dialog.SelectOneDialog
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+
+@AndroidEntryPoint
+class ElswordCounterFragment :
+    BaseViewModelFragment<FragmentElswordCounterBinding, ElswordCounterViewModel>(R.layout.fragment_elsword_counter) {
+
+    override val viewModel: ElswordCounterViewModel by viewModels()
+    private lateinit var questSelectDialog : SelectOneDialog
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initViews()
+
+    }
+
+    private fun initViews() = with(binding) {
+        vm = viewModel
+        fragment = this@ElswordCounterFragment
+
+        layoutNetworkError.btnBack.setOnClickListener { onBack() }
+        layoutNetworkError.cardReload.setOnClickListener { viewModel.fetchQuestDetailList() }
+
+        questSelectDialog = SelectOneDialog { viewModel.updateSelectItem(it) }
+        questSelectDialog.setTitle("퀘스트 선택")
+
+        repeatOnStarted {
+            viewModel.list.collectLatest {
+                questSelectDialog.setPickerValue(
+                    it.map { elswordQuestDetail -> elswordQuestDetail.name }.toTypedArray()
+                )
+            }
+        }
+    }
+
+    override fun updateNetworkErrorState(value: Boolean) {
+        super.updateNetworkErrorState(value)
+
+        binding.isError = value
+    }
+
+    fun goToAdd() {
+        (activity as? MainActivity)?.goToPage(R.id.navigation_elsword_counter_add)
+    }
+
+    fun showQuestSelectDialog() {
+        questSelectDialog.show(
+            parentFragmentManager,
+            "${viewModel.list.value.indexOfFirst { it.id == viewModel.selectItem.value.id}}"
+        )
+    }
+}

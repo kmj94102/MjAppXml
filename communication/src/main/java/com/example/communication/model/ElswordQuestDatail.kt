@@ -27,7 +27,16 @@ data class ElswordQuestDetail(
 ) {
     fun getCharactersWithGroup() = characters.groupBy { it.group }
 
-    fun getProgress() = String.format("%.2f", characters.filter { it.isComplete }.size / 56.0 * 100)
+    fun getProgress(): String {
+        val progress = characters.filter { it.isComplete }.size / 56.0 * 100
+        return if (id == -1) {
+            ""
+        } else if (progress % 1 == 0.0) {
+            String.format("진행도 : %.0f", progress)
+        } else {
+            String.format("진행도 : %.2f", progress)
+        }
+    }
 
     fun getQuestUpdateInfo(characterName: String): ElswordQuestUpdateInfo {
         val index = characters.indexOfFirst { it.name == characterName }
@@ -44,6 +53,15 @@ data class ElswordQuestDetail(
             }
         )
     }
+
+    companion object {
+        fun init() = ElswordQuestDetail(
+            id = -1,
+            max = 0,
+            name = "",
+            characters = mutableListOf()
+        )
+    }
 }
 
 data class ElswordCharacter(
@@ -55,19 +73,21 @@ data class ElswordCharacter(
     val progress: Int
 ) {
     fun updateCopy(type: String): ElswordCharacter {
-        return when(type) {
+        return when (type) {
             "complete" -> {
                 this.copy(
                     isComplete = this.isComplete.not(),
                     isOngoing = false
                 )
             }
+
             "ongoing" -> {
                 this.copy(
                     isOngoing = this.isOngoing.not(),
                     isComplete = false
                 )
             }
+
             else -> {
                 this.copy(
                     isComplete = false,

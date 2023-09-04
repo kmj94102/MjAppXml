@@ -6,6 +6,7 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.NumberPicker
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -70,4 +71,13 @@ fun setChipIcon(chip: Chip, chipIconRes: Int) {
 @BindingAdapter("animationProgress")
 fun setAnimationProgress(progressIndicator: LinearProgressIndicator, progress: Float) {
     progressIndicator.setProgressCompat(progress.toInt(), true)
+}
+
+@BindingAdapter("pickerValues")
+fun setPickerValues(picker: NumberPicker, array: Array<String>) {
+    picker.also {
+        it.minValue = 0
+        it.maxValue = array.size - 1
+        it.displayedValues = array
+    }
 }

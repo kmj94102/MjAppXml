@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.example.mjappxml.ui.game.elsword.counter.ElswordCounterViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.game.elsword.counter.ElswordCounterFragment" />
+
+        <variable
+            name="isError"
+            type="Boolean" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <com.example.mjappxml.custom.IconButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:onClick="@{() -> fragment.onBack()}"
+            app:cardBackgroundColor="@color/red"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:res="@drawable/ic_back" />
+
+        <com.example.mjappxml.custom.IconButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:onClick="@{() -> fragment.goToAdd()}"
+            app:cardBackgroundColor="@color/turquoise"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack"
+            app:res="@drawable/ic_plus" />
+
+        <TextView
+            android:id="@+id/txtQuestTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{vm.selectItem.name}"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:onClick="@{() -> fragment.showQuestSelectDialog()}"
+            app:layout_constraintStart_toStartOf="@id/btnBack"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            tools:text="메인 퀘스트" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="-2dp"
+            android:background="@color/red"
+            app:layout_constraintEnd_toEndOf="@id/txtQuestTitle"
+            app:layout_constraintStart_toStartOf="@id/txtQuestTitle"
+            app:layout_constraintTop_toBottomOf="@id/txtQuestTitle" />
+
+        <TextView
+            android:id="@+id/txtQuestProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.selectItem.progress}"
+            app:layout_constraintStart_toStartOf="@id/txtQuestTitle"
+            app:layout_constraintTop_toBottomOf="@id/txtQuestTitle"
+            tools:text="진행도 : 34%" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingVertical="15dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="17dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtQuestProgress"
+            tools:listitem="@layout/cell_elsword_quest" />
+
+        <include
+            android:id="@+id/layoutNetworkError"
+            layout="@layout/layout_network_error"
+            android:visibility="@{isError? View.VISIBLE : View.GONE, default = gone}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
