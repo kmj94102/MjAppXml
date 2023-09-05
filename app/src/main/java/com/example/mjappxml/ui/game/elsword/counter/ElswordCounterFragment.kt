@@ -43,6 +43,15 @@ class ElswordCounterFragment :
                 )
             }
         }
+
+        val adapter = ElswordCounterAdapter()
+        recyclerView.adapter = adapter
+
+        repeatOnStarted {
+            viewModel.selectItem.collectLatest {
+                adapter.submitList(it.characters)
+            }
+        }
     }
 
     override fun updateNetworkErrorState(value: Boolean) {

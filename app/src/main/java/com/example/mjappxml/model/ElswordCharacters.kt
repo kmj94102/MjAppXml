@@ -1,6 +1,5 @@
 package com.example.mjappxml.model
 
-import android.graphics.Color
 import com.example.mjappxml.R
 
 enum class ElswordCharacters(
@@ -164,11 +163,9 @@ enum class ElswordCharacters(
         )
     );
 
-    fun getCharacterColor() = Color.parseColor(color)
+    companion object {
+        fun getCharacterColor(characterName: String) =
+            ElswordCharacters.values().find { it.characterName == characterName }?.color ?: Elsword.color
 
-//    companion object {
-//        fun getCharacterColor(characterName: String) =
-//            ElswordCharacters.values().find { it.characterName == characterName }?.color ?: Elsword.color
-//
-//    }
+    }
 }

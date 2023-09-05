@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <com.example.mjappxml.custom.DoubleCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/doubleCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="4dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="6dp"
+            app:strokeWidth="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgLine1"
+                    android:layout_width="0dp"
+                    android:layout_height="142dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imgLine2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_elsword_sd_1" />
+
+
+                <TextView
+                    android:id="@+id/txtProgress1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="@string/do_progress"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLine1"
+                    app:layout_constraintEnd_toEndOf="@id/imgLine1"
+                    app:layout_constraintStart_toStartOf="@id/imgLine1"
+                    app:layout_constraintTop_toTopOf="@id/imgLine1" />
+
+                <ImageView
+                    android:id="@+id/imgLine2"
+                    android:layout_width="0dp"
+                    android:layout_height="142dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imgLine3"
+                    app:layout_constraintStart_toEndOf="@id/imgLine1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_elsword_sd_2" />
+
+                <TextView
+                    android:id="@+id/txtProgress2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="@string/do_progress"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLine2"
+                    app:layout_constraintEnd_toEndOf="@id/imgLine2"
+                    app:layout_constraintStart_toStartOf="@id/imgLine2"
+                    app:layout_constraintTop_toTopOf="@id/imgLine2" />
+
+                <ImageView
+                    android:id="@+id/imgLine3"
+                    android:layout_width="0dp"
+                    android:layout_height="142dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imgLine4"
+                    app:layout_constraintStart_toEndOf="@id/imgLine2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_elsword_sd_3" />
+
+                <TextView
+                    android:id="@+id/txtProgress3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="@string/do_progress"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLine3"
+                    app:layout_constraintEnd_toEndOf="@id/imgLine3"
+                    app:layout_constraintStart_toStartOf="@id/imgLine3"
+                    app:layout_constraintTop_toTopOf="@id/imgLine3" />
+
+                <ImageView
+                    android:id="@+id/imgLine4"
+                    android:layout_width="0dp"
+                    android:layout_height="142dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgLine3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_elsword_sd_4" />
+
+                <TextView
+                    android:id="@+id/txtProgress4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/red"
+                    android:gravity="center"
+                    android:text="@string/do_progress"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@id/imgLine4"
+                    app:layout_constraintEnd_toEndOf="@id/imgLine4"
+                    app:layout_constraintStart_toStartOf="@id/imgLine4"
+                    app:layout_constraintTop_toTopOf="@id/imgLine4" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgLine1"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgLine2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:background="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imgLine3"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </com.example.mjappxml.custom.DoubleCardView>
+</layout>
