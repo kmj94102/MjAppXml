@@ -76,14 +76,14 @@ data class ElswordCharacter(
         return when (type) {
             "complete" -> {
                 this.copy(
-                    isComplete = this.isComplete.not(),
+                    isComplete = true,
                     isOngoing = false
                 )
             }
 
             "ongoing" -> {
                 this.copy(
-                    isOngoing = this.isOngoing.not(),
+                    isOngoing = true,
                     isComplete = false
                 )
             }
@@ -95,5 +95,22 @@ data class ElswordCharacter(
                 )
             }
         }
+    }
+
+    fun getIsNotProgress() = isComplete.not() && isOngoing.not()
+
+    fun getIsProgress() = isComplete.not() && isOngoing
+
+    fun getIsComplete() = isComplete && isOngoing.not()
+
+    companion object {
+        fun create() = ElswordCharacter(
+            name = "",
+            image = "",
+            group = "",
+            isComplete = false,
+            isOngoing = false,
+            progress = 0
+        )
     }
 }

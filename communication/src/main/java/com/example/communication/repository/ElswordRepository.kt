@@ -21,7 +21,7 @@ interface ElswordRepository {
     fun fetchQuestDetailList(): Flow<List<ElswordQuestDetail>>
 
     /** 퀘스트 업데이트 **/
-    suspend fun updateQuest(item: ElswordQuestUpdate)
+    suspend fun updateQuest(item: ElswordQuestUpdate): Result<Unit>
 
     /** 퀘스트 카운터 업데이트 **/
     suspend fun updateQuestCounter(item: ElswordCounterUpdateItem): Int

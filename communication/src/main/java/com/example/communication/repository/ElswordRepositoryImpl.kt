@@ -45,11 +45,9 @@ class ElswordRepositoryImpl @Inject constructor(
 
 
     /** 퀘스트 업데이트 **/
-    override suspend fun updateQuest(item: ElswordQuestUpdate) {
-        client
+    override suspend fun updateQuest(item: ElswordQuestUpdate) = client
             .updateQuest(item)
             .printStackTrace()
-    }
 
     /** 퀘스트 카운트 업데이트 **/
     override suspend fun updateQuestCounter(item: ElswordCounterUpdateItem) =

@@ -8,6 +8,7 @@ import com.example.mjappxml.MainActivity
 import com.example.mjappxml.databinding.FragmentElswordCounterBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.common.repeatOnStarted
+import com.example.mjappxml.ui.dialog.ElswordCounterUpdateDialog
 import com.example.mjappxml.ui.dialog.SelectOneDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -18,6 +19,7 @@ class ElswordCounterFragment :
 
     override val viewModel: ElswordCounterViewModel by viewModels()
     private lateinit var questSelectDialog : SelectOneDialog
+    private lateinit var counterUpdateDialog: ElswordCounterUpdateDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,6 +38,10 @@ class ElswordCounterFragment :
         questSelectDialog = SelectOneDialog { viewModel.updateSelectItem(it) }
         questSelectDialog.setTitle("퀘스트 선택")
 
+        counterUpdateDialog = ElswordCounterUpdateDialog { name, type, progress ->
+            viewModel.updateQuest(name, type, progress)
+        }
+
         repeatOnStarted {
             viewModel.list.collectLatest {
                 questSelectDialog.setPickerValue(
@@ -44,7 +50,15 @@ class ElswordCounterFragment :
             }
         }
 
-        val adapter = ElswordCounterAdapter()
+        val adapter = ElswordCounterAdapter {
+            val selectItem = viewModel.selectItem.value
+            counterUpdateDialog.setDialogInfo(
+                character = it,
+                questTitle = selectItem.name,
+                max = selectItem.max
+            )
+            counterUpdateDialog.show(parentFragmentManager, "updateCounter")
+        }
         recyclerView.adapter = adapter
 
         repeatOnStarted {

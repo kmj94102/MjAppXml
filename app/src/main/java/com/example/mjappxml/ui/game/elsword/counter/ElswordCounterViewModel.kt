@@ -1,7 +1,9 @@
 package com.example.mjappxml.ui.game.elsword.counter
 
 import androidx.lifecycle.viewModelScope
+import com.example.communication.model.ElswordCounterUpdateItem
 import com.example.communication.model.ElswordQuestDetail
+import com.example.communication.model.ElswordQuestUpdate
 import com.example.communication.repository.ElswordRepository
 import com.example.mjappxml.BaseViewModel
 import com.example.mjappxml.common.customCatch
@@ -12,6 +14,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -57,6 +60,26 @@ class ElswordCounterViewModel @Inject constructor(
     fun updateSelectItem(index: Int) {
         this.index = index
         setSelectItem()
+    }
+
+    fun updateQuest(
+        name: String,
+        type: String,
+        progress: Int
+    ) = viewModelScope.launch {
+        repository.updateQuest(
+            ElswordQuestUpdate(
+                id = _selectItem.value.id,
+                name = name,
+                type = type,
+                progress = progress
+            )
+        ).onSuccess {
+            updateMessage("업데이트 완료")
+            fetchQuestDetailList()
+        }.onFailure {
+            updateMessage("업데이트 실패")
+        }
     }
 
 }

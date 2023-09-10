@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MjAppXml</string>
     <string name="content_description_pokemon_image">pokemon image</string>
+    <string name="content_description_image">image</string>
     <string name="week">약점</string>
     <string name="pokemon">포켓몬</string>
     <string name="hp">HP</string>
@@ -22,4 +23,8 @@
     <string name="cancel">취소</string>
     <string name="ok">확인</string>
     <string name="do_progress">진행 중</string>
+    <string name="status_update">상태 업데이트</string>
+    <string name="not_progress">진행 안함</string>
+    <string name="proceeding">진행 중</string>
+    <string name="complete">완료</string>
 </resources>

@@ -15,7 +15,9 @@ import com.example.mjappxml.binding.applyGrayScaleFilter
 import com.example.mjappxml.databinding.CellElswordQuestBinding
 import com.example.mjappxml.model.ElswordCharacters
 
-class ElswordCounterAdapter : RecyclerView.Adapter<ElswordCounterViewHolder>() {
+class ElswordCounterAdapter(
+    private val onItemClick: (ElswordCharacter) -> Unit
+) : RecyclerView.Adapter<ElswordCounterViewHolder>() {
     private var groupedCharacters: Map<String, List<ElswordCharacter>> = emptyMap()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
@@ -23,8 +25,9 @@ class ElswordCounterAdapter : RecyclerView.Adapter<ElswordCounterViewHolder>() {
             CellElswordQuestBinding.bind(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.cell_elsword_quest, parent, false
-                )
-            )
+                ),
+            ),
+            onItemClick
         )
 
     override fun onBindViewHolder(holder: ElswordCounterViewHolder, position: Int) {
@@ -43,7 +46,8 @@ class ElswordCounterAdapter : RecyclerView.Adapter<ElswordCounterViewHolder>() {
 }
 
 class ElswordCounterViewHolder(
-    private val binding: CellElswordQuestBinding
+    private val binding: CellElswordQuestBinding,
+    private val onItemClick: (ElswordCharacter) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(key: String, list: List<ElswordCharacter>) {
         val color = ElswordCharacters.getCharacterColor(key)
@@ -80,6 +84,8 @@ class ElswordCounterViewHolder(
                         }
                         .start()
                 }
+
+                imageView.setOnClickListener { onItemClick(list[index]) }
             }
         }
     }
