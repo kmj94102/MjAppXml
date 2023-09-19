@@ -24,4 +24,8 @@
         <attr name="iconSize" format="dimension"/>
         <attr name="res" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomCalendar">
+        <attr name="colorPrimary" format="reference|color"/>
+    </declare-styleable>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Point
 import android.os.Build
+import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 
 fun Context.dpToPx(dpSize: Int): Int =
-    dpSize * resources.displayMetrics.density.toInt()
+    (dpSize * resources.displayMetrics.density).toInt()
 
 fun Context.spToPx(spSize: Int): Int =
     spSize * resources.displayMetrics.scaledDensity.toInt()
