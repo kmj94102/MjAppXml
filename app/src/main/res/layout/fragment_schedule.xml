@@ -26,10 +26,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{vm.year.concat(`.`).concat(vm.month), default = ``}"
+            android:text="@{vm.selectItem.yearMonth, default = ``}"
             android:textColor="@color/purple"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:onClick="@{() -> fragment.updateYearMonth()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="2023.02" />

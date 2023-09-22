@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
 import com.example.mjappxml.R
 import com.example.mjappxml.databinding.FragmentScheduleBinding
+import com.example.mjappxml.ui.dialog.YearMonthSelectDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,9 +27,7 @@ class ScheduleFragment :
     }
 
     fun initViews() {
-        binding.calendar.setOnChangeListener {
-            viewModel.updateSelectDate(it)
-        }
+        binding.calendar.setOnChangeListener(viewModel::updateSelectDate)
     }
 
     fun updateIsCalendar(view: View) {
@@ -36,6 +35,11 @@ class ScheduleFragment :
             binding.btnCalendar.id -> viewModel.updateIsCalendar(true)
             else -> viewModel.updateIsCalendar(false)
         }
+    }
+
+    fun updateYearMonth() {
+        YearMonthSelectDialog(viewModel::updateYearMonth)
+            .show(parentFragmentManager, viewModel.selectDate.value)
     }
 
 }

@@ -21,6 +21,7 @@ data class MyCalendar(
     val detailDate: String = "",
     val itemList: MutableList<CalendarItem> = mutableListOf(),
 ) {
+    fun getYearMonth() = runCatching { detailDate.substring(0, 7) }.getOrDefault("")
     fun getDateAndDayOfWeek() = "${date.padStart(2, '0')}(${dayOfWeek})"
 }
 

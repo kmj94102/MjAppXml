@@ -10,6 +10,7 @@ import com.example.mjappxml.BaseViewModel
 import com.example.mjappxml.common.getToday
 import com.example.mjappxml.model.toCustomCalendarInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,8 +31,8 @@ class ScheduleViewModel @Inject constructor(
     private val _selectDate = MutableStateFlow(today)
     val selectDate: StateFlow<String> = _selectDate
 
-    val year get() = run { _selectDate.value.substring(0, 4) }
-    val month get() = run { _selectDate.value.substring(5, 7) }
+    private val year get() = run { _selectDate.value.substring(0, 4).toInt() }
+    private val month get() = run { _selectDate.value.substring(5, 7).toInt() }
 
     private val _list = MutableStateFlow<List<MyCalendar>>(listOf())
     val list: StateFlow<List<MyCalendar>> = _list
@@ -45,16 +47,16 @@ class ScheduleViewModel @Inject constructor(
         fetchCalendar()
     }
 
-    fun fetchCalendar() {
-        val list = fetchMyCalendarByMonth(year = year.toInt(), month = month.toInt())
+    private fun fetchCalendar() {
+        val list = fetchMyCalendarByMonth(year = year, month = month)
         _list.value = list
         updateSelectItem()
         fetchCalendarByMonth()
     }
 
-    fun fetchCalendarByMonth() {
+    private fun fetchCalendarByMonth() {
         repository
-            .fetchCalendarByMonth(year = year.toInt(), month = month.toInt())
+            .fetchCalendarByMonth(year = year, month = month)
             .onStart { startLoading() }
             .onEach {
                 it.forEach { info -> setCalendarInfo(info) }
@@ -94,6 +96,11 @@ class ScheduleViewModel @Inject constructor(
 
     fun updateIsCalendar(isCalendar: Boolean) {
         _isCalendar.value = isCalendar
+    }
+
+    fun updateYearMonth(year: String, month: String) {
+        _selectDate.value = "$year.$month.01"
+        fetchCalendar()
     }
 
 }
