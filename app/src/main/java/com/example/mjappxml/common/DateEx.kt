@@ -38,7 +38,12 @@ fun getLastDayOfWeek(dateString: String): Calendar? {
     return calendar
 }
 
-private fun getDayOfWeek(date: Date): String {
+fun convertStringToDate(dateString: String, format: String = "yyyy.MM.dd"): Date {
+    val dateFormat = SimpleDateFormat(format, Locale.KOREA)
+    return dateFormat.parse(dateString) ?: Date()
+}
+
+fun getDayOfWeek(date: Date): String {
     val calendar = Calendar.getInstance()
     calendar.time = date
 

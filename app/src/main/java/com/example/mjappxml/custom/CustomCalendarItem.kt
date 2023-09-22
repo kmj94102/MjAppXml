@@ -1,24 +1,28 @@
 package com.example.mjappxml.custom
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import com.example.communication.model.MyCalendar
 import com.example.mjappxml.databinding.CustomCalendarItemBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
+import com.example.mjappxml.model.CustomCalendarInfo
 
-class CustomCalendarItem<T> : LinearLayout {
+class CustomCalendarItem : LinearLayout {
 
     private val binding = CustomCalendarItemBinding.inflate(LayoutInflater.from(context))
-    private var onClickListener: ((T) -> Unit)? = null
-    private var item: T? = null
-    private var isToday = false
-    private var primaryColor = R.color.purple
+    private var item = MyCalendar()
+
+    @ColorInt
+    private var primaryColor: Int = ContextCompat.getColor(context, R.color.purple)
 
     constructor(context: Context) : super(context) {
         initViews()
@@ -40,59 +44,35 @@ class CustomCalendarItem<T> : LinearLayout {
         addView(binding.root)
         gravity = Gravity.CENTER
 
-        binding.cardView.apply {
-            strokeColor =
-                ContextCompat.getColor(context, if (isToday) primaryColor else R.color.white)
-//            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-            layoutParams = LayoutParams(context.dpToPx(35), context.dpToPx(35))
-            setOnClickListener {
-                item?.let { onClickListener?.invoke(it) }
-            }
-        }
+        binding.cardView.layoutParams =
+            LayoutParams(context.dpToPx(35), context.dpToPx(35))
     }
 
-    fun setDay(day: String) {
-        binding.day = day
-    }
-
-    fun setItem(item: T) {
+    fun setItem(item: MyCalendar) {
         this.item = item
+        binding.item = item
+        binding.invalidateAll()
     }
 
-    fun setOnclickListener(listener: (T) -> Unit) {
-        onClickListener = listener
-    }
-
-    fun setPrimaryColor(@ColorRes colorRes: Int) {
-        primaryColor = colorRes
-    }
-
-    fun setDateInfo(dateInfo: DateInfo) {
-        val color = when (dateInfo) {
-            DateInfo.IsHoliday -> {
-                R.color.red
-            }
-
-            DateInfo.IsNormal -> {
-                R.color.black
-            }
-
-            DateInfo.IsSaturday -> {
-                R.color.blue
+    fun setOnclickListener(listener: (String) -> Unit) {
+        if (item.date.isNotEmpty()) {
+            binding.cardView.setOnClickListener {
+                listener(item.detailDate)
             }
         }
+    }
 
-        binding.txtDay.setTextColor(ContextCompat.getColor(context, color))
+    fun setPrimaryColor(@ColorInt primaryColor: Int) {
+        this.primaryColor = primaryColor
     }
 
     fun updateSelect(isSelect: Boolean) {
-        val color = if (isSelect) primaryColor else R.color.white
-        binding.cardView.setCardBackgroundColor(ContextCompat.getColor(context, color))
+        binding.cardView.setCardBackgroundColor(
+            if (isSelect) primaryColor else ContextCompat.getColor(context, R.color.white)
+        )
     }
 
-    sealed class DateInfo {
-        object IsHoliday : DateInfo()
-        object IsSaturday : DateInfo()
-        object IsNormal : DateInfo()
+    fun updateIsToday(@ColorInt color: Int) {
+        binding.cardView.strokeColor = color
     }
 }

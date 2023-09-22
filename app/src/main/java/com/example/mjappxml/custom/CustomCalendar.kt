@@ -11,14 +11,20 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
+import com.example.communication.model.MyCalendar
 import com.example.mjappxml.databinding.CustomCalendarBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
+import com.example.mjappxml.common.getToday
+import com.example.mjappxml.model.CustomCalendarInfo
+import com.google.android.material.slider.RangeSlider.OnChangeListener
 
 class CustomCalendar : LinearLayout {
 
     private val binding = CustomCalendarBinding.inflate(LayoutInflater.from(context))
     private var primaryColor = ContextCompat.getColor(context, R.color.purple)
+    private var selectItem: CustomCalendarItem? = null
+    private var onChangeListener: (String) -> Unit = {}
 
     constructor(context: Context) : super(context) {
         initViews()
@@ -80,6 +86,43 @@ class CustomCalendar : LinearLayout {
             }
             binding.gridLayout.addView(textView)
         }
+    }
+
+    fun setList(list: List<MyCalendar>) {
+        binding.gridLayout.removeAllViews()
+        setDayTitle()
+
+        list.forEachIndexed { index, item ->
+            val layoutParams = GridLayout.LayoutParams()
+            layoutParams.columnSpec = GridLayout.spec(index % 7, 1, 1f)
+            layoutParams.bottomMargin = context.dpToPx(5)
+
+            val calendarItem = CustomCalendarItem(context).also { view ->
+                view.setItem(item)
+                view.setPrimaryColor(primaryColor)
+                view.setOnclickListener {
+                    view.updateSelect(true)
+                    if (selectItem != view) {
+                        selectItem?.updateSelect(false)
+                    }
+                    selectItem = view
+                    onChangeListener(it)
+                }
+                if (item.detailDate == getToday()) {
+                    view.updateIsToday(primaryColor)
+                    view.updateSelect(true)
+                    selectItem = view
+                    onChangeListener(item.detailDate)
+                }
+                view.layoutParams = layoutParams
+            }
+
+            binding.gridLayout.addView(calendarItem)
+        }
+    }
+
+    fun setOnChangeListener(changeListener: (String) -> Unit) {
+        onChangeListener = changeListener
     }
 
 }

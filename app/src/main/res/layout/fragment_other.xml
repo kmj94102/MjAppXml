@@ -7,13 +7,14 @@
     android:background="@color/beige"
     tools:context=".ui.accountbook.AccountBookFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <com.example.mjappxml.custom.CustomCalendar
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Other"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="17dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

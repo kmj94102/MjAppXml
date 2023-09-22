@@ -27,4 +27,5 @@
     <string name="not_progress">진행 안함</string>
     <string name="proceeding">진행 중</string>
     <string name="complete">완료</string>
+    <string name="empty_schedule">등록 된 일정이 없습니다.</string>
 </resources>

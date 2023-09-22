@@ -47,3 +47,4 @@ fun Context.dialogResize(dialog: Dialog?){
     params?.width = (deviceWidth * 0.9).toInt()
     dialog?.window?.attributes = params as WindowManager.LayoutParams
 }
+
