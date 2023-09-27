@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         navController.navigate(R.id.navigation_other)
     }
 
-    fun goToPage(resId: Int) {
-        navController.navigate(resId)
+    fun goToPage(resId: Int, bundle: Bundle?= null) {
+        navController.navigate(resId, bundle)
     }
 }

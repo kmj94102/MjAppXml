@@ -24,6 +24,11 @@
         tools:layout="@layout/fragment_schedule"/>
 
     <fragment
+        android:id="@+id/navigation_add_schedule"
+        android:name="com.example.mjappxml.ui.schedule.add.AddScheduleFragment"
+        tools:layout="@layout/fragment_add_schedule"/>
+
+    <fragment
         android:id="@+id/navigation_account_book"
         android:name="com.example.mjappxml.ui.accountbook.AccountBookFragment"
         android:label="accountBook"

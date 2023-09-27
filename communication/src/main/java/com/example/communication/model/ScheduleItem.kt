@@ -15,12 +15,12 @@ data class ScheduleItem(
 
 data class ScheduleModifier(
     val date: String = "",
-    val startTime: String = "",
-    val endTime: String = "",
+    val startTime: String = "00:00",
+    val endTime: String = "00:00",
     val recurrenceType: String = "none",
     val recurrenceEndDate: String = "",
-    val scheduleContent: String = "",
-    val scheduleTitle: String = "",
+    var scheduleContent: String = "",
+    var scheduleTitle: String = "",
 ) {
     fun getRecurrenceInfo() = Recurrence.getRecurrenceKoreanName(recurrenceType)
 

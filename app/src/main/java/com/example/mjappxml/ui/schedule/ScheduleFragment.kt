@@ -1,13 +1,13 @@
 package com.example.mjappxml.ui.schedule
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
+import com.example.mjappxml.MainActivity
 import com.example.mjappxml.R
+import com.example.mjappxml.common.Constants
 import com.example.mjappxml.databinding.FragmentScheduleBinding
 import com.example.mjappxml.ui.dialog.YearMonthSelectDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +40,11 @@ class ScheduleFragment :
     fun updateYearMonth() {
         YearMonthSelectDialog(viewModel::updateYearMonth)
             .show(parentFragmentManager, viewModel.selectDate.value)
+    }
+
+    fun goToAdd() {
+        val bundle = bundleOf(Constants.StartDate to viewModel.selectDate.value)
+        (activity as? MainActivity)?.goToPage(R.id.navigation_add_schedule, bundle)
     }
 
 }

@@ -1,218 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingTop="22dp"
-    android:paddingEnd="17dp"
-    android:paddingBottom="10dp">
+<layout>
 
-    <com.example.mjappxml.custom.IconButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:cardBackgroundColor="@color/purple"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:res="@drawable/ic_back" />
+    <data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black">
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.schedule.add.AddScheduleFragment" />
 
-        <TextView
+        <variable
+            name="vm"
+            type="com.example.mjappxml.ui.schedule.add.AddScheduleViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingStart="20dp"
+        android:paddingTop="22dp"
+        android:paddingEnd="17dp"
+        android:paddingBottom="10dp">
+
+        <com.example.mjappxml.custom.IconButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="@{() -> fragment.onBack()}"
+            app:cardBackgroundColor="@color/purple"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:res="@drawable/ic_back" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="계획"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black">
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/schedule"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSchedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="@color/purple"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toStartOf="@id/cardPlan"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black">
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="일정"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_marginEnd="10dp"
+            app:cardBackgroundColor="@color/purple"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintEnd_toStartOf="@id/cardPlan"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black">
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/plan"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardPlan">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:text="2023.05.19"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardStartTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toStartOf="@id/cardEndTime"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDate">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:hint="시작 시간"
-            android:text="10:00"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardEndTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardStartTime"
-        app:layout_constraintTop_toBottomOf="@id/cardDate">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:hint="종료 시간"
-            android:text="12:00"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardRepeatType"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardStartTime">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:text="반복 없음"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardRepeatEndDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardRepeatType">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:text="2023.05.19"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardScheduleName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardRepeatEndDate">
-
-        <com.example.mjappxml.custom.CustomEditTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="13dp"
-            android:layout_marginBottom="10dp"
-            android:hint="일정 제목"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/btnRegister"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardScheduleName">
+        </com.google.android.material.card.MaterialCardView>
 
         <com.example.mjappxml.custom.DoubleCardView
-            android:id="@+id/cardScheduleContent"
-            android:layout_width="match_parent"
+            android:id="@+id/cardDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:bottomCardColor="@color/purple">
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> fragment.onDateSelect()}"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardPlan">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:text="@{vm.item.date}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="2023.05.19" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardStartTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> fragment.onStartTimeSelect()}"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toStartOf="@id/cardEndTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardDate">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:hint="@string/start_time"
+                android:text="@{vm.item.startTime}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="10:00" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardEndTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> fragment.onEndTimeSelect()}"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardStartTime"
+            app:layout_constraintTop_toBottomOf="@id/cardDate">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:hint="@string/end_time"
+                android:text="@{vm.item.endTime}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="12:00" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardRepeatType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardStartTime">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:text="@{vm.item.recurrenceInfo}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="반복 없음" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardRepeatEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:onClick="@{() -> fragment.onRepeatEndDateSelect()}"
+            android:visibility="@{vm.item.recurrenceType == `none` ? View.GONE : View.VISIBLE, default=gone}"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardRepeatType">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:text="@{vm.item.recurrenceEndDate}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="2023.05.19" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardScheduleName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardRepeatEndDate">
 
             <com.example.mjappxml.custom.CustomEditTextView
                 android:layout_width="match_parent"
@@ -221,34 +218,69 @@
                 android:layout_marginTop="7dp"
                 android:layout_marginEnd="13dp"
                 android:layout_marginBottom="10dp"
-                android:hint="일정 내용"
+                android:hint="@string/schedule_title"
+                android:maxLines="1"
+                android:text="@={vm.item.scheduleTitle}"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
         </com.example.mjappxml.custom.DoubleCardView>
 
-    </LinearLayout>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/btnRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:topCardColor="@color/purple">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:text="등록하기"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/btnRegister"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardScheduleName">
 
-    </com.example.mjappxml.custom.DoubleCardView>
+            <com.example.mjappxml.custom.DoubleCardView
+                android:id="@+id/cardScheduleContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:bottomCardColor="@color/purple">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.example.mjappxml.custom.CustomEditTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="13dp"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/schedule_contents"
+                    android:text="@={vm.item.scheduleContent}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </com.example.mjappxml.custom.DoubleCardView>
+
+        </LinearLayout>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/btnRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:topCardColor="@color/purple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:onClick="@{() -> fragment.insertSchedule()}"
+                android:text="@string/register"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
