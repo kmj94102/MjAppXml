@@ -26,7 +26,25 @@
     <fragment
         android:id="@+id/navigation_add_schedule"
         android:name="com.example.mjappxml.ui.schedule.add.AddScheduleFragment"
-        tools:layout="@layout/fragment_add_schedule"/>
+        tools:layout="@layout/fragment_add_schedule">
+        <action
+            android:id="@+id/action_add_plan"
+            app:destination="@id/navigation_add_plan"
+            app:popUpTo="@id/navigation_add_schedule"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add_plan"
+        android:name="com.example.mjappxml.ui.schedule.add.AddPlanFragment"
+        tools:layout="@layout/fragment_add_plan">
+        <action
+            android:id="@+id/action_add_schedule"
+            app:destination="@id/navigation_add_schedule"
+            app:popUpTo="@id/navigation_add_plan"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_account_book"

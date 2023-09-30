@@ -1,152 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingTop="22dp"
-    android:paddingEnd="17dp"
-    android:paddingBottom="10dp">
+<layout>
 
-    <com.example.mjappxml.custom.IconButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:cardBackgroundColor="@color/purple"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:res="@drawable/ic_back" />
+    <data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black">
+        <variable
+            name="vm"
+            type="com.example.mjappxml.ui.schedule.add.AddPlanViewModel" />
 
-        <TextView
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.schedule.add.AddPlanFragment" />
+
+        <variable
+            name="adapter"
+            type="com.example.mjappxml.ui.schedule.add.TaskAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingStart="20dp"
+        android:paddingTop="22dp"
+        android:paddingEnd="17dp"
+        android:paddingBottom="10dp">
+
+        <com.example.mjappxml.custom.IconButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:onClick="@{() -> fragment.onBack()}"
+            app:cardBackgroundColor="@color/purple"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:res="@drawable/ic_back" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="계획"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            app:cardBackgroundColor="@color/purple"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black">
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/plan"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSchedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="@color/purple"
-        app:cardCornerRadius="5dp"
-        app:layout_constraintEnd_toStartOf="@id/cardPlan"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/black">
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:text="일정"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_marginEnd="10dp"
+            android:onClick="@{() -> fragment.goToSchedule()}"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintEnd_toStartOf="@id/cardPlan"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black">
 
-    </com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/schedule"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardPlan">
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:text="2023.05.19"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/cardPlanName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:bottomCardColor="@color/purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardDate">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:hint="계획 제목"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-    </com.example.mjappxml.custom.DoubleCardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/cell_add_plan"
-        app:layout_constraintTop_toBottomOf="@id/cardPlanName"
-        tools:itemCount="3" />
-
-    <com.example.mjappxml.custom.IconButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
-        app:cardBackgroundColor="@color/red"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerView"
-        app:res="@drawable/ic_plus" />
-
-    <com.example.mjappxml.custom.DoubleCardView
-        android:id="@+id/btnRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:topCardColor="@color/purple">
-
-        <TextView
-            android:layout_width="match_parent"
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="13dp"
-            android:text="등록하기"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardPlan">
 
-    </com.example.mjappxml.custom.DoubleCardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:text="@{vm.item.planDate}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="2023.05.19" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardPlanName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:bottomCardColor="@color/purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardDate">
+
+            <com.example.mjappxml.custom.CustomEditTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="13dp"
+                android:layout_marginBottom="13dp"
+                android:hint="@string/hint_plan_title"
+                android:maxLines="1"
+                android:text="@={vm.item.title}"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:adapter="@{adapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardPlanName"
+            app:submitList="@{vm.item.taskList}"
+            tools:itemCount="3"
+            tools:listitem="@layout/cell_task" />
+
+        <com.example.mjappxml.custom.IconButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:onClick="@{() -> vm.addTaskItem()}"
+            app:cardBackgroundColor="@color/red"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerView"
+            app:res="@drawable/ic_plus" />
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/btnRegister"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> vm.insertPlanTasks()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:topCardColor="@color/purple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="13dp"
+                android:text="@string/register"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

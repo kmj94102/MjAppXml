@@ -39,6 +39,7 @@
             android:id="@+id/cardPlan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> fragment.goToAddPlan()}"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@string/schedule"
+                android:text="@string/plan"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -71,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@string/plan"
+                android:text="@string/schedule"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />

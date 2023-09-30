@@ -8,12 +8,12 @@ data class PlanTasks(
 
 data class TaskItem(
     val planId: Int = 0,
-    val contents: String,
+    var contents: String,
     val isCompleted: Boolean = false
 )
 
 data class PlanTasksModify(
-    val title: String = "",
+    var title: String = "",
     val planDate: String = "",
     val taskList: List<TaskItem> = mutableListOf(TaskItem(contents = ""))
 ) {

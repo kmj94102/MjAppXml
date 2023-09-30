@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="task"
+            type="com.example.communication.model.TaskItem" />
+    </data>
+
+    <com.example.mjappxml.custom.DoubleCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        app:bottomCardColor="@color/purple">
+
+        <com.example.mjappxml.custom.CustomEditTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="13dp"
+            android:layout_marginEnd="43dp"
+            android:text="@={task.contents}"
+            android:hint="@string/hint_task"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <com.example.mjappxml.custom.IconButton
+            android:id="@+id/buttonRemove"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="13dp"
+            app:cardBackgroundColor="@color/red"
+            app:cardCornerRadius="15dp"/>
+
+    </com.example.mjappxml.custom.DoubleCardView>
+</layout>
