@@ -40,15 +40,19 @@ class DateSelectDialog(
 
     fun initViews() {
         binding.yearPicker.setOnValueChangedListener { _, _, value ->
-            val year = yearArray[value]
-            val month = monthArray[binding.monthPicker.value]
-            _dayArray.value = getDayList(year, month)
+            runCatching {
+                val year = yearArray[value]
+                val month = monthArray[binding.monthPicker.value]
+                _dayArray.value = getDayList(year, month)
+            }
         }
 
         binding.monthPicker.setOnValueChangedListener { _, _, value ->
-            val year = yearArray[binding.yearPicker.value]
-            val month = monthArray[value]
-            _dayArray.value = getDayList(year, month)
+            runCatching {
+                val year = yearArray[binding.yearPicker.value]
+                val month = monthArray[value]
+                _dayArray.value = getDayList(year, month)
+            }
         }
     }
 

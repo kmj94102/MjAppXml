@@ -10,6 +10,7 @@ import com.example.mjappxml.R
 import com.example.mjappxml.common.Constants
 import com.example.mjappxml.common.getToday
 import com.example.mjappxml.databinding.FragmentAddPlanBinding
+import com.example.mjappxml.ui.dialog.DateSelectDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,12 @@ class AddPlanFragment :
             viewModel.updateDate(it)
         } ?: viewModel.updateDate(getToday())
 
+    }
+
+    fun updateDate() {
+        DateSelectDialog {
+            viewModel.updateDate(it)
+        }.show(parentFragmentManager, viewModel.item.value.planDate)
     }
 
     fun goToSchedule() {
