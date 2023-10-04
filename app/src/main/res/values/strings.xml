@@ -37,4 +37,10 @@
     <string name="register">등록하기</string>
     <string name="hint_plan_title">계획 제목</string>
     <string name="hint_task">계획 내용</string>
+    <string name="setting_recurrence_type">반복 설정</string>
+    <string name="none_recurrence">반복 안함</string>
+    <string name="daily">매일</string>
+    <string name="weekly">매주</string>
+    <string name="monthly">매월</string>
+    <string name="yearly">매년</string>
 </resources>

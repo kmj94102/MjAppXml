@@ -11,6 +11,7 @@ import com.example.mjappxml.common.Constants
 import com.example.mjappxml.common.getToday
 import com.example.mjappxml.databinding.FragmentAddScheduleBinding
 import com.example.mjappxml.ui.dialog.DateSelectDialog
+import com.example.mjappxml.ui.dialog.SelectRecurrenceTypeDialog
 import com.example.mjappxml.ui.dialog.TimeSelectDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +40,11 @@ class AddScheduleFragment :
         DateSelectDialog {
             viewModel.updateDate(it)
         }.show(parentFragmentManager, viewModel.item.value.date)
+    }
+
+    fun onSelectRepeatType() {
+        SelectRecurrenceTypeDialog(viewModel::updateRecurrenceType)
+            .show(parentFragmentManager, viewModel.item.value.recurrenceType)
     }
 
     fun onRepeatEndDateSelect() {
