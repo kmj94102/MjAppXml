@@ -27,7 +27,7 @@ class ScheduleViewModel @Inject constructor(
     private val repository: CalendarRepository
 ) : BaseViewModel() {
 
-    val today = getToday()
+    private val today = getToday()
     private val _selectDate = MutableStateFlow(today)
     val selectDate: StateFlow<String> = _selectDate
 

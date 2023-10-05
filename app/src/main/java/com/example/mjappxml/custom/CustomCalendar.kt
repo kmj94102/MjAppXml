@@ -23,6 +23,7 @@ class CustomCalendar : LinearLayout {
 
     private val binding = CustomCalendarBinding.inflate(LayoutInflater.from(context))
     private var primaryColor = ContextCompat.getColor(context, R.color.purple)
+    private var selectDate = getToday()
     private var selectItem: CustomCalendarItem? = null
     private var onChangeListener: (String) -> Unit = {}
 
@@ -108,8 +109,7 @@ class CustomCalendar : LinearLayout {
                     selectItem = view
                     onChangeListener(it)
                 }
-                if (item.detailDate == getToday()) {
-                    view.updateIsToday(primaryColor)
+                if (item.detailDate == selectDate) {
                     view.updateSelect(true)
                     selectItem = view
                     onChangeListener(item.detailDate)
@@ -123,6 +123,10 @@ class CustomCalendar : LinearLayout {
 
     fun setOnChangeListener(changeListener: (String) -> Unit) {
         onChangeListener = changeListener
+    }
+
+    fun updateSelectDate(date: String) {
+        selectDate = date
     }
 
 }

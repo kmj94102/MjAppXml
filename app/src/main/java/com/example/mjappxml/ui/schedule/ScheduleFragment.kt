@@ -23,6 +23,7 @@ class ScheduleFragment :
 
         binding.fragment = this
         binding.vm = viewModel
+        binding.adapter = ScheduleAdapter()
         initViews()
     }
 

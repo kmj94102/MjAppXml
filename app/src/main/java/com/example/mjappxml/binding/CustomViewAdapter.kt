@@ -49,3 +49,8 @@ fun setDateTextColor(textView: TextView, item: MyCalendar) {
 fun setCalendarInfoList(calendarView: CustomCalendar, list: List<MyCalendar>) {
     calendarView.setList(list)
 }
+
+@BindingAdapter("selectDate")
+fun updateSelectDate(calendarView: CustomCalendar, selectDate: String) {
+    calendarView.updateSelectDate(selectDate)
+}

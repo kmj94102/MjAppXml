@@ -4,6 +4,8 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mjappxml.common.GridSpaceItemDecoration
+import com.example.mjappxml.common.LinearSpacingItemDecoration
+import com.example.mjappxml.common.dpToPx
 
 @BindingAdapter("adapter")
 fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
@@ -22,4 +24,9 @@ fun bindGridSetting(view: RecyclerView, gridSpan: Int, gridSpacing: Int) {
     view.addItemDecoration(
         GridSpaceItemDecoration(gridSpan, gridSpacing)
     )
+}
+
+@BindingAdapter("linearSpacing")
+fun bindRecyclerViewLinearSpacing(view: RecyclerView, spacing: Int) {
+    view.addItemDecoration(LinearSpacingItemDecoration(view.context.dpToPx(spacing)))
 }
