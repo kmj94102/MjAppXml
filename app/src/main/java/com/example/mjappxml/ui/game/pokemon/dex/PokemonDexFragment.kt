@@ -15,7 +15,6 @@ class PokemonDexFragment :
 
     override val viewModel: PokemonDexViewModel by viewModels()
     private var adapter: PokemonSelectAdapter = PokemonSelectAdapter(::onDetailClick)
-    private val detailDialog = PokemonDetailDialog()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,9 +41,11 @@ class PokemonDexFragment :
         adapter.onShinyStateChange(viewModel.isShiny.value)
     }
 
-    private fun onDetailClick(number: String) {
-        detailDialog.setNumber(number)
-        detailDialog.show(parentFragmentManager, "PokemonDetailDialog")
+    private fun onDetailClick(number: String, isCatch: Boolean) {
+       PokemonDetailDialog(viewModel::updateIsCatch).also {
+           it.setNumber(number)
+           it.show(parentFragmentManager, "$isCatch")
+       }
     }
 
     fun showSearchDialog() {

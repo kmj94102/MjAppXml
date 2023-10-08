@@ -55,7 +55,7 @@ class PokemonDexViewModel @Inject constructor(
                 skip = skip,
                 limit = limit
             )
-            .onStart { startLoading() }
+            .setLoadingState()
             .onEach { (isMore, list) ->
                 this.isMore = isMore
                 skip += 1
@@ -66,8 +66,20 @@ class PokemonDexViewModel @Inject constructor(
                 onError = { updateMessage(it ?: "조회 중 오류가 발생하였습니다.") },
                 onNetworkError = { updateNetworkErrorState(true) }
             )
-            .onCompletion { endLoading() }
             .launchIn(viewModelScope)
+    }
+
+    fun updateIsCatch(
+        number: String,
+        isCatch: Boolean
+    ) {
+        _pokemonList.value = _pokemonList.value.map { pokemon ->
+            if (pokemon.number == number) {
+                pokemon.copy(isCatch = isCatch)
+            } else {
+                pokemon
+            }
+        }
     }
 
 }

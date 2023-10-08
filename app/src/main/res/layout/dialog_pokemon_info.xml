@@ -10,11 +10,14 @@
         <variable
             name="dialog"
             type="com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailDialog" />
+
+        <variable
+            name="isCatch"
+            type="Boolean" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
@@ -29,7 +32,9 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_margin="6dp"
-                android:src="@drawable/img_monster_ball_empty"
+                android:contentDescription="@string/content_description_image"
+                android:onClick="@{() -> dialog.updateIsCatch()}"
+                android:src="@{isCatch ? @drawable/img_monster_ball : @drawable/img_monster_ball_empty}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,7 +43,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="5dp"
-                android:onClick="@{dialog::onDismiss}"
+                android:onClick="@{() -> dialog.dismiss()}"
                 app:cardBackgroundColor="@color/red"
                 app:cardCornerRadius="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="1"
+                    android:text="@string/one"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -100,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="2"
+                    android:text="@string/two"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -112,10 +117,10 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:layout_marginStart="10dp"
+                android:onClick="@{() -> dialog.onIsShinyButtonClick()}"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="15dp"
                 app:iconSize="22dp"
-                android:onClick="@{dialog::onIsShinyButtonClick}"
                 app:layout_constraintBottom_toBottomOf="@id/btnPageOne"
                 app:layout_constraintStart_toEndOf="@id/btnPageTwo"
                 app:layout_constraintTop_toTopOf="@id/btnPageOne"
@@ -126,9 +131,10 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:contentDescription="@string/content_description_image"
                 android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_stop_watch"
                 android:onClick="@{() -> dialog.insertCounter()}"
+                android:src="@drawable/ic_stop_watch"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewPager" />

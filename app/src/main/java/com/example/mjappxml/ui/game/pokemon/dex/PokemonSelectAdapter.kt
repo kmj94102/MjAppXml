@@ -14,7 +14,7 @@ import com.example.mjappxml.databinding.CellPokemonSelectBinding
 import com.example.mjappxml.R
 
 class PokemonSelectAdapter(
-    val onItemClick: (String) -> Unit,
+    val onItemClick: (String, Boolean) -> Unit,
 ) : ListAdapter<PokemonSummary, PokemonSelectViewHolder>(diffUtil) {
 
     private val _isShiny = MutableLiveData(false)
@@ -62,7 +62,7 @@ class PokemonSelectViewHolder(
         pokemonSummary: PokemonSummary,
         adapter: PokemonSelectAdapter
     ) {
-        binding.root.setOnClickListener { adapter.onItemClick(pokemonSummary.number) }
+        binding.root.setOnClickListener { adapter.onItemClick(pokemonSummary.number, pokemonSummary.isCatch) }
         binding.pokemon = pokemonSummary
         binding.cardPokemon.setTopCardColor(
             if (pokemonSummary.isCatch) R.color.white else R.color.light_gray

@@ -2,6 +2,7 @@ package com.example.mjappxml.ui.game.pokemon.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.communication.model.UpdatePokemonCatch
 import com.example.communication.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,6 +35,15 @@ class PokemonDetailViewModel @Inject constructor(
 
     fun insertPokemonCounter(number: String) = viewModelScope.launch {
         repository.insertPokemonCounter(number)
+    }
+
+    fun updateIsCatch(
+        number: String,
+        isCatch: Boolean
+    ) = viewModelScope.launch {
+        repository.updatePokemonCatch(
+            UpdatePokemonCatch(number = number, isCatch = isCatch)
+        )
     }
 
     fun toggleIsShiny(): Boolean {

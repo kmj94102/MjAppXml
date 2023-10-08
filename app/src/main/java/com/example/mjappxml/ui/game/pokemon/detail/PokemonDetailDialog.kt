@@ -1,40 +1,33 @@
 package com.example.mjappxml.ui.game.pokemon.detail
 
-import android.app.AlertDialog
-import android.app.Dialog
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.example.mjappxml.R
+import com.example.mjappxml.common.dialogResize
 import com.example.mjappxml.common.repeatOnStarted
+import com.example.mjappxml.common.toast
 import com.example.mjappxml.databinding.DialogPokemonInfoBinding
+import com.example.mjappxml.ui.dialog.BaseDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PokemonDetailDialog : DialogFragment() {
+class PokemonDetailDialog(
+    private val updateIsCatchItem: (String, Boolean) -> Unit
+) : BaseDialog<DialogPokemonInfoBinding>(R.layout.dialog_pokemon_info) {
 
     private var number = "0001"
-    private lateinit var binding: DialogPokemonInfoBinding
     private val viewModel: PokemonDetailViewModel by activityViewModels()
     private val adapter = PokemonDetailAdapter()
+    private var isCatch = false
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogPokemonInfoBinding.inflate(layoutInflater)
-        initViews()
+    override fun initState() = with(binding) {
+        super.initState()
 
         viewModel.fetchPokemonDetailInfo(number)
         repeatOnStarted {
             viewModel.pokemonInfo.collect { adapter.submitList(it) }
         }
 
-        return AlertDialog
-            .Builder(requireActivity())
-            .setView(binding.root)
-            .create()
-    }
-
-    private fun initViews() = with(binding) {
         viewPager.adapter = adapter
         vm = viewModel
         dialog = this@PokemonDetailDialog
@@ -52,7 +45,7 @@ class PokemonDetailDialog : DialogFragment() {
         this.number = number
     }
 
-    fun onIsShinyButtonClick(view: View) {
+    fun onIsShinyButtonClick() {
         adapter.updateIsShiny(viewModel.toggleIsShiny())
         binding.invalidateAll()
     }
@@ -68,10 +61,23 @@ class PokemonDetailDialog : DialogFragment() {
 
     fun insertCounter() {
         viewModel.insertPokemonCounter(number)
+        requireContext().toast("${viewModel.pokemonInfo.value[0].name} 등록 완료")
     }
 
-    fun onDismiss(view: View) {
-        dismiss()
+    override fun onResume() {
+        super.onResume()
+        requireContext().dialogResize(dialog)
+        tag?.let {
+            isCatch = it == "true"
+            binding.isCatch = isCatch
+        }
+    }
+
+    fun updateIsCatch() {
+        isCatch = isCatch.not()
+        viewModel.updateIsCatch(number, isCatch)
+        binding.isCatch = isCatch
+        updateIsCatchItem(number, isCatch)
     }
 
 }
