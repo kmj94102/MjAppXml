@@ -35,8 +35,9 @@ class ElswordCounterFragment :
         layoutNetworkError.btnBack.setOnClickListener { onBack() }
         layoutNetworkError.cardReload.setOnClickListener { viewModel.fetchQuestDetailList() }
 
-        questSelectDialog = SelectOneDialog { viewModel.updateSelectItem(it) }
-        questSelectDialog.setTitle("퀘스트 선택")
+        questSelectDialog = SelectOneDialog {
+            viewModel.updateSelectItem(it)
+        }.also { it.setTitle("퀘스트 선택") }
 
         counterUpdateDialog = ElswordCounterUpdateDialog { name, type, progress ->
             viewModel.updateQuest(name, type, progress)

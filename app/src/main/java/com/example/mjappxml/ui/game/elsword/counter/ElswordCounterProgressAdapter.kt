@@ -18,13 +18,12 @@ class ElswordCounterProgressAdapter(private val onDelete: (Int) -> Unit) :
         CellElsworedCounterProgressBinding.bind(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.cell_elswored_counter_progress, parent, false
-            ),
-        ),
-        onDelete
+            )
+        )
     )
 
     override fun onBindViewHolder(holder: ElswordCounterProgressViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], onDelete)
     }
 
     companion object {
@@ -43,11 +42,10 @@ class ElswordCounterProgressAdapter(private val onDelete: (Int) -> Unit) :
 }
 
 class ElswordCounterProgressViewHolder(
-    private val binding: CellElsworedCounterProgressBinding,
-    private val onDelete: (Int) -> Unit
+    private val binding: CellElsworedCounterProgressBinding
 ) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: ElswordQuestSimple) {
+    fun bind(item: ElswordQuestSimple, onDelete: (Int) -> Unit) {
         binding.info = item
         binding.btnDelete.setOnClickListener { onDelete(item.id) }
     }

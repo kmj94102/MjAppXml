@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,7 +21,7 @@ class ElswordCounterAddViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _list = MutableStateFlow<List<ElswordQuestSimple>>(listOf())
-    val list : StateFlow<List<ElswordQuestSimple>> = _list
+    val list: StateFlow<List<ElswordQuestSimple>> = _list
 
     init {
         fetchQuestList()
@@ -32,13 +30,12 @@ class ElswordCounterAddViewModel @Inject constructor(
     private fun fetchQuestList() {
         repository
             .fetchQuestList()
-            .onStart { startLoading() }
+            .setLoadingState()
             .onEach { _list.value = it }
             .catch {
                 _list.value = listOf()
                 updateMessage("조회를 실패하였습니다.")
             }
-            .onCompletion { endLoading() }
             .launchIn(viewModelScope)
     }
 
@@ -48,12 +45,7 @@ class ElswordCounterAddViewModel @Inject constructor(
         onSuccess: () -> Unit
     ) = viewModelScope.launch {
         repository
-            .insertQuest(
-                ElswordQuest(
-                    name = name,
-                    max = max
-                )
-            )
+            .insertQuest(ElswordQuest(name = name, max = max))
             .onSuccess {
                 updateMessage(it)
                 fetchQuestList()

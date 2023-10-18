@@ -26,13 +26,12 @@ class ElswordCounterAdapter(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.cell_elsword_quest, parent, false
                 ),
-            ),
-            onItemClick
+            )
         )
 
     override fun onBindViewHolder(holder: ElswordCounterViewHolder, position: Int) {
         val key = groupedCharacters.keys.elementAt(position)
-        groupedCharacters[key]?.let { holder.bind(key, it) }
+        groupedCharacters[key]?.let { holder.bind(key, it, onItemClick) }
     }
 
     override fun getItemCount() = groupedCharacters.keys.size
@@ -46,10 +45,13 @@ class ElswordCounterAdapter(
 }
 
 class ElswordCounterViewHolder(
-    private val binding: CellElswordQuestBinding,
-    private val onItemClick: (ElswordCharacter) -> Unit
+    private val binding: CellElswordQuestBinding
 ) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(key: String, list: List<ElswordCharacter>) {
+    fun bind(
+        key: String,
+        list: List<ElswordCharacter>,
+        onItemClick: (ElswordCharacter) -> Unit
+    ) {
         val color = ElswordCharacters.getCharacterColor(key)
         binding.doubleCard.setBottomCardColor(color)
         val viewList = listOf(

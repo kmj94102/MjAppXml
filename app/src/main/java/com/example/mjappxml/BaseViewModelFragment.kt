@@ -66,7 +66,7 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : BaseViewModel>(
         parentFragmentManager.popBackStack()
     }
 
-    private fun showDialog() {
+    private fun showDialog() = runCatching {
         loadingDialog.show(parentFragmentManager, null)
     }
 

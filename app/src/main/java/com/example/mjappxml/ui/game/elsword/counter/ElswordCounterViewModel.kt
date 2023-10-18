@@ -37,7 +37,7 @@ class ElswordCounterViewModel @Inject constructor(
     fun fetchQuestDetailList() {
         repository
             .fetchQuestDetailList()
-            .onStart { startLoading() }
+            .setLoadingState()
             .onEach {
                 _list.value = it
                 setSelectItem()
@@ -47,7 +47,6 @@ class ElswordCounterViewModel @Inject constructor(
                 onNetworkError = { updateNetworkErrorState(true) },
                 onError = { updateMessage(it ?: "조회 중 오류가 발생하였습니다.") }
             )
-            .onCompletion { endLoading() }
             .launchIn(viewModelScope)
     }
 

@@ -13,9 +13,7 @@ class ElswordCounterAddFragment :
     BaseViewModelFragment<FragmentElswordCounterAddBinding, ElswordCounterAddViewModel>(R.layout.fragment_elsword_counter_add) {
 
     override val viewModel: ElswordCounterAddViewModel by viewModels()
-    val adapter = ElswordCounterProgressAdapter {
-        viewModel.deleteCounter(it)
-    }
+    val adapter = ElswordCounterProgressAdapter { viewModel.deleteCounter(it) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

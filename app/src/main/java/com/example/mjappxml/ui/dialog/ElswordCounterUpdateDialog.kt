@@ -26,10 +26,6 @@ class ElswordCounterUpdateDialog(private val onItemUpdate: (String, String, Int)
     override fun initState() {
         super.initState()
         binding.dialog = this
-        println("+++++ isComplete : ${_character.value.isComplete} / isOngoing : ${_character.value.isOngoing}")
-        println("+++++ getIsComplete ${_character.value.getIsComplete()}")
-        println("+++++ getIsProgress ${_character.value.getIsProgress()}")
-        println("+++++ getIsNotProgress ${_character.value.getIsNotProgress()}")
 
         repeatOnStarted { _character.collectLatest { binding.invalidateAll() } }
 

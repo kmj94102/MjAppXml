@@ -3,23 +3,18 @@ package com.example.mjappxml.ui.schedule
 import androidx.lifecycle.viewModelScope
 import com.example.communication.model.MyCalendar
 import com.example.communication.model.MyCalendarInfo
-import com.example.communication.model.checkNetworkError
 import com.example.communication.model.fetchMyCalendarByMonth
 import com.example.communication.repository.CalendarRepository
 import com.example.mjappxml.BaseViewModel
+import com.example.mjappxml.common.customCatch
 import com.example.mjappxml.common.getToday
-import com.example.mjappxml.model.toCustomCalendarInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -62,10 +57,10 @@ class ScheduleViewModel @Inject constructor(
                 it.forEach { info -> setCalendarInfo(info) }
             }
             .onCompletion { endLoading() }
-            .catch {
-                if (it.checkNetworkError()) updateNetworkErrorState(true)
-                else updateMessage(it.message ?: "불러오는 중 문제가 발생하였습니다.")
-            }
+            .customCatch(
+                onNetworkError = { updateNetworkErrorState(true) },
+                onError = { updateMessage(it ?: "조회 중 오류가 발생하였습니다.") }
+            )
             .launchIn(viewModelScope)
     }
 

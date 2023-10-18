@@ -43,4 +43,6 @@
     <string name="weekly">매주</string>
     <string name="monthly">매월</string>
     <string name="yearly">매년</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
 </resources>
