@@ -1,22 +1,25 @@
 package com.example.mjappxml.ui.accountbook
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.example.mjappxml.BaseViewModelFragment
 import com.example.mjappxml.R
+import com.example.mjappxml.databinding.FragmentAccountBookBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class AccountBookFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+@AndroidEntryPoint
+class AccountBookFragment :
+    BaseViewModelFragment<FragmentAccountBookBinding, AccountBookViewModel>(R.layout.fragment_account_book) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_account_book, container, false)
+    override val viewModel: AccountBookViewModel by viewModels()
+    private val adapter = LastMonthAnalysisAdapter()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.vm = viewModel
+        binding.adapter = adapter
     }
 
 }

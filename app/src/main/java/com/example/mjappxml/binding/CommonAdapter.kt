@@ -5,14 +5,20 @@ import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
+import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.NumberPicker
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
+import com.example.communication.model.ThisYearSummaryItem
+import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
+import com.example.mjappxml.custom.DoubleCardView
+import com.example.mjappxml.custom.MonthlyUseView
 import com.google.android.material.chip.Chip
 import com.google.android.material.progressindicator.LinearProgressIndicator
 
@@ -79,5 +85,27 @@ fun setPickerValues(picker: NumberPicker, array: Array<String>) {
         it.minValue = 0
         it.maxValue = array.size - 1
         it.displayedValues = array
+    }
+}
+
+@BindingAdapter("topCardRes")
+fun setTopCardRes(cardView: DoubleCardView, @ColorInt color: Int) {
+    cardView.setTopCardColorInt(color)
+}
+
+@BindingAdapter("monthlyUseItems")
+fun setMonthlyUseItems(gridLayout: GridLayout, list: List<ThisYearSummaryItem>) {
+    list.forEachIndexed { index, item ->
+        val layoutParams = GridLayout.LayoutParams()
+        layoutParams.columnSpec = GridLayout.spec(index % 4, 1, 1f)
+        if (index < 8) {
+            layoutParams.bottomMargin = gridLayout.context.dpToPx(5)
+        }
+
+        val itemView = MonthlyUseView(gridLayout.context).also {
+            it.setItem(item)
+            it.layoutParams = layoutParams
+        }
+        gridLayout.addView(itemView)
     }
 }

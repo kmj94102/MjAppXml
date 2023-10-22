@@ -45,4 +45,15 @@
     <string name="yearly">매년</string>
     <string name="one">1</string>
     <string name="two">2</string>
+    <string name="this_month_summary">이번 달 요약</string>
+    <string name="income">수입</string>
+    <string name="expenditure">지출</string>
+    <string name="difference">차액</string>
+    <string name="account_book">가계부</string>
+    <string name="base_date">기준일</string>
+    <string name="day_25">25일</string>
+    <string name="add_pinned_history">고정 내역 추가</string>
+    <string name="add_new_history">신규 내역 추가</string>
+    <string name="last_month_summary">지난 달 분석</string>
+    <string name="year_summary">1년 요약</string>
 </resources>

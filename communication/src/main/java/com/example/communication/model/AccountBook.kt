@@ -1,5 +1,7 @@
 package com.example.communication.model
 
+import com.example.communication.util.formatAmountInTenThousand
+import com.example.communication.util.formatAmountWithSign
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -62,7 +64,15 @@ data class AccountBookMainInfo(
     val thisMonthSummary: ThisMonthSummary,
     val lastMonthAnalysis: LastMonthAnalysis,
     val thisYearSummary: List<ThisYearSummaryItem>
-)
+) {
+    companion object {
+        fun create() = AccountBookMainInfo(
+            thisMonthSummary = ThisMonthSummary.create(),
+            lastMonthAnalysis = LastMonthAnalysis.create(),
+            thisYearSummary = listOf()
+        )
+    }
+}
 
 data class ThisMonthSummary(
     val startDate: String,
@@ -70,13 +80,39 @@ data class ThisMonthSummary(
     val income: Int,
     val expenditure: Int,
     val difference: Int
-)
+) {
+    companion object {
+        fun create() = ThisMonthSummary(
+            startDate = "",
+            endDate = "",
+            income = 0,
+            expenditure = 0,
+            difference = 0
+        )
+    }
+
+    fun getDate() = "$startDate ~ $endDate"
+
+    fun getFormatIncome() = income.formatAmountWithSign()
+    fun getFormatExpenditure() = expenditure.formatAmountWithSign()
+    fun getFormatDifference() = difference.formatAmountWithSign()
+}
 
 data class LastMonthAnalysis(
     val start: String,
     val end: String,
     val result: List<LastMonthAnalysisItem>
-)
+) {
+    companion object {
+        fun create() = LastMonthAnalysis(
+            start = "",
+            end = "",
+            result = listOf()
+        )
+    }
+
+    fun getDate() = "$start ~ $end"
+}
 
 data class LastMonthAnalysisItem(
     val usageType: String,
@@ -88,7 +124,9 @@ data class ThisYearSummaryItem(
     val startDate: String,
     val endDate: String,
     val info: Int
-)
+) {
+    fun getAmount() = info.formatAmountInTenThousand()
+}
 
 data class DateConfiguration(
     val date: String,

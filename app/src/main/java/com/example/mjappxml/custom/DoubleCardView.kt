@@ -84,6 +84,10 @@ class DoubleCardView : MaterialCardView {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
+    fun setTopCardColorInt(@ColorInt color: Int) {
+        binding.topCard.setCardBackgroundColor(color)
+    }
+
     fun setTopCardColor(@ColorRes color: Int) {
         binding.topCard.setCardBackgroundColor(ContextCompat.getColor(context, color))
     }
