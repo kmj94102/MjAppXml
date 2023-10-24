@@ -31,8 +31,12 @@ interface PokemonRepository {
     /** 포켓몬 카운터 조회 **/
     fun fetchPokemonCounter(): Flow<List<PokemonCounter>>
 
+    /** 완료된 포켓몬 카운터 조회 **/
+    fun fetchCompletedPokemonCounter(): Flow<List<PokemonCounter>>
+
     /** 포켓몬 카운터 삭제 **/
     suspend fun deletePokemonCounter(number: String)
+    suspend fun deletePokemonCounter(index: Int)
 
     /** 카운터 업데이트 **/
     suspend fun updateCounter(count: Int, number: String)
@@ -42,6 +46,9 @@ interface PokemonRepository {
 
     /** 잡기 상태 업데이트 **/
     suspend fun updateCatch(number: String)
+
+    /** 카운터 복구 업데이트 **/
+    suspend fun updateRestore(number: String, index: Int)
 
     /** 포켓몬 간략한 조회 (진화 추가용) **/
     fun fetchBriefPokemonList(search: String): Flow<List<BriefPokemonItem>>

@@ -73,6 +73,9 @@ class PokemonClient @Inject constructor(
     /** 포켓몬 카운터 조회 **/
     fun fetchPokemonCounter() = runCatching { dao.fetchPokemonCounter() }
 
+    /** 완료된 포켓몬 카운터 조회 **/
+    fun fetchCompletedPokemonCounter() = runCatching { dao.fetchCompletedPokemonCounter() }
+
     /** 카운터 등록 **/
     suspend fun insertPokemonCounter(entity: PokemonCounterEntity) =
         runCatching { dao.insertPokemonCounter(entity) }
@@ -87,8 +90,12 @@ class PokemonClient @Inject constructor(
 
     /** 카운터 삭제 **/
     suspend fun deletePokemonCounter(number: String) = runCatching { dao.deleteCounter(number) }
+    suspend fun deletePokemonCounter(index: Int) = runCatching { dao.deleteCounter(index) }
 
     /** 잡기 상태 업데이트 **/
     suspend fun updateCatch(number: String) = runCatching { dao.updateCatch(number) }
+
+    /** 카운터 복구 업데이트 **/
+    suspend fun updateRestore(index: Int) = runCatching { dao.updateRestore(index) }
 
 }

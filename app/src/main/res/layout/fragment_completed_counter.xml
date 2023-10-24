@@ -5,15 +5,15 @@
 
         <variable
             name="vm"
-            type="com.example.mjappxml.ui.game.pokemon.counter.PokemonCounterViewModel" />
+            type="com.example.mjappxml.ui.game.pokemon.counter.completed.CompletedCounterViewModel" />
 
         <variable
             name="fragment"
-            type="com.example.mjappxml.ui.game.pokemon.counter.PokemonCountFragment" />
+            type="com.example.mjappxml.ui.game.pokemon.counter.completed.CompletedCounterFragment" />
 
         <variable
             name="adapter"
-            type="com.example.mjappxml.ui.game.pokemon.counter.PokemonCounterAdapter" />
+            type="com.example.mjappxml.ui.game.pokemon.counter.completed.CompletedCounterAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,40 +21,27 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="22dp">
+        android:background="@color/white">
 
         <com.example.mjappxml.custom.IconButton
             android:id="@+id/btnBack"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
             android:onClick="@{() -> fragment.onBack()}"
             app:cardBackgroundColor="@color/red"
             app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:res="@drawable/ic_back" />
 
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnHistory"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{() -> fragment.goToCompleted()}"
-            app:cardBackgroundColor="@color/turquoise"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_history" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingTop="15dp"
-            android:paddingBottom="30dp"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="17dp"
             app:adapter="@{adapter}"
             app:gridSpacing="@{10}"
             app:gridSpan="@{2}"
@@ -64,8 +51,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnBack"
             app:spanCount="2"
-            app:submitList="@{vm.counterList}"
-            tools:listitem="@layout/cell_pokemon_counter" />
+            app:submitList="@{vm.list}"
+            tools:listitem="@layout/cell_completed_counter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
+import com.example.mjappxml.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.mjappxml.R
 import com.example.mjappxml.databinding.FragmentPokemonCounterBinding
@@ -18,7 +19,7 @@ class PokemonCountFragment :
         super.onViewCreated(view, savedInstanceState)
 
         binding.vm = viewModel
-        binding.btnBack.setOnClickListener { onBack() }
+        binding.fragment = this
         binding.adapter = PokemonCounterAdapter(
             onSetting = { number, increase ->
                 showIncreaseSettingDialog(number, increase)
@@ -44,6 +45,10 @@ class PokemonCountFragment :
             increase = customIncrease,
             onSetting = { viewModel.updateCustomIncrease(number, it) }
         ).show(parentFragmentManager, "IncreaseSettingDialog")
+    }
+
+    fun goToCompleted() {
+        (activity as? MainActivity)?.goToPage(R.id.navigation_completed_counter)
     }
 
 }

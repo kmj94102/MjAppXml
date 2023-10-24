@@ -61,9 +61,18 @@ class PokemonRepositoryImpl @Inject constructor(
             .fetchPokemonCounter()
             .getOrThrow()
 
+    /** 완료된 포켓몬 카운터 조회 **/
+    override fun fetchCompletedPokemonCounter(): Flow<List<PokemonCounter>> =
+        client
+            .fetchCompletedPokemonCounter()
+            .getOrThrow()
+
     /** 포켓몬 카운터 삭제 **/
     override suspend fun deletePokemonCounter(number: String) {
         client.deletePokemonCounter(number).printStackTrace()
+    }
+    override suspend fun deletePokemonCounter(index: Int) {
+        client.deletePokemonCounter(index).printStackTrace()
     }
 
     /** 카운터 업데이트 **/
@@ -79,6 +88,12 @@ class PokemonRepositoryImpl @Inject constructor(
     /** 잡기 상태 업데이트 **/
     override suspend fun updateCatch(number: String) {
         client.updateCatch(number).printStackTrace()
+    }
+
+    /** 카운터 복구 업데이트 **/
+    override suspend fun updateRestore(number: String, index: Int) {
+        client.updateRestore(index).printStackTrace()
+        client.updatePokemonCatch(UpdatePokemonCatch(number, false)).getFailureThrow()
     }
 
     /** 포켓몬 간략한 조회 (진화 추가용) **/

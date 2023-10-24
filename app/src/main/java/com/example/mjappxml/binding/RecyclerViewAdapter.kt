@@ -21,8 +21,9 @@ fun bindSubmitList(view: RecyclerView, itemList: List<Any>?) {
 
 @BindingAdapter(value= ["gridSpan", "gridSpacing"])
 fun bindGridSetting(view: RecyclerView, gridSpan: Int, gridSpacing: Int) {
+    val spacing = view.context.dpToPx(gridSpacing)
     view.addItemDecoration(
-        GridSpaceItemDecoration(gridSpan, gridSpacing)
+        GridSpaceItemDecoration(gridSpan, spacing)
     )
 }
 
