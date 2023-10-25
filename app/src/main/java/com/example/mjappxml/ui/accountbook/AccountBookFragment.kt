@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
+import com.example.mjappxml.MainActivity
 import com.example.mjappxml.R
 import com.example.mjappxml.databinding.FragmentAccountBookBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,8 +19,13 @@ class AccountBookFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fragment = this
         binding.vm = viewModel
         binding.adapter = adapter
+    }
+
+    fun goToMonthHistory() {
+        (activity as? MainActivity)?.goToPage(R.id.navigation_month_history)
     }
 
 }

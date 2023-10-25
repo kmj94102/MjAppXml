@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.accountbook.AccountBookFragment" />
+
+        <variable
             name="vm"
             type="com.example.mjappxml.ui.accountbook.AccountBookViewModel" />
 
@@ -142,6 +146,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> fragment.goToMonthHistory()}"
                         android:layout_marginEnd="3dp"
                         android:layout_marginBottom="3dp">
 

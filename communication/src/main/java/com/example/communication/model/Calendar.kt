@@ -1,5 +1,6 @@
 package com.example.communication.model
 
+import com.example.communication.util.formatAmountWithSign
 import java.util.*
 
 /**
@@ -129,8 +130,20 @@ sealed class CalendarItem(val type: String) {
         val isCompleted: Boolean
     )
 
+    data class AccountHistoryInfo(
+        val id: Int = 0,
+        val date: String,
+        val dateOfWeek: String,
+        val amount: Int,
+        val usageType: String,
+        val whereToUse: String
+    ) : CalendarItem(History) {
+        fun getFormatAmount() = amount.formatAmountWithSign()
+    }
+
     companion object {
         const val Schedule = "schedule"
         const val Plan = "plan"
+        const val History = "history"
     }
 }

@@ -157,6 +157,12 @@ data class AccountBookDetailInfo(
         }
     )
 
+    fun getPeriod() = "$startDate ~ $endDate"
+
+    fun getFormatIncome() = income.formatAmountWithSign()
+
+    fun getFormatExpenditure() = expenditure.formatAmountWithSign()
+
     companion object {
         fun init() = AccountBookDetailInfo(
             startDate = "",
