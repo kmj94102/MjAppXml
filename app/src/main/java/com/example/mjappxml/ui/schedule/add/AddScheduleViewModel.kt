@@ -37,7 +37,6 @@ class AddScheduleViewModel @Inject constructor(
 
     fun updateRecurrenceType(recurrenceType: String) {
         _item.value = _item.value.copy(recurrenceType = recurrenceType)
-        println("+++++ ${_item.value.recurrenceType}")
     }
 
     fun insertSchedule() = viewModelScope.launch {

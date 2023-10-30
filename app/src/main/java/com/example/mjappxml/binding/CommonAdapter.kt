@@ -5,6 +5,10 @@ import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.CompoundButton
+import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.NumberPicker
@@ -12,10 +16,10 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.widget.CompoundButtonCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.example.communication.model.ThisYearSummaryItem
-import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.custom.DoubleCardView
 import com.example.mjappxml.custom.MonthlyUseView
@@ -108,4 +112,45 @@ fun setMonthlyUseItems(gridLayout: GridLayout, list: List<ThisYearSummaryItem>) 
         }
         gridLayout.addView(itemView)
     }
+}
+
+@BindingAdapter("buttonTint")
+fun setButtonTint(button: CompoundButton, @ColorInt color: Int) {
+    CompoundButtonCompat.setButtonTintList(button, ColorStateList.valueOf(color))
+}
+
+@BindingAdapter("amountText")
+fun setAmountText(editText: EditText, amount: String) {
+    val textWatcher = object : TextWatcher {
+        private var current = ""
+        private val regex = Regex("\\D")
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+        override fun afterTextChanged(s: Editable?) {
+            if (s.toString() != current) {
+                editText.removeTextChangedListener(this)
+
+                val cleanString = s.toString().replace(regex, "")
+                val formatted = when (cleanString.length) {
+                    in 0..2 -> cleanString
+                    else -> {
+                        val beforeAmount = cleanString.toLong()
+                        val formattedAmount = String.format("%,d", beforeAmount)
+                        formattedAmount
+                    }
+                }
+
+                current = formatted
+                editText.setText(formatted)
+                editText.setSelection(formatted.length)
+                editText.addTextChangedListener(this)
+            }
+        }
+    }
+
+    editText.addTextChangedListener(textWatcher)
+    editText.setText(amount)
 }

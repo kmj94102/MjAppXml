@@ -57,4 +57,11 @@
     <string name="last_month_summary">지난 달 분석</string>
     <string name="year_summary">1년 요약</string>
     <string name="history">내역</string>
+    <string name="select_date">날짜 선택</string>
+    <string name="income_expenditure_amount">수입/지출 금액</string>
+    <string name="find_favorite">즐겨찾기에서 찾기</string>
+    <string name="won">원</string>
+    <string name="where_to_use">사용 내용</string>
+    <string name="select_where_to_use">사용처 선택</string>
+    <string name="add_favorite">즐겨찾기 등록</string>
 </resources>

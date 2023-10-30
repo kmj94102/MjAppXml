@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.mjappxml.ui.accountbook.add.WhereToUse" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginEnd="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:doubleCardRadius="5"
+            tools:topCardColor="@color/turquoise">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                app:imageRes="@{item.icon}"
+                tools:src="@drawable/ic_meal" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:text="@{item.name}"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            tools:text="식비" />
+
+    </LinearLayout>
+</layout>

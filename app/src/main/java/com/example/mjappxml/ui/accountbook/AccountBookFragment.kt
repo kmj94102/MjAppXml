@@ -2,10 +2,13 @@ package com.example.mjappxml.ui.accountbook
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
 import com.example.mjappxml.MainActivity
 import com.example.mjappxml.R
+import com.example.mjappxml.common.Constants
+import com.example.mjappxml.common.getToday
 import com.example.mjappxml.databinding.FragmentAccountBookBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +29,19 @@ class AccountBookFragment :
 
     fun goToMonthHistory() {
         (activity as? MainActivity)?.goToPage(R.id.navigation_month_history)
+    }
+
+    fun goToAddNewItem() {
+        (activity as? MainActivity)?.goToPage(
+            R.id.navigation_account_book_add_new_item,
+            bundleOf(
+                Constants.Date to getToday()
+            )
+        )
+    }
+
+    fun goToAddFixedItem() {
+
     }
 
 }

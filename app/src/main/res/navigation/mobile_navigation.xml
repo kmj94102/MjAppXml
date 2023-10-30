@@ -53,6 +53,11 @@
         tools:layout="@layout/fragment_account_book"/>
 
     <fragment
+        android:id="@+id/navigation_account_book_add_new_item"
+        android:name="com.example.mjappxml.ui.accountbook.add.new_item.AddNewAccountBookFragment"
+        tools:layout="@layout/fragment_add_new_account_book"/>
+
+    <fragment
         android:id="@+id/navigation_month_history"
         android:name="com.example.mjappxml.ui.accountbook.history.MonthHistoryFragment"
         tools:layout="@layout/fragment_month_history"/>

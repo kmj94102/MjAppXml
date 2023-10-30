@@ -18,10 +18,10 @@ data class AccountBookInsertItem(
     val id: Int = 0,
     val date: String,
     val dateOfWeek: String,
-    val amount: Int,
+    var amount: Int,
     val usageType: String,
-    val whereToUse: String,
-    val isAddFrequently: Boolean
+    var whereToUse: String,
+    var isAddFrequently: Boolean
 ) {
     fun updateDate(dateValue: String): AccountBookInsertItem {
         val sdfInput = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
