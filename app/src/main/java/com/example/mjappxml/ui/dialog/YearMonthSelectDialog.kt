@@ -2,15 +2,21 @@ package com.example.mjappxml.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
+import androidx.annotation.ColorInt
 import androidx.fragment.app.DialogFragment
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dialogResize
 import com.example.mjappxml.databinding.DialogYearMonthSelectBinding
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class YearMonthSelectDialog(
     private val onSelectItem: (String, String) -> Unit
 ) : DialogFragment() {
     private lateinit var binding: DialogYearMonthSelectBinding
+    private val _primaryColor = MutableStateFlow(R.color.red)
+    val primaryColor: StateFlow<Int> = _primaryColor
+
     var title = ""
         private set
 
@@ -34,6 +40,10 @@ class YearMonthSelectDialog(
 
     fun setTitle(title: String) {
         this.title = title
+    }
+
+    fun setPrimaryColor(@ColorInt color: Int) {
+        _primaryColor.value = color
     }
 
     fun onSelect() {

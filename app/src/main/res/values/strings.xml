@@ -64,4 +64,5 @@
     <string name="where_to_use">사용 내용</string>
     <string name="select_where_to_use">사용처 선택</string>
     <string name="add_favorite">즐겨찾기 등록</string>
+    <string name="fixed_account_book_register">고정 내역 등록</string>
 </resources>

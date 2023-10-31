@@ -58,6 +58,16 @@
         tools:layout="@layout/fragment_add_new_account_book"/>
 
     <fragment
+        android:id="@+id/navigation_account_book_fixed_item"
+        android:name="com.example.mjappxml.ui.accountbook.add.fixed.FixedAccountBookFragment"
+        tools:layout="@layout/fragment_fixed_account_book"/>
+
+    <fragment
+        android:id="@+id/navigation_account_book_add_fixed_item"
+        android:name="com.example.mjappxml.ui.accountbook.add.fixed.AddFixedAccountBookFragment"
+        tools:layout="@layout/fragment_add_fixed_account_book"/>
+
+    <fragment
         android:id="@+id/navigation_month_history"
         android:name="com.example.mjappxml.ui.accountbook.history.MonthHistoryFragment"
         tools:layout="@layout/fragment_month_history"/>

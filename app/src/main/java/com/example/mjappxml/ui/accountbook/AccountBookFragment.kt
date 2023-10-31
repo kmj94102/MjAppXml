@@ -41,7 +41,12 @@ class AccountBookFragment :
     }
 
     fun goToAddFixedItem() {
-
+        (activity as? MainActivity)?.goToPage(
+            R.id.navigation_account_book_fixed_item,
+            bundleOf(
+                Constants.Date to getToday("yyyy.MM")
+            )
+        )
     }
 
 }

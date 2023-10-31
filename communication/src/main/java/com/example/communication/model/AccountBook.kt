@@ -179,9 +179,11 @@ data class FixedAccountBook(
     val date: String,
     val amount: Int,
     val usageType: String,
-    val whereToUse: String,
+    var whereToUse: String,
     val isIncome: Boolean
 ) {
+    fun getDateText() = "${date.padStart(2, '0')}일"
+
     fun checkValidity() = when {
         amount == 0 -> throw Exception("금액을 입력해 주세요.")
         usageType.isEmpty() -> throw Exception("사용처를 선택해 주세요.")

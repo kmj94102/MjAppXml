@@ -2,15 +2,21 @@ package com.example.mjappxml.ui.dialog
 
 import android.app.Dialog
 import android.os.Bundle
+import androidx.annotation.ColorInt
 import androidx.fragment.app.DialogFragment
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dialogResize
 import com.example.mjappxml.databinding.DialogSelectOneBinding
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class SelectOneDialog(
     private val onSelectItem: (Int) -> Unit
 ) : DialogFragment() {
     private lateinit var binding: DialogSelectOneBinding
+    private val _primaryColor = MutableStateFlow(R.color.red)
+    val primaryColor: StateFlow<Int> = _primaryColor
+
     var title = ""
         private set
 
@@ -38,6 +44,10 @@ class SelectOneDialog(
     fun onSelect() {
         onSelectItem(binding.picker.value)
         dismiss()
+    }
+
+    fun setPrimaryColor(@ColorInt color: Int) {
+        _primaryColor.value = color
     }
 
     override fun onResume() {

@@ -11,6 +11,7 @@ import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.custom.CustomCalendar
 import com.example.mjappxml.custom.IconButton
+import com.example.mjappxml.ui.accountbook.IncomeExpenditureType
 
 @BindingAdapter("stateRes")
 fun setIconButtonImage(iconButton: IconButton, stateRes: Drawable) {
@@ -53,4 +54,9 @@ fun setCalendarInfoList(calendarView: CustomCalendar, list: List<MyCalendar>) {
 @BindingAdapter("selectDate")
 fun updateSelectDate(calendarView: CustomCalendar, selectDate: String) {
     calendarView.updateSelectDate(selectDate)
+}
+
+@BindingAdapter("incomeExpenditureIcon")
+fun setIncomeExpenditureIcon(button: IconButton, type: String) {
+   button.setImageRes(IncomeExpenditureType.getImageByType(type))
 }
