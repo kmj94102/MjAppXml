@@ -1,5 +1,6 @@
 package com.example.mjappxml
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,7 +68,9 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : BaseViewModel>(
     }
 
     private fun showDialog() = runCatching {
-        loadingDialog.show(parentFragmentManager, null)
+        val transition = parentFragmentManager.beginTransaction()
+        transition.remove(loadingDialog)
+        transition.add(loadingDialog, "loading").commit()
     }
 
     private fun dismissDialog() = runCatching {
