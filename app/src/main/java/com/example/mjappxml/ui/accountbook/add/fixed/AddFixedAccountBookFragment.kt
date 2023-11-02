@@ -53,8 +53,12 @@ class AddFixedAccountBookFragment :
     }
 
     fun showDateSelectDialog() {
-        val array = (1..30).map { "$it" }.toList().toTypedArray()
-        val index = array.indexOfFirst { it == viewModel.item.value.date }
+        val array = (1..30)
+            .map { it.toString().padStart(2, '0').plus("일") }
+            .toList()
+            .toTypedArray()
+        val index = array.indexOfFirst { it.dropLast(1) == viewModel.item.value.date }
+
         SelectOneDialog {
             viewModel.updateDate(array[it])
         }.also {

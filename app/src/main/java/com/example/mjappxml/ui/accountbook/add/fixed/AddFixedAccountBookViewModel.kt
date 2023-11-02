@@ -29,7 +29,8 @@ class AddFixedAccountBookViewModel @Inject constructor(
         val selectItem = _whereToUseList.value.first { it.isSelect }
         _item.value = _item.value.copy(
             usageType = selectItem.usageType,
-            amount = amount
+            amount = amount,
+            isIncome = _isIncome.value
         )
 
         repository
@@ -42,7 +43,7 @@ class AddFixedAccountBookViewModel @Inject constructor(
     }
 
     fun updateDate(value: String) {
-        _item.value = _item.value.copy(date = value)
+        _item.value = _item.value.copy(date = value.dropLast(1))
     }
 
     fun updateIsIncome(value: Boolean) {
