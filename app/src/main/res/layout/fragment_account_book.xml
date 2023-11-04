@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -16,9 +18,7 @@
             type="com.example.mjappxml.ui.accountbook.LastMonthAnalysisAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -276,7 +276,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="15dp"
                             android:text="@{vm.info.thisMonthSummary.formatDifference}"
-                            android:textColor="@color/red"
+                            android:textColor="@{vm.info.thisMonthSummary.difference > 0 ? @color/turquoise : @color/red}"
                             android:textSize="16sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"

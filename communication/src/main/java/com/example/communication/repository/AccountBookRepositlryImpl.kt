@@ -39,8 +39,8 @@ class AccountBookRepositoryImpl @Inject constructor(
     }
 
     /** 고정 내역 삭제 **/
-    override suspend fun deleteAccountBookItem(id: Int) =
-        client.deleteAccountBookItem(id).printStackTrace()
+    override suspend fun deleteFixedAccountBookItem(id: Int) =
+        client.deleteFixedAccountBookItem(id).printStackTrace()
 
     /** 거정 내역 조회 **/
     override fun fetchFixedAccountBook() = flow {

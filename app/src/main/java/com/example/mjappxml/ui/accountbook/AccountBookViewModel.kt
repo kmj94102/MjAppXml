@@ -27,11 +27,7 @@ class AccountBookViewModel @Inject constructor(
     private val _lastMonthUsedList = MutableStateFlow(listOf<LastMonthUsed>())
     val lastMonthUsedList: StateFlow<List<LastMonthUsed>> = _lastMonthUsedList
 
-    init {
-        fetchAccountBookInfo()
-    }
-
-    private fun fetchAccountBookInfo() {
+    fun fetchAccountBookInfo() {
         repository
             .fetchAccountBookInfo(
                 DateConfiguration(

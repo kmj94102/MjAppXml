@@ -31,7 +31,7 @@ interface AccountBookRepository {
     ): Result<String>
 
     /** 고정 내역 삭제 **/
-    suspend fun deleteAccountBookItem(id: Int): Result<Unit>
+    suspend fun deleteFixedAccountBookItem(id: Int): Result<Unit>
 
     /** 고정 내역 조회 **/
     fun fetchFixedAccountBook(): Flow<List<FixedAccountBook>>

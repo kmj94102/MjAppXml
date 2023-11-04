@@ -11,7 +11,7 @@ import com.example.mjappxml.R
 import com.example.mjappxml.databinding.CellFixedItemBinding
 
 class FixedAccountBookAdapter(
-    private val onDateClick: (String) -> Unit,
+    private val onDateClick: (String, Int) -> Unit,
     private val onDeleteClick: (Int) -> Unit,
     private val onRegisterClick: (FixedAccountBook) -> Unit
 ) : ListAdapter<FixedAccountBook, FixedAccountBookViewHolder>(diffUtil) {
@@ -27,7 +27,7 @@ class FixedAccountBookAdapter(
     override fun onBindViewHolder(holder: FixedAccountBookViewHolder, position: Int) {
         holder.bind(
             item = currentList[position],
-            onDateClick = onDateClick,
+            onDateClick = { onDateClick(it, position) },
             onDeleteClick = onDeleteClick,
             onRegisterClick = onRegisterClick
         )

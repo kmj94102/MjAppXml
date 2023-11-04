@@ -49,4 +49,9 @@ class AccountBookFragment :
         )
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchAccountBookInfo()
+    }
+
 }

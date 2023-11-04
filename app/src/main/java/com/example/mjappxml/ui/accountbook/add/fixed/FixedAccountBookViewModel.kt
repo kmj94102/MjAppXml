@@ -13,13 +13,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class FixedAccountBookViewModel @Inject constructor(
     private val repository: AccountBookRepository,
     savedStateHandle: SavedStateHandle
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private val _item = MutableStateFlow(listOf<FixedAccountBook>())
     val item: StateFlow<List<FixedAccountBook>> = _item
@@ -31,7 +33,6 @@ class FixedAccountBookViewModel @Inject constructor(
         savedStateHandle.get<String>(Constants.Date)?.let {
             _yearMonth.value = it
         }
-        fetchFixedAccountBook()
     }
 
     fun fetchFixedAccountBook() {
@@ -45,6 +46,42 @@ class FixedAccountBookViewModel @Inject constructor(
 
     fun updateYearMonth(year: String, month: String) {
         _yearMonth.value = "${year}.$month"
+    }
+
+    fun updateDate(date: String, selectIndex: Int) {
+        if (selectIndex == -1 || selectIndex >= _item.value.size) return
+        _item.update { list ->
+            list.toMutableList().apply {
+                this[selectIndex] = list[selectIndex].copy(date = date)
+            }
+        }
+    }
+
+    fun deleteItem(id: Int) = viewModelScope.launch {
+        repository
+            .deleteFixedAccountBookItem(id)
+            .onSuccess {
+                _item.update { list ->
+                    list.toMutableList().apply {
+                        removeAll { it.id == id }
+                    }
+                }
+            }
+            .onFailure { updateMessage(it.message ?: "삭제 실패하였습니다.") }
+
+    }
+
+    fun insertNewAccountBookItem(item: FixedAccountBook) = viewModelScope.launch {
+        repository
+            .insertNewAccountBookItem(
+                item.toAccountBookInsertItem(_yearMonth.value),
+                item.isIncome
+            )
+            .onSuccess {
+                updateMessage("등록 완료")
+                updateFinish()
+            }
+            .onFailure { updateMessage("등록에 실패하였습니다.") }
     }
 
 }

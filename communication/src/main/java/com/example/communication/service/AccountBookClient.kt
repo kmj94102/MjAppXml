@@ -25,7 +25,7 @@ class AccountBookClient @Inject constructor(
         runCatching { service.insertFixedAccountBookItem(item) }
 
     /** 고정 내역 삭제 **/
-    suspend fun deleteAccountBookItem(id: Int) =
+    suspend fun deleteFixedAccountBookItem(id: Int) =
         runCatching { service.deleteFixedAccountBookItem(id) }
 
     /** 고정 내역 조회 **/

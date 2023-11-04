@@ -8,6 +8,7 @@ import com.example.mjappxml.BaseViewModelFragment
 import com.example.mjappxml.MainActivity
 import com.example.mjappxml.R
 import com.example.mjappxml.databinding.FragmentFixedAccountBookBinding
+import com.example.mjappxml.ui.dialog.SelectOneDialog
 import com.example.mjappxml.ui.dialog.YearMonthSelectDialog
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,9 +23,9 @@ class FixedAccountBookFragment :
         super.onViewCreated(view, savedInstanceState)
 
         adapter = FixedAccountBookAdapter(
-            onDateClick = {},
-            onDeleteClick = {},
-            onRegisterClick = {}
+            onDateClick = ::showDateSelectDialog,
+            onDeleteClick = viewModel::deleteItem,
+            onRegisterClick = viewModel::insertNewAccountBookItem
         )
         binding.adapter = adapter
         binding.fragment = this
@@ -33,7 +34,7 @@ class FixedAccountBookFragment :
 
     override fun onResume() {
         super.onResume()
-//        viewModel.fetchFixedAccountBook()
+        viewModel.fetchFixedAccountBook()
     }
 
     fun goToAddIem() {
@@ -44,6 +45,22 @@ class FixedAccountBookFragment :
         YearMonthSelectDialog(viewModel::updateYearMonth).also {
             it.setPrimaryColor(ContextCompat.getColor(requireContext(), R.color.turquoise))
             it.show(parentFragmentManager, viewModel.yearMonth.value)
+        }
+    }
+
+    private fun showDateSelectDialog(date: String, selectIndex: Int) {
+        val array = (1..30)
+            .map { it.toString().padStart(2, '0').plus("일") }
+            .toList()
+            .toTypedArray()
+        val index = array.indexOfFirst { it.dropLast(1) == date }
+
+        SelectOneDialog {
+            viewModel.updateDate(array[it].dropLast(1), selectIndex)
+        }.also {
+            it.setPickerValue(array)
+            it.setPrimaryColor(ContextCompat.getColor(requireContext(), R.color.turquoise))
+            it.show(parentFragmentManager, "$index")
         }
     }
 
