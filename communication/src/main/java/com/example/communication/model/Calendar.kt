@@ -1,6 +1,7 @@
 package com.example.communication.model
 
 import com.example.communication.util.formatAmountWithSign
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -55,6 +56,57 @@ fun fetchMyCalendarByMonth(
                 )
             }
         }
+}
+
+fun fetchMyCalendarByDate(
+    startDate: String,
+    endDate: String,
+    list: List<CalendarItem.AccountHistoryInfo>
+): List<MyCalendar> {
+    val sdfInput = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+    val sdfOutput = SimpleDateFormat("dd", Locale.getDefault())
+
+    val startCalendar = Calendar.getInstance()
+    val endCalendar = Calendar.getInstance()
+    runCatching {
+        startCalendar.time = sdfInput.parse(startDate) ?: return emptyList()
+        endCalendar.time = sdfInput.parse(endDate) ?: return emptyList()
+    }.onFailure {
+        return emptyList()
+    }
+
+    val calendarList = mutableListOf<MyCalendar>()
+
+    val dayOfWeek = startCalendar.get(Calendar.DAY_OF_WEEK)
+    val emptyDays = if (dayOfWeek == Calendar.SUNDAY) 0 else dayOfWeek - 1
+
+    repeat(emptyDays) {
+        calendarList.add(MyCalendar())
+    }
+
+    while (startCalendar <= endCalendar) {
+        val date = sdfOutput.format(startCalendar.time)
+        val todayOfWeek = getDayOfWeek(startCalendar.get(Calendar.DAY_OF_WEEK))
+        val detailDate = getDetailDate(
+            startCalendar.get(Calendar.YEAR),
+            startCalendar.get(Calendar.MONTH) + 1,
+            startCalendar.get(Calendar.DAY_OF_MONTH).toString()
+        )
+
+        val itemList = list.filter { it.date == detailDate }
+
+        val myCalendar = MyCalendar(
+            date = date,
+            dayOfWeek = todayOfWeek,
+            detailDate = detailDate,
+            itemList = itemList.toMutableList()
+        )
+
+        calendarList.add(myCalendar)
+        startCalendar.add(Calendar.DAY_OF_MONTH, 1)
+    }
+
+    return calendarList
 }
 
 private fun getDayOfWeek(index: Int): String {

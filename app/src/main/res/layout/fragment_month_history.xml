@@ -190,6 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             app:bottomCardColor="@color/turquoise"
+            android:onClick="@{() -> fragment.goToAddFixedItem()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnAddNew"
             app:layout_constraintStart_toStartOf="parent">
@@ -213,6 +214,7 @@
             android:id="@+id/btnAddNew"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:onClick="@{() -> fragment.goToAddNewItem()}"
             app:topCardColor="@color/turquoise"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

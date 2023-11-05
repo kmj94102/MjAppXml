@@ -6,6 +6,7 @@ import com.example.communication.model.AccountBookItem
 import com.example.communication.model.CalendarItem
 import com.example.communication.model.DateConfiguration
 import com.example.communication.model.MyCalendar
+import com.example.communication.model.fetchMyCalendarByDate
 import com.example.communication.model.fetchMyCalendarByMonth
 import com.example.communication.repository.AccountBookRepository
 import com.example.mjappxml.BaseViewModel
@@ -42,32 +43,24 @@ class MonthHistoryViewModel @Inject constructor(
     init {
         val list = fetchMyCalendarByMonth(year = year, month = month)
         _list.value = list
-        fetchThisMonthDetail()
+        _selectItem.value = MyCalendar()
+        updateSelectItem()
     }
 
-    private fun fetchThisMonthDetail() {
+    fun fetchThisMonthDetail() {
         repository
             .fetchThisMonthDetail(DateConfiguration.create(date = today, baseDate = 25))
             .setLoadingState()
             .onEach {
                 _info.value = it
-                _info.value.list.map { item -> setCalendarInfo(item.mapper()) }
-                _selectItem.value = MyCalendar()
-                updateSelectItem()
+                _list.value = fetchMyCalendarByDate(
+                    startDate = it.startDate,
+                    endDate = it.endDate,
+                    list = it.list.map { item -> item.mapper() }
+                )
             }
             .catch { updateMessage(it.message ?: "조회 중 오류가 발생하였습니다.") }
             .launchIn(viewModelScope)
-    }
-
-    private fun setCalendarInfo(info: CalendarItem.AccountHistoryInfo) {
-        val index = _list.value.indexOfFirst { item ->
-            item.detailDate == info.date
-        }
-        if (index != -1) {
-            val newList = _list.value.toMutableList()
-            newList[index].itemList.add(info)
-            _list.value = newList
-        }
     }
 
     private fun AccountBookItem.mapper() = CalendarItem.AccountHistoryInfo(
@@ -84,7 +77,7 @@ class MonthHistoryViewModel @Inject constructor(
         updateSelectItem()
     }
 
-    private fun updateSelectItem(from: String = "") {
+    private fun updateSelectItem() {
         _selectItem.value = _list.value.find { it.detailDate == _selectDate.value } ?: MyCalendar()
     }
 
