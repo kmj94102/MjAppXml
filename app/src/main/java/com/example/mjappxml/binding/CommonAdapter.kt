@@ -1,5 +1,6 @@
 package com.example.mjappxml.binding
 
+import android.animation.ValueAnimator
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.ColorMatrix
@@ -7,10 +8,12 @@ import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -99,6 +102,7 @@ fun setTopCardRes(cardView: DoubleCardView, @ColorInt color: Int) {
 
 @BindingAdapter("monthlyUseItems")
 fun setMonthlyUseItems(gridLayout: GridLayout, list: List<ThisYearSummaryItem>) {
+    gridLayout.removeAllViews()
     list.forEachIndexed { index, item ->
         val layoutParams = GridLayout.LayoutParams()
         layoutParams.columnSpec = GridLayout.spec(index % 4, 1, 1f)
@@ -153,4 +157,18 @@ fun setAmountText(editText: EditText, amount: String) {
 
     editText.addTextChangedListener(textWatcher)
     editText.setText(amount)
+}
+
+@BindingAdapter("layout_weight_animated")
+fun setLayoutWeightAnimated(view: View, weight: Float) {
+    val layoutParams = view.layoutParams as LinearLayout.LayoutParams
+    ValueAnimator.ofFloat(layoutParams.weight, weight).apply {
+        duration = 200
+        addUpdateListener { valueAnimator ->
+            val animatedValue = valueAnimator.animatedValue as Float
+            layoutParams.weight = animatedValue
+            view.layoutParams = layoutParams
+        }
+        start()
+    }
 }

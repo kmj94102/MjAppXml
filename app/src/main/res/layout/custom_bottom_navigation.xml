@@ -30,51 +30,51 @@
                 android:id="@+id/itemHome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
-                android:onClick="@{custom::goToHome}"
-                app:isCurrentItem="true"
-                app:navigationIcon="@drawable/ic_home"
-                app:navigationTitle="홈" />
+                android:layout_weight="2"
+                android:onClick="@{custom::onItemClick}"
+                android:tag="@{custom.itemList.get(0).title}"
+                app:layout_weight_animated="@{custom.homeWeight}"
+                app:navigationItem="@{custom.itemList[0]}" />
 
             <com.example.mjappxml.custom.CustomBottomNavigationItem
                 android:id="@+id/itemGame"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::goToGame}"
-                app:isCurrentItem="false"
-                app:navigationIcon="@drawable/ic_game_pad"
-                app:navigationTitle="게임" />
+                android:onClick="@{custom::onItemClick}"
+                android:tag="@{custom.itemList.get(1).title}"
+                app:layout_weight_animated="@{custom.gameWeight}"
+                app:navigationItem="@{custom.itemList[1]}" />
 
             <com.example.mjappxml.custom.CustomBottomNavigationItem
                 android:id="@+id/itemSchedule"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::goToSchedule}"
-                app:isCurrentItem="false"
-                app:navigationIcon="@drawable/ic_calendar"
-                app:navigationTitle="달력" />
+                android:onClick="@{custom::onItemClick}"
+                android:tag="@{custom.itemList.get(2).title}"
+                app:layout_weight_animated="@{custom.calendarWeight}"
+                app:navigationItem="@{custom.itemList[2]}" />
 
             <com.example.mjappxml.custom.CustomBottomNavigationItem
                 android:id="@+id/itemAccountBook"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::goToAccountBook}"
-                app:isCurrentItem="false"
-                app:navigationIcon="@drawable/ic_flower"
-                app:navigationTitle="가계부" />
+                android:onClick="@{custom::onItemClick}"
+                android:tag="@{custom.itemList.get(3).title}"
+                app:layout_weight_animated="@{custom.accountBookWeight}"
+                app:navigationItem="@{custom.itemList[3]}" />
 
             <com.example.mjappxml.custom.CustomBottomNavigationItem
                 android:id="@+id/itemOther"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:onClick="@{custom::goToOther}"
-                app:isCurrentItem="false"
-                app:navigationIcon="@drawable/ic_other"
-                app:navigationTitle="기타" />
+                android:onClick="@{custom::onItemClick}"
+                android:tag="@{custom.itemList.get(4).title}"
+                app:layout_weight_animated="@{custom.otherWeight}"
+                app:navigationItem="@{custom.itemList[4]}" />
 
         </LinearLayout>
 

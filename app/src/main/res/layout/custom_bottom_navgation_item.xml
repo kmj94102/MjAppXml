@@ -4,49 +4,38 @@
     <data>
 
         <variable
-            name="isCurrentItem"
-            type="Boolean" />
-
-        <variable
-            name="title"
-            type="String" />
-
-        <variable
-            name="imageRes"
-            type="Integer" />
+            name="item"
+            type="com.example.mjappxml.custom.CustomBottomNavigationItem.NavigationItem" />
 
         <import type="android.view.View" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@{item.isCurrentItem ? @color/sky_blue : @android:color/transparent}"
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@{item.isCurrentItem ? @color/black : @android:color/transparent}"
+        app:strokeWidth="1dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardView"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@{isCurrentItem ? @color/sky_blue : @android:color/transparent}"
-            app:cardCornerRadius="10dp"
-            app:strokeColor="@{isCurrentItem ? @color/black : @android:color/transparent}"
-            app:strokeWidth="1dp">
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{item.isCurrentItem ? item.title : ``}"
+            android:textColor="@color/black"
+            app:startDrawable="@{item.imageRes}"
+            tools:drawableStart="@drawable/ic_home"
+            tools:text="home" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:drawablePadding="5dp"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:text="@{isCurrentItem ? title : ``}"
-                app:startDrawable="@{imageRes}"
-                tools:drawableStart="@drawable/ic_home"
-                tools:text="home" />
+    </com.google.android.material.card.MaterialCardView>
 
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
 </layout>

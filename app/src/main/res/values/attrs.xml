@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CustomBottomNavigationItem">
-        <attr name="navigationTitle" format="string"/>
-        <attr name="navigationIcon" format="reference"/>
-        <attr name="isCurrentItem" format="boolean"/>
-    </declare-styleable>
-
     <declare-styleable name="DoubleCardView">
         <attr name="doubleCardRadius" format="integer"/>
         <attr name="topCardColor" format="reference|color"/>

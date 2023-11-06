@@ -9,6 +9,7 @@ import androidx.databinding.BindingAdapter
 import com.example.communication.model.MyCalendar
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
+import com.example.mjappxml.custom.CustomBottomNavigationItem
 import com.example.mjappxml.custom.CustomCalendar
 import com.example.mjappxml.custom.IconButton
 import com.example.mjappxml.ui.accountbook.IncomeExpenditureType
@@ -59,4 +60,12 @@ fun updateSelectDate(calendarView: CustomCalendar, selectDate: String) {
 @BindingAdapter("incomeExpenditureIcon")
 fun setIncomeExpenditureIcon(button: IconButton, type: String) {
    button.setImageRes(IncomeExpenditureType.getImageByType(type))
+}
+
+@BindingAdapter("navigationItem")
+fun setNavigationItem(
+    navigationItem: CustomBottomNavigationItem,
+    item: CustomBottomNavigationItem.NavigationItem
+) {
+    navigationItem.setItem(item)
 }
