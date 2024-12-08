@@ -31,6 +31,10 @@ class GameFragment : BaseViewFragment<FragmentGameBinding>(R.layout.fragment_gam
         goToPage(R.id.navigation_elsword_counter)
     }
 
+    fun goToGenerationTitle(view: View) {
+        goToPage(R.id.navigation_generation_title)
+    }
+
     private fun goToPage(id: Int) {
         (activity as? MainActivity)?.goToPage(id)
     }

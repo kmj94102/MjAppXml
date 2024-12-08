@@ -1,6 +1,7 @@
 package com.example.communication.repository
 
 import com.example.communication.model.BriefPokemonItem
+import com.example.communication.model.GenerationCount
 import com.example.communication.model.PokemonCounter
 import com.example.communication.model.PokemonDetailInfo
 import com.example.communication.model.PokemonEvolution
@@ -63,4 +64,7 @@ interface PokemonRepository {
     suspend fun updatePokemonSpotlight(
         item: PokemonSpotlightItem
     ): String
+
+    /** 포켓몬 게임 타이틀 조회 **/
+    fun fetchGenerationTitleList(): Flow<List<GenerationCount>>
 }

@@ -108,4 +108,9 @@
         android:name="com.example.mjappxml.ui.game.elsword.counter.ElswordCounterAddFragment"
         tools:layout="@layout/fragment_elsword_counter_add"/>
 
+    <fragment
+        android:id="@+id/navigation_generation_title"
+        android:name="com.example.mjappxml.ui.game.pokemon.generation.GenerationFragment"
+        tools:layout="@layout/fragment_generation"/>
+
 </navigation>

@@ -73,6 +73,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:onClick="@{fragment::goToGenerationTitle}"
+                app:bottomCardColor="@color/beige">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="4dp">
+
+                    <ImageView
+                        android:layout_width="183dp"
+                        android:layout_height="125dp"
+                        android:src="@drawable/img_pokemon_dex" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="18dp"
+                        android:layout_weight="1"
+                        android:text="타이틀\n도감"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/beige"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </com.example.mjappxml.custom.DoubleCardView>
+
+            <com.example.mjappxml.custom.DoubleCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:onClick="@{fragment::goToPokemonCounter}"
                 app:bottomCardColor="@color/turquoise">
 

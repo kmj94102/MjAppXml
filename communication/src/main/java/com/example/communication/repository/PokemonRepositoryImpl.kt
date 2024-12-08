@@ -1,6 +1,7 @@
 package com.example.communication.repository
 
 import com.example.communication.model.BriefPokemonItem
+import com.example.communication.model.GenerationCount
 import com.example.communication.model.PokemonCounter
 import com.example.communication.model.PokemonDetailInfo
 import com.example.communication.model.PokemonEvolution
@@ -124,4 +125,12 @@ class PokemonRepositoryImpl @Inject constructor(
             .updatePokemonSpotlight(item)
             .printStackTrace()
             .getOrElse { "업데이트 실패" }
+
+    /** 포켓몬 게임 타이틀 조회 **/
+    override fun fetchGenerationTitleList(): Flow<List<GenerationCount>> = flow {
+        client
+            .fetchGenerationCountList()
+            .onSuccess { emit(it) }
+            .getFailureThrow()
+    }
 }

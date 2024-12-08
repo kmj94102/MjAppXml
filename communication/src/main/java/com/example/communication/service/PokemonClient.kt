@@ -2,6 +2,7 @@ package com.example.communication.service
 
 import com.example.communication.database.dao.PokemonDao
 import com.example.communication.database.entity.PokemonCounterEntity
+import com.example.communication.model.GenerationUpdateParam
 import com.example.communication.model.PokemonEvolution
 import com.example.communication.model.PokemonInfo
 import com.example.communication.model.PokemonSpotlightItem
@@ -97,5 +98,17 @@ class PokemonClient @Inject constructor(
 
     /** 카운터 복구 업데이트 **/
     suspend fun updateRestore(index: Int) = runCatching { dao.updateRestore(index) }
+
+    /** 포케못 타이틀 도감 별 카운트 **/
+    suspend fun fetchGenerationCountList() =
+        runCatching { service.fetchGenerationCountList() }
+
+    /** 선택한 타이틀 도감 포켓몬 리스트 **/
+    suspend fun fetchGenerationList(index: Int) =
+        runCatching { service.fetchGenerationList(index) }
+
+    /** 잡은 상태 업데이트 **/
+    suspend fun updateGenerationIsCatch(item: GenerationUpdateParam) =
+        runCatching { service.updateGenerationIsCatch(item) }
 
 }
