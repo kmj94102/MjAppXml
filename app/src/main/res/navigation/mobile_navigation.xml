@@ -113,4 +113,9 @@
         android:name="com.example.mjappxml.ui.game.pokemon.generation.GenerationFragment"
         tools:layout="@layout/fragment_generation"/>
 
+    <fragment
+        android:id="@+id/navigation_generation_detail"
+        android:name="com.example.mjappxml.ui.game.pokemon.generation.detail.GenerationDetailFragment"
+        tools:layout="@layout/fragment_generation_detail"/>
+
 </navigation>

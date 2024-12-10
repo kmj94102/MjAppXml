@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="pokemon"
+            type="com.example.communication.model.GenerationDex" />
+
+        <variable
+            name="adapter"
+            type="com.example.mjappxml.ui.game.pokemon.generation.detail.GenerationDetailAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.example.mjappxml.custom.DoubleCardView
+            android:id="@+id/cardPokemon"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imagePokemon"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center"
+                app:imageAddress="@{pokemon.spotlight}"
+                app:isGrayScale="@{!pokemon.catch}"
+                app:loadingRes="@{@drawable/img_egg}"
+                tools:src="@drawable/img_egg" />
+
+        </com.example.mjappxml.custom.DoubleCardView>
+
+        <TextView
+            android:id="@+id/txtNum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{pokemon.numberFormat}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="@id/cardPokemon"
+            app:layout_constraintStart_toStartOf="@id/cardPokemon"
+            app:layout_constraintTop_toBottomOf="@id/cardPokemon"
+            tools:text="No.0001" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{pokemon.name}"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/cardPokemon"
+            app:layout_constraintStart_toStartOf="@id/cardPokemon"
+            app:layout_constraintTop_toBottomOf="@id/txtNum"
+            tools:text="이상해씨" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

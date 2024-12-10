@@ -35,7 +35,9 @@ data class GenerationDex(
     val generationIdx: Int,
     val isCatch: Boolean,
     val spotlight: String
-)
+) {
+    fun getNumberFormat() = "No.$number"
+}
 
 fun List<GenerationDex>.getCatchStatus(): String {
     return "${count { it.isCatch }} / $size"

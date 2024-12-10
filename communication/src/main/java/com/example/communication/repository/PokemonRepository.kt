@@ -2,6 +2,8 @@ package com.example.communication.repository
 
 import com.example.communication.model.BriefPokemonItem
 import com.example.communication.model.GenerationCount
+import com.example.communication.model.GenerationDex
+import com.example.communication.model.GenerationUpdateParam
 import com.example.communication.model.PokemonCounter
 import com.example.communication.model.PokemonDetailInfo
 import com.example.communication.model.PokemonEvolution
@@ -67,4 +69,10 @@ interface PokemonRepository {
 
     /** 포켓몬 게임 타이틀 조회 **/
     fun fetchGenerationTitleList(): Flow<List<GenerationCount>>
+
+    /** 선택한 타이틀 도감 포켓몬 리스트 **/
+    fun fetchGenerationList(index: Int): Flow<List<GenerationDex>>
+
+    /** 잡은 상태 업데이트 **/
+    suspend fun updateGenerationIsCatch(item: GenerationUpdateParam): Flow<Boolean>
 }

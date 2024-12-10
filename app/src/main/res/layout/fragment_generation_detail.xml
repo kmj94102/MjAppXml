@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.game.pokemon.generation.detail.GenerationDetailFragment" />
+
+        <variable
+            name="vm"
+            type="com.example.mjappxml.ui.game.pokemon.generation.detail.GenerationDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.mjappxml.custom.IconButton
+            android:id="@+id/btnBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:onClick="@{() -> fragment.onBack()}"
+            app:cardBackgroundColor="@color/red"
+            app:cardCornerRadius="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnBack"
+            tools:text="151/151" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="30dp"
+            app:adapter="@{fragment.adapter}"
+            app:gridSpacing="@{10}"
+            app:gridSpan="@{4}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:spanCount="4"
+            app:submitList="@{vm.pokemonList}"
+            tools:listitem="@layout/cell_pokemon_select" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

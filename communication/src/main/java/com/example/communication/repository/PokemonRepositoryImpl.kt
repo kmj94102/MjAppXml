@@ -2,6 +2,8 @@ package com.example.communication.repository
 
 import com.example.communication.model.BriefPokemonItem
 import com.example.communication.model.GenerationCount
+import com.example.communication.model.GenerationDex
+import com.example.communication.model.GenerationUpdateParam
 import com.example.communication.model.PokemonCounter
 import com.example.communication.model.PokemonDetailInfo
 import com.example.communication.model.PokemonEvolution
@@ -130,6 +132,20 @@ class PokemonRepositoryImpl @Inject constructor(
     override fun fetchGenerationTitleList(): Flow<List<GenerationCount>> = flow {
         client
             .fetchGenerationCountList()
+            .onSuccess { emit(it) }
+            .getFailureThrow()
+    }
+
+    override fun fetchGenerationList(index: Int): Flow<List<GenerationDex>> = flow {
+        client
+            .fetchGenerationList(index)
+            .onSuccess { emit(it) }
+            .getFailureThrow()
+    }
+
+    override suspend fun updateGenerationIsCatch(item: GenerationUpdateParam) = flow {
+        client
+            .updateGenerationIsCatch(item)
             .onSuccess { emit(it) }
             .getFailureThrow()
     }
