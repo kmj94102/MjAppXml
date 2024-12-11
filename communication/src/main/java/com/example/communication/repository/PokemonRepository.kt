@@ -74,5 +74,5 @@ interface PokemonRepository {
     fun fetchGenerationList(index: Int): Flow<List<GenerationDex>>
 
     /** 잡은 상태 업데이트 **/
-    suspend fun updateGenerationIsCatch(item: GenerationUpdateParam): Flow<Boolean>
+    fun updateGenerationIsCatch(item: GenerationUpdateParam): Flow<Boolean>
 }

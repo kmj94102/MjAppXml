@@ -27,6 +27,7 @@
             android:onClick="@{() -> fragment.onBack()}"
             app:cardBackgroundColor="@color/red"
             app:cardCornerRadius="5dp"
+            app:res="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

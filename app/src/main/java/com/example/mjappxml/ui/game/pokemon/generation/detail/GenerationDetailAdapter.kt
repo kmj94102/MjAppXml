@@ -10,7 +10,7 @@ import com.example.mjappxml.R
 import com.example.mjappxml.databinding.CellGenerationDexBinding
 
 class GenerationDetailAdapter(
-    private val onItemClick: (String, Boolean) -> Unit,
+    private val onItemClick: (String, Int, Boolean) -> Unit,
 ) : ListAdapter<GenerationDex, GenerationDetailViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenerationDetailViewHolder =
@@ -47,9 +47,9 @@ class GenerationDetailViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
         item: GenerationDex,
-        onItemClick: (String, Boolean) -> Unit
+        onItemClick: (String, Int, Boolean) -> Unit
     ) {
-        binding.root.setOnClickListener { onItemClick(item.number, item.isCatch) }
+        binding.root.setOnClickListener { onItemClick(item.number, item.idx, item.isCatch) }
         binding.pokemon = item
         binding.cardPokemon.setTopCardColor(
             if (item.isCatch) R.color.white else R.color.light_gray

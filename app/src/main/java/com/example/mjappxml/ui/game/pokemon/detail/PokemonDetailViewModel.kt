@@ -1,9 +1,11 @@
 package com.example.mjappxml.ui.game.pokemon.detail
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.communication.model.GenerationUpdateParam
 import com.example.communication.model.UpdatePokemonCatch
 import com.example.communication.repository.PokemonRepository
+import com.example.mjappxml.BaseViewModel
+import com.example.mjappxml.common.customCatch
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
     private val repository: PokemonRepository
-): ViewModel(){
+): BaseViewModel(){
 
     private val _isShiny = MutableStateFlow(false)
     val isShiny: StateFlow<Boolean> = _isShiny
@@ -44,6 +46,23 @@ class PokemonDetailViewModel @Inject constructor(
         repository.updatePokemonCatch(
             UpdatePokemonCatch(number = number, isCatch = isCatch)
         )
+    }
+
+    fun updateGenerationIsCatch(
+        idx: Int,
+        onUpdate: (Boolean) -> Unit
+    ) {
+        repository
+            .updateGenerationIsCatch(
+                GenerationUpdateParam(idx = idx)
+            )
+            .setLoadingState()
+            .onEach(onUpdate)
+            .customCatch(
+                onNetworkError = { updateNetworkErrorState(true) },
+                onError = { updateMessage(it ?: "업데이트 중 오류가 발생하였습니다.") }
+            )
+            .launchIn(viewModelScope)
     }
 
     fun toggleIsShiny(): Boolean {

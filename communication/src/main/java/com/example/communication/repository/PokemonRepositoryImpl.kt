@@ -143,7 +143,7 @@ class PokemonRepositoryImpl @Inject constructor(
             .getFailureThrow()
     }
 
-    override suspend fun updateGenerationIsCatch(item: GenerationUpdateParam) = flow {
+    override fun updateGenerationIsCatch(item: GenerationUpdateParam) = flow {
         client
             .updateGenerationIsCatch(item)
             .onSuccess { emit(it) }

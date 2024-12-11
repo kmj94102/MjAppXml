@@ -32,4 +32,13 @@ class GenerationDetailViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    fun updateIsCatch(idx: Int, isCatch: Boolean) {
+        val index = _pokemonList.value.indexOfFirst { it.idx == idx }
+        if (index != -1) {
+            val newList = _pokemonList.value.toMutableList()
+            newList[index] = newList[index].copy(isCatch = isCatch)
+            _pokemonList.value = newList
+        }
+    }
+
 }
