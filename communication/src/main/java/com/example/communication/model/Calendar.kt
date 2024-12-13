@@ -117,11 +117,52 @@ private fun getDayOfWeek(index: Int): String {
 private fun getDetailDate(year: Int, month: Int, date: String) =
     "$year.${month.toString().padStart(2, '0')}.${date.padStart(2, '0')}"
 
+fun getWeeklyDateRange(dateString: String): List<CalendarResult> {
+    val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
+    val startDayOfWeek = getStartDayOfWeek(dateString) ?: return emptyList()
+    val lastDayOfWeek = getLastDayOfWeek(dateString) ?: return emptyList()
+
+    val list = mutableListOf<CalendarResult>()
+
+    var currentDate = startDayOfWeek.time
+    while (!currentDate.after(lastDayOfWeek.time)) {
+        list.add(
+            CalendarResult(
+                date = dateFormat.format(currentDate),
+            )
+        )
+        startDayOfWeek.add(Calendar.DAY_OF_YEAR, 1)
+        currentDate = startDayOfWeek.time
+    }
+
+    return list
+}
+
+fun getStartDayOfWeek(dateString: String): Calendar? {
+    val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+    val date = format.parse(dateString) ?: return null
+
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+    return calendar
+}
+
+fun getLastDayOfWeek(dateString: String): Calendar? {
+    val format = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
+    val date = format.parse(dateString) ?: return null
+
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY)
+    return calendar
+}
+
 data class CalendarResult(
-    val date: String,
-    val calendarInfoList: List<CalendarInfo>,
-    val scheduleInfoList: List<CalendarItem.ScheduleInfo>,
-    val planInfoList: List<CalendarItem.PlanInfo>
+    val date: String = "",
+    val calendarInfoList: List<CalendarInfo> = listOf(),
+    val scheduleInfoList: List<CalendarItem.ScheduleInfo> = listOf(),
+    val planInfoList: List<CalendarItem.PlanInfo> = listOf()
 ) {
     fun toMyCalendarInfo(): MyCalendarInfo {
         val isHoliday = calendarInfoList.any { it.isHoliday }
@@ -129,6 +170,7 @@ data class CalendarResult(
         val info = if (calendarInfoList.isNotEmpty()) {
             calendarInfoList.map { it.info }.reduce { acc, s -> "$acc, $s" }
         } else ""
+        scheduleInfoList.filter { it.id == 0 }
 
         return MyCalendarInfo(
             date = date.replace("-", "."),
@@ -141,11 +183,11 @@ data class CalendarResult(
 }
 
 data class MyCalendarInfo(
-    val date: String,
-    val info: String,
-    val isHoliday: Boolean,
-    val isSpecialDay: Boolean,
-    val list: List<CalendarItem>
+    val date: String = "",
+    val info: String = "",
+    val isHoliday: Boolean = false,
+    val isSpecialDay: Boolean = false,
+    val list: List<CalendarItem> = listOf()
 )
 
 data class CalendarInfo(
@@ -166,7 +208,7 @@ sealed class CalendarItem(val type: String) {
         val scheduleContent: String,
         val scheduleTitle: String,
         val recurrenceId: Int?
-    ) : CalendarItem(Schedule) {
+    ) : CalendarItem(SCHEDULE) {
         fun getTime() = "${startTime.substring(11, 16)} ~ ${endTime.substring(11, 16)}"
     }
 
@@ -174,7 +216,7 @@ sealed class CalendarItem(val type: String) {
         val id: Int,
         val title: String,
         val taskList: List<TaskInfo>
-    ) : CalendarItem(Plan)
+    ) : CalendarItem(PLAN)
 
     data class TaskInfo(
         val id: Int,
@@ -189,13 +231,13 @@ sealed class CalendarItem(val type: String) {
         val amount: Int,
         val usageType: String,
         val whereToUse: String
-    ) : CalendarItem(History) {
+    ) : CalendarItem(HISTORY) {
         fun getFormatAmount() = amount.formatAmountWithSign()
     }
 
     companion object {
-        const val Schedule = "schedule"
-        const val Plan = "plan"
-        const val History = "history"
+        const val SCHEDULE = "schedule"
+        const val PLAN = "plan"
+        const val HISTORY = "history"
     }
 }

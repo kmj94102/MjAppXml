@@ -7,11 +7,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.example.communication.model.MyCalendar
+import com.example.communication.model.MyCalendarInfo
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.custom.CustomBottomNavigationItem
 import com.example.mjappxml.custom.CustomCalendar
 import com.example.mjappxml.custom.IconButton
+import com.example.mjappxml.custom.WeekCalendarItem
 import com.example.mjappxml.ui.accountbook.IncomeExpenditureType
 
 @BindingAdapter("stateRes")
@@ -68,4 +70,17 @@ fun setNavigationItem(
     item: CustomBottomNavigationItem.NavigationItem
 ) {
     navigationItem.setItem(item)
+}
+
+@BindingAdapter(value = ["weekItem", "weekToday"])
+fun setWeekCalendarItem(calendar: WeekCalendarItem, weekItem: MyCalendarInfo, weekToday: String) {
+    calendar.setCalendarInfo(
+        info = weekItem,
+        today = weekToday
+    )
+}
+
+@BindingAdapter("weekSelectDate")
+fun setWeekSelectItem(calendar: WeekCalendarItem, selectDate: String) {
+    calendar.setSelect(selectDate)
 }

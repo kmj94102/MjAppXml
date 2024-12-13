@@ -1,9 +1,10 @@
 package com.example.mjappxml.ui.home
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.communication.model.CalendarResult
 import com.example.communication.model.HomeInfoResult
 import com.example.communication.model.HomeParam
+import com.example.communication.model.getWeeklyDateRange
 import com.example.communication.repository.HomeRepository
 import com.example.mjappxml.BaseViewModel
 import com.example.mjappxml.common.getLastDayOfWeek
@@ -13,37 +14,46 @@ import com.example.mjappxml.common.toStringFormat
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: HomeRepository
-): BaseViewModel() {
+) : BaseViewModel() {
 
-    private val today = getToday()
+    val today = getToday()
     val yearMonth
         get() = getToday("yyyy년 MM월")
 
+    private val initList = getWeeklyDateRange(today)
     private val sharedFlow = MutableSharedFlow<Pair<String, String>>(replay = 1)
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val homeInfo: StateFlow<HomeInfoResult> = sharedFlow.flatMapLatest { (start, end) ->
         repository
             .fetchHomeInfo(HomeParam(start, end))
-            .onStart {  }
-            .onEach {  }
-            .onCompletion {  }
+            .map {
+                it.copy(
+                    calendarInfo = setCalendarItem(it.calendarInfo)
+                )
+            }
+
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(500L),
-        initialValue = HomeInfoResult()
+        initialValue = HomeInfoResult().copy(
+            calendarInfo = initList
+        )
     )
+
+    private val _selectDate = MutableStateFlow(today)
+    val selectDate: StateFlow<String> = _selectDate
 
     init {
         fetchHomeInfo()
@@ -55,5 +65,10 @@ class HomeViewModel @Inject constructor(
 
         sharedFlow.tryEmit(start to end)
     }
+
+    private fun setCalendarItem(list: List<CalendarResult>) = initList.map {
+        list.firstOrNull { item -> it.date == item.date } ?: it
+    }
+
 
 }

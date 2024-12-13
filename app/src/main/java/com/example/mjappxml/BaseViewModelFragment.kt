@@ -1,6 +1,5 @@
 package com.example.mjappxml
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +32,7 @@ abstract class BaseViewModelFragment<B : ViewDataBinding, VM : BaseViewModel>(
 
         with(binding) {
             lifecycleOwner = this@BaseViewModelFragment
-            setVariable(BR.homeViewModel, viewModel)
+            setVariable(BR.vm, viewModel)
         }
 
         val status = viewModel.status.value

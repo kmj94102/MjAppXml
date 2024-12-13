@@ -4,7 +4,11 @@
     <data>
 
         <variable
-            name="homeViewModel"
+            name="fragment"
+            type="com.example.mjappxml.ui.home.HomeFragment" />
+
+        <variable
+            name="vm"
             type="com.example.mjappxml.ui.home.HomeViewModel" />
     </data>
 
@@ -29,7 +33,7 @@
                 android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{homeViewModel.yearMonth}"
+                android:text="@{vm.yearMonth}"
                 android:textColor="@color/purple"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -63,7 +67,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        app:date="20"
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(0).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}"
                         app:dayOfWeek="일" />
 
                     <com.example.mjappxml.custom.WeekCalendarItem
@@ -72,9 +78,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        app:date="21"
                         app:dayOfWeek="월"
-                        app:isToday="true" />
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(1).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}" />
 
                     <com.example.mjappxml.custom.WeekCalendarItem
                         android:id="@+id/calendarTue"
@@ -82,7 +89,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        app:date="22"
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(2).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}"
                         app:dayOfWeek="화" />
 
                     <com.example.mjappxml.custom.WeekCalendarItem
@@ -91,9 +100,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        app:date="23"
-                        app:dayOfWeek="수"
-                        app:isSelect="true" />
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(3).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}"
+                        app:dayOfWeek="수"/>
 
                     <com.example.mjappxml.custom.WeekCalendarItem
                         android:id="@+id/calendarThu"
@@ -101,7 +111,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        app:date="24"
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(4).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}"
                         app:dayOfWeek="목" />
 
                     <com.example.mjappxml.custom.WeekCalendarItem
@@ -110,7 +122,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="4dp"
                         android:layout_weight="1"
-                        app:date="25"
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(5).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}"
                         app:dayOfWeek="금" />
 
                     <com.example.mjappxml.custom.WeekCalendarItem
@@ -118,7 +132,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:date="26"
+                        app:weekItem="@{vm.homeInfo.calendarInfo.get(6).toMyCalendarInfo()}"
+                        app:weekToday="@{vm.today}"
+                        app:weekSelectDate="@{vm.selectDate}"
                         app:dayOfWeek="토" />
 
                 </LinearLayout>
@@ -135,6 +151,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardWeekCalendar"
                 app:spanCount="2"
+                app:gridSpacing="@{10}"
+                app:gridSpan="@{4}"
                 tools:listitem="@layout/cell_pokemon_counter" />
 
             <com.example.mjappxml.custom.DoubleCardView
@@ -148,6 +166,7 @@
 
                 <ImageView
                     android:layout_width="75dp"
+                    android:contentDescription="@string/content_description_image"
                     android:layout_height="85dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="25dp"
