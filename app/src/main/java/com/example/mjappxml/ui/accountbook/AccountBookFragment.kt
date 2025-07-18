@@ -17,7 +17,7 @@ class AccountBookFragment :
     BaseViewModelFragment<FragmentAccountBookBinding, AccountBookViewModel>(R.layout.fragment_account_book) {
 
     override val viewModel: AccountBookViewModel by viewModels()
-    private val adapter = LastMonthAnalysisAdapter()
+    private val adapter = AccountBookAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,11 +47,6 @@ class AccountBookFragment :
                 Constants.Date to getToday("yyyy.MM")
             )
         )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.fetchAccountBookInfo()
     }
 
 }

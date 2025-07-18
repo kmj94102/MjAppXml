@@ -16,8 +16,6 @@ import com.example.mjappxml.databinding.CustomCalendarBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.common.getToday
-import com.example.mjappxml.model.CustomCalendarInfo
-import com.google.android.material.slider.RangeSlider.OnChangeListener
 
 class CustomCalendar : LinearLayout {
 

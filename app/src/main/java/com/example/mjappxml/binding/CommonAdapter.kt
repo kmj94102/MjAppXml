@@ -51,6 +51,11 @@ fun loadCoilImage(imageView: ImageView, imageAddress: String, loadingRes: Drawab
     }
 }
 
+@BindingAdapter("app:tint")
+fun ImageView.setImageTint(@ColorInt color: Int) {
+    setColorFilter(color)
+}
+
 @BindingAdapter("isGrayScale")
 fun applyGrayScaleFilter(imageView: ImageView, isGrayScale: Boolean) {
     val colorMatrix = ColorMatrix()

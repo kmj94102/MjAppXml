@@ -118,7 +118,7 @@ private fun getDetailDate(year: Int, month: Int, date: String) =
     "$year.${month.toString().padStart(2, '0')}.${date.padStart(2, '0')}"
 
 fun getWeeklyDateRange(dateString: String): List<CalendarResult> {
-    val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     val startDayOfWeek = getStartDayOfWeek(dateString) ?: return emptyList()
     val lastDayOfWeek = getLastDayOfWeek(dateString) ?: return emptyList()
 

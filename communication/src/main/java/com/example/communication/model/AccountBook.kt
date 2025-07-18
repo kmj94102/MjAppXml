@@ -147,6 +147,8 @@ data class AccountBookDetailInfo(
     val expenditure: Int,
     val list: List<AccountBookItem>
 ) {
+    fun getDate() = "$startDate ~ $endDate"
+
     fun modifyDateFormat() = AccountBookDetailInfo(
         startDate = startDate,
         endDate = endDate,
