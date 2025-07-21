@@ -1,6 +1,5 @@
 package com.example.communication.model
 
-import com.example.communication.util.formatAmountInTenThousand
 import com.example.communication.util.formatAmountWithSign
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -21,7 +20,8 @@ data class AccountBookInsertItem(
     var amount: Int,
     val usageType: String,
     var whereToUse: String,
-    var isAddFrequently: Boolean
+    var isAddFrequently: Boolean,
+    val isIncome: Boolean = true,
 ) {
     fun updateDate(dateValue: String): AccountBookInsertItem {
         val sdfInput = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
@@ -53,7 +53,7 @@ data class AccountBookInsertItem(
             date = "",
             dateOfWeek = "",
             amount = 0,
-            usageType = "",
+            usageType = "meal",
             whereToUse = "",
             isAddFrequently = false
         )
@@ -125,7 +125,7 @@ data class ThisYearSummaryItem(
     val endDate: String,
     val info: Int
 ) {
-    fun getAmount() = info.formatAmountInTenThousand()
+    fun getAmount() = info.formatAmountWithSign()
 }
 
 data class DateConfiguration(

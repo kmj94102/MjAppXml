@@ -75,7 +75,6 @@ class FixedAccountBookViewModel @Inject constructor(
         repository
             .insertNewAccountBookItem(
                 item.toAccountBookInsertItem(_yearMonth.value),
-                item.isIncome
             )
             .onSuccess {
                 updateMessage("등록 완료")

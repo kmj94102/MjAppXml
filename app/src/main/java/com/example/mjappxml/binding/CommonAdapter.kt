@@ -23,6 +23,7 @@ import androidx.core.widget.CompoundButtonCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import com.example.communication.model.ThisYearSummaryItem
+import com.example.communication.util.updateNumberFormatEditText
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.custom.DoubleCardView
 import com.example.mjappxml.custom.MonthlyUseView
@@ -130,33 +131,41 @@ fun setButtonTint(button: CompoundButton, @ColorInt color: Int) {
 
 @BindingAdapter("amountText")
 fun setAmountText(editText: EditText, amount: String) {
+    var isEditing = false
     val textWatcher = object : TextWatcher {
         private var current = ""
-        private val regex = Regex("\\D")
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
         override fun afterTextChanged(s: Editable?) {
-            if (s.toString() != current) {
-                editText.removeTextChangedListener(this)
+            if (isEditing) return
 
-                val cleanString = s.toString().replace(regex, "")
-                val formatted = when (cleanString.length) {
-                    in 0..2 -> cleanString
-                    else -> {
-                        val beforeAmount = cleanString.toLong()
-                        val formattedAmount = String.format("%,d", beforeAmount)
-                        formattedAmount
+            isEditing = true
+            runCatching {
+                if (s.toString() != current) {
+                    editText.removeTextChangedListener(this)
+
+                    val value = s.toString()
+                    val formatted = when (value.length) {
+                        in 0..2 -> "0 원"
+                        else -> {
+                            value.updateNumberFormatEditText()
+                        }
                     }
-                }
 
-                current = formatted
-                editText.setText(formatted)
-                editText.setSelection(formatted.length)
-                editText.addTextChangedListener(this)
+                    current = formatted
+                    editText.setText(formatted)
+                    editText.addTextChangedListener(this)
+                    editText.setSelection(
+                        if (formatted.contains('원')) formatted.length - 2 else formatted.length
+                    )
+                }
+            }.onFailure {
+                it.printStackTrace()
             }
+            isEditing = false
         }
     }
 

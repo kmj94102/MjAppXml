@@ -36,12 +36,10 @@ class AddFixedAccountBookFragment :
 
     fun updateIncome() {
         viewModel.updateIsIncome(true)
-        adapter.updateIsIncome(true)
     }
 
     fun updateExpenditure() {
         viewModel.updateIsIncome(false)
-        adapter.updateIsIncome(false)
     }
 
     fun doRegister() {

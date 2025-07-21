@@ -14,7 +14,24 @@ class AccountBookClient @Inject constructor(
 
     /** 가계부 등록 **/
     suspend fun insertNewAccountBookItem(item: AccountBookInsertItem) =
-        runCatching { service.insertAccountBookItem(item) }
+        runCatching {
+            val result = item.uploadFormat(item.isIncome)
+            service.insertAccountBookItem(result)
+
+            if (result.isAddFrequently) {
+                insertFixedAccountBookItem(
+                    FixedAccountBook(
+                        id = 0,
+                        date = result.date,
+                        usageType = result.usageType,
+                        whereToUse = result.whereToUse,
+                        amount = result.amount,
+                        isIncome = result.isIncome,
+                    )
+                )
+            }
+        }
+
 
     /** 이번달 상세 조회 **/
     suspend fun fetchThisMonthDetail(dateConfiguration: DateConfiguration) =
