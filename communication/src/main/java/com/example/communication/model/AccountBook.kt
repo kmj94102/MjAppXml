@@ -49,8 +49,8 @@ data class AccountBookInsertItem(
     )
 
     companion object {
-        fun initItem() = AccountBookInsertItem(
-            date = "",
+        fun initItem(date: String = "") = AccountBookInsertItem(
+            date = date,
             dateOfWeek = "",
             amount = 0,
             usageType = "meal",
