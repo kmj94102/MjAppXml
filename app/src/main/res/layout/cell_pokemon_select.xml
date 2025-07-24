@@ -12,57 +12,44 @@
             type="com.example.mjappxml.ui.game.pokemon.dex.PokemonSelectAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.circularreveal.cardview.CircularRevealCardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white_30"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/white">
 
-        <com.example.mjappxml.custom.DoubleCardView
-            android:id="@+id/cardPokemon"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imagePokemon"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center"
-                app:imageAddress="@{adapter.isShiny() ? pokemon.shinySpotlight : pokemon.spotlight}"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:contentDescription="@string/content_description_image"
+                app:imageAddress="@{pokemon.spotlight}"
                 app:loadingRes="@{@drawable/img_egg}"
                 app:isGrayScale="@{!pokemon.catch}"
                 tools:src="@drawable/img_egg" />
 
-        </com.example.mjappxml.custom.DoubleCardView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:maxLines="1"
+                android:text="@{pokemon.name}"
+                android:ellipsize="end"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                tools:text="이상해씨" />
 
-        <TextView
-            android:id="@+id/txtNum"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@{pokemon.numberFormat}"
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            app:layout_constraintEnd_toEndOf="@id/cardPokemon"
-            app:layout_constraintStart_toStartOf="@id/cardPokemon"
-            app:layout_constraintTop_toBottomOf="@id/cardPokemon"
-            tools:text="No.0001" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/txtName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{pokemon.name}"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/cardPokemon"
-            app:layout_constraintStart_toStartOf="@id/cardPokemon"
-            app:layout_constraintTop_toBottomOf="@id/txtNum"
-            tools:text="이상해씨" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.circularreveal.cardview.CircularRevealCardView>
 </layout>

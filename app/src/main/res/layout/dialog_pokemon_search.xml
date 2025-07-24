@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
-                android:background="@drawable/bg_gradient_pokemon_dialog"
+                android:background="@drawable/bg_gradient_pokemon"
                 android:orientation="vertical"
                 android:paddingVertical="28dp"
                 android:paddingStart="20dp"

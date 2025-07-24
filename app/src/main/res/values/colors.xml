@@ -3,15 +3,18 @@
     <color name="black">#FF181A20</color>
     <color name="light_black">#FF252932</color>
     <color name="white">#FFFAFAFA</color>
+    <color name="white_30">#4DFAFAFA</color>
     <color name="turquoise">#FF82E3D2</color>
     <color name="purple">#FFC0C0F6</color>
     <color name="beige">#FFFFE4C7</color>
+    <color name="pink">#FFAAA7</color>
     <color name="red">#FFFD3D28</color>
     <color name="red_ten">#1AFD3D28</color>
     <color name="sky_blue">#FFD6F2FF</color>
     <color name="blue">#FF8AC3F9</color>
     <color name="dark_blue">#FF0075FF</color>
     <color name="dark_blue_ten">#1A0075FF</color>
-    <color name="light_gray">#FF9EA3B2</color>
+    <color name="light_gray">#FFD0D0D0</color>
     <color name="gray">#FF767676</color>
+    <color name="gray_30">#4D767676</color>
 </resources>

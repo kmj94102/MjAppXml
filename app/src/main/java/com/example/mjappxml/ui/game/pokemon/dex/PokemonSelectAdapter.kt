@@ -64,9 +64,6 @@ class PokemonSelectViewHolder(
     ) {
         binding.root.setOnClickListener { adapter.onItemClick(pokemonSummary.number, pokemonSummary.isCatch) }
         binding.pokemon = pokemonSummary
-        binding.cardPokemon.setTopCardColor(
-            if (pokemonSummary.isCatch) R.color.white else R.color.light_gray
-        )
         lifecycleOwner?.let {
             adapter.isShiny.observe(it) { binding.invalidateAll() }
         }

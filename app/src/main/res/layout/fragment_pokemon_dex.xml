@@ -27,56 +27,46 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:paddingHorizontal="24dp"
+        android:background="@drawable/bg_gradient_pokemon">
 
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="22dp"
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_back"
             android:onClick="@{() -> fragment.onBack()}"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
+            android:contentDescription="@string/content_description_image"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_back" />
+            app:layout_constraintTop_toTopOf="@id/txtTitle"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"/>
 
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnShinyState"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="10dp"
-            android:onClick="@{() -> fragment.onShinyStateChange()}"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
-            app:layout_constraintEnd_toStartOf="@id/btnSearch"
-            app:layout_constraintTop_toTopOf="parent"
-            app:stateRes="@{vm.isShiny() ? @drawable/ic_shiny : @drawable/ic_normal}"
-            tools:res="@drawable/ic_normal" />
+       <TextView
+           android:id="@+id/txtTitle"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="전국 도감"
+           android:textStyle="bold"
+           android:textColor="@color/white"
+           android:textSize="20sp"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:layout_marginTop="11dp"/>
 
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnSearch"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="20dp"
-            android:onClick="@{() -> fragment.showSearchDialog()}"
-            app:cardBackgroundColor="@color/beige"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_search"
+            android:onClick="@{() -> fragment.goToSearch()}"
+            android:contentDescription="@string/content_description_image"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_search" />
+            app:layout_constraintTop_toTopOf="@id/txtTitle"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="20dp"
             android:clipToPadding="false"
             android:paddingTop="15dp"
             android:paddingBottom="30dp"
@@ -85,7 +75,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack"
+            app:layout_constraintTop_toBottomOf="@id/txtTitle"
+            android:layout_marginTop="11dp"
             app:spanCount="4"
             app:submitList="@{vm.pokemonList}"
             app:gridSpan="@{4}"

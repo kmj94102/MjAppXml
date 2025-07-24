@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
+import com.example.mjappxml.MainActivity
 import com.example.mjappxml.databinding.FragmentPokemonDexBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.example.mjappxml.R
@@ -36,9 +37,8 @@ class PokemonDexFragment :
         layoutNetworkError.cardReload.setOnClickListener { viewModel.fetchPokemonList() }
     }
 
-    fun onShinyStateChange() {
-        viewModel.toggleIsShiny()
-        adapter.onShinyStateChange(viewModel.isShiny.value)
+    fun goToSearch() {
+        (activity as? MainActivity)?.goToPage(R.id.navigation_pokemon_search)
     }
 
     private fun onDetailClick(number: String, isCatch: Boolean) {
@@ -46,12 +46,6 @@ class PokemonDexFragment :
            it.setNumber(number)
            it.show(parentFragmentManager, "$isCatch")
        }
-    }
-
-    fun showSearchDialog() {
-        PokemonSearchDialog {
-            viewModel.updateName(it)
-        }.show(parentFragmentManager, "PokemonSearchDialog")
     }
 
     override fun updateNetworkErrorState(value: Boolean) {

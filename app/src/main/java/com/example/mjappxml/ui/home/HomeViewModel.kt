@@ -1,5 +1,6 @@
 package com.example.mjappxml.ui.home
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.communication.model.CalendarResult
 import com.example.communication.model.HomeInfoResult
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -38,12 +40,12 @@ class HomeViewModel @Inject constructor(
     val homeInfo: StateFlow<HomeInfoResult> = sharedFlow.flatMapLatest { (start, end) ->
         repository
             .fetchHomeInfo(HomeParam(start, end))
+            .catch { it.printStackTrace() }
             .map {
                 it.copy(
                     calendarInfo = setCalendarItem(it.calendarInfo)
                 )
             }
-
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(500L),
@@ -67,6 +69,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun setCalendarItem(list: List<CalendarResult>) = initList.map {
+        Log.e("+++++", "selectDate: ${selectDate.value}\ndate: ${it.date}")
         list.firstOrNull { item -> it.date == item.date } ?: it
     }
 
