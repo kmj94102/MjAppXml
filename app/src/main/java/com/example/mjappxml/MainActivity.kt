@@ -1,7 +1,11 @@
 package com.example.mjappxml
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowInsets
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -23,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.bottomNavigation.isVisible = destination.label?.isNotEmpty() == true
         }
+
+//        setStatusBarColor(this.window, ContextCompat.getColor(this, R.color.black))
     }
 
     fun goToHome() {
@@ -51,5 +57,22 @@ class MainActivity : AppCompatActivity() {
 
     fun goToPage(resId: Int, bundle: Bundle?= null) {
         navController.navigate(resId, bundle)
+    }
+
+    fun setStatusBarColor(window: Window, color: Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) { // Android 15+
+            window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+                val statusBarInsets = insets.getInsets(WindowInsets.Type.statusBars())
+                view.setBackgroundColor(color)
+
+                // Adjust padding to avoid overlap
+                view.setPadding(0, statusBarInsets.top, 0, 0)
+                insets
+            }
+        } else {
+            // For Android 14 and below
+            window.statusBarColor = color
+        }
+        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
     }
 }

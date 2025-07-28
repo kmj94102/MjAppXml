@@ -25,7 +25,7 @@ data class PokemonListInfo(
             name = name ?: return null,
             spotlight = spotlight ?: return null,
             shinySpotlight = shinySpotlight ?: return null,
-            isCatch = isCatch ?: false
+            isCatch = isCatch == true
         )
     }
 }

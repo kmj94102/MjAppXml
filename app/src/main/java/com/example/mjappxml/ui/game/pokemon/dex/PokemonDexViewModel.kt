@@ -1,17 +1,18 @@
 package com.example.mjappxml.ui.game.pokemon.dex
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.communication.model.PokemonSummary
 import com.example.communication.repository.PokemonRepository
 import com.example.mjappxml.BaseViewModel
 import com.example.mjappxml.common.customCatch
+import com.example.mjappxml.model.PokemonSearchItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,41 +26,38 @@ class PokemonDexViewModel @Inject constructor(
     private val _pokemonList = MutableStateFlow(listOf<PokemonSummary>())
     val pokemonList: StateFlow<List<PokemonSummary>> = _pokemonList
 
-    private var isMore = true
-    private var skip = 0
-    private val limit = 100
-    private var name = ""
+    private val _searchInfo = MutableStateFlow(PokemonSearchItem.init())
+    val searchInfo: StateFlow<PokemonSearchItem> = _searchInfo
 
     init {
         fetchPokemonList()
     }
 
-    fun toggleIsShiny() {
-        _isShiny.value = _isShiny.value.not()
+    fun updateSearchInfo(item: PokemonSearchItem) {
+        _searchInfo.value = item
+        fetchPokemonList(true)
     }
 
-    fun updateName(name: String) {
-        _pokemonList.value = listOf()
-        this.name = name
-        skip = 0
-        isMore = true
-        fetchPokemonList()
-    }
-
-    fun fetchPokemonList() {
-        if (isMore.not()) return
+    fun fetchPokemonList(isNeedClear: Boolean = false) {
+        val searchInfo = searchInfo.value
+        if (searchInfo.isMore.not()) return
 
         repository
             .fetchPokemonList(
-                name = name,
-                skip = skip,
-                limit = limit
+                name = searchInfo.name,
+                skip = searchInfo.skip,
+                limit = searchInfo.limit,
+                generations = searchInfo.getGenerationsInfo(),
+                types = searchInfo.getTypesInfo(),
+                isCatch = searchInfo.getIsCatch()
             )
             .setLoadingState()
             .onEach { (isMore, list) ->
-                this.isMore = isMore
-                skip += 1
-                _pokemonList.value = _pokemonList.value + list
+                _searchInfo.update {
+                    it.copy(isMore = isMore, skip = it.skip + 1)
+                }
+                Log.e("+++++", "${searchInfo.name} / $isMore")
+                _pokemonList.value = if (isNeedClear) list else _pokemonList.value + list
                 updateNetworkErrorState(false)
             }
             .customCatch(

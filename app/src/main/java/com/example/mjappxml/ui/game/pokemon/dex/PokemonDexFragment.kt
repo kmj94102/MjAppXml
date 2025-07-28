@@ -3,12 +3,15 @@ package com.example.mjappxml.ui.game.pokemon.dex
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mjappxml.BaseViewModelFragment
 import com.example.mjappxml.MainActivity
-import com.example.mjappxml.databinding.FragmentPokemonDexBinding
-import dagger.hilt.android.AndroidEntryPoint
 import com.example.mjappxml.R
+import com.example.mjappxml.common.Constants
+import com.example.mjappxml.databinding.FragmentPokemonDexBinding
+import com.example.mjappxml.model.PokemonSearchItem
 import com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailDialog
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PokemonDexFragment :
@@ -26,6 +29,13 @@ class PokemonDexFragment :
         fragment = this@PokemonDexFragment
         adapter = this@PokemonDexFragment.adapter
         vm = viewModel
+
+        val navBackStackEntry = findNavController().currentBackStackEntry
+        navBackStackEntry?.savedStateHandle?.getLiveData<PokemonSearchItem>(Constants.RESULT)
+            ?.observe(viewLifecycleOwner) {
+                viewModel.updateSearchInfo(it)
+                navBackStackEntry.savedStateHandle.remove<PokemonSearchItem>(Constants.RESULT)
+            }
 
         recyclerView.setOnScrollChangeListener { recyclerView, _, _, _, _ ->
             if (recyclerView.canScrollVertically(1).not()) {

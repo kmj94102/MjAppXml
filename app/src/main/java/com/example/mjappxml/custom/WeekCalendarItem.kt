@@ -84,7 +84,7 @@ class WeekCalendarItem : ConstraintLayout {
     }
 
     fun setCalendarInfo(info: MyCalendarInfo, today: String) {
-        binding.txtDate.text = info.date
+        binding.txtDate.text = info.date.takeLast(2)
         if (info.date == today) {
             binding.cardView.strokeColor = purpleColor
         }
@@ -96,7 +96,7 @@ class WeekCalendarItem : ConstraintLayout {
     }
 
     fun setSelect(selectDate: String) {
-        if (binding.txtDate.text.toString() == selectDate) {
+        if (binding.txtDate.text.toString() == selectDate.takeLast(2)) {
             binding.cardView.setCardBackgroundColor(purpleColor)
         }
     }

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.game.pokemon.search.PokemonSearchFragment" />
+
+        <variable
+            name="vm"
+            type="com.example.mjappxml.ui.game.pokemon.search.PokemonSearchViewModel" />
+
+        <variable
+            name="typeAdapter"
+            type="com.example.mjappxml.ui.game.pokemon.search.PokemonTypeAdapter" />
+
+        <variable
+            name="generationAdapter"
+            type="com.example.mjappxml.ui.game.pokemon.search.PokemonGenerationAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_pokemon"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="포켓몬 검색"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/content_description_image"
+            android:onClick="@{() -> fragment.onBack()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/btnSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTitle">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white_30"
+                    app:cardCornerRadius="35dp"
+                    app:strokeWidth="0dp">
+
+                    <com.example.mjappxml.custom.CustomEditTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="18dp"
+                        android:drawableStart="@drawable/ic_search"
+                        android:hint="이름을 입력해 주세요"
+                        android:text="@={vm.pokemonSearchItem.name}" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="등록 상황"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@{vm.pokemonSearchItem.catch ? @color/pink : @color/transparent, default = @color/transparent}"
+                        android:onClick="@{() -> vm.updateIsCatch(true)}"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="16dp"
+                        android:text="전체"
+                        android:textColor="@{vm.pokemonSearchItem.catch ? @color/white : @color/light_gray, default = @color/white}"
+                        android:textSize="14sp"
+                        app:cornerRadius="30dp"
+                        app:strokeColor="@{vm.pokemonSearchItem.catch ? @color/white : @color/light_gray, default = @color/white}"
+                        app:strokeWidth="1dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:backgroundTint="@{vm.pokemonSearchItem.catch ? @color/transparent : @color/pink, default = @android:color/transparent}"
+                        android:onClick="@{() -> vm.updateIsCatch(false)}"
+                        android:paddingHorizontal="18dp"
+                        android:paddingVertical="16dp"
+                        android:text="안 잡은 포켓몬 만"
+                        android:textColor="@{vm.pokemonSearchItem.catch ? @color/light_gray : @color/white, default = @color/light_gray}"
+                        android:textSize="14sp"
+                        app:cornerRadius="30dp"
+                        app:strokeColor="@{vm.pokemonSearchItem.catch ? @color/light_gray : @color/white, default = @color/light_gray}"
+                        app:strokeWidth="1dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="타입"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:adapter="@{typeAdapter}"
+                    app:submitList="@{vm.pokemonSearchItem.types}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="세대"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGeneration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:adapter="@{generationAdapter}"
+                    app:submitList="@{vm.pokemonSearchItem.generations}" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#8B8B8B"
+            android:onClick="@{() -> vm.clear()}"
+            android:paddingVertical="13dp"
+            android:text="초기화"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/pink"
+            android:onClick="@{() -> fragment.onSearch()}"
+            android:paddingVertical="13dp"
+            android:text="검색"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnClear"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

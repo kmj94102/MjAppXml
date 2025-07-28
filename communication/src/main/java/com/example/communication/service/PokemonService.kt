@@ -21,13 +21,15 @@ interface PokemonService {
     /** 포켓몬 번호로 정보 조회 **/
     @GET("/pokemon/select")
     suspend fun fetchPokemonWithNumber(@Query("number") number: String): PokemonInfo
-
     /** 포켓몬 리스트 조회 **/
     @GET("/pokemon/select/list")
     suspend fun fetchPokemonList(
         @Query("name") name: String,
         @Query("skip") skip: Int,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
+        @Query("generations") generations: String, // 타입 조건 (빈 값일 경우 전체 조회)
+        @Query("types") types: String, // 타입 조건 (빈 값일 경우 전체 조회)
+        @Query("is_catch") isCatch: String // 잡은 상태 여부 (all 일 경우 전체 조회)
     ): PokemonListResult
 
     /** 포켓몬 상세 조회 **/
