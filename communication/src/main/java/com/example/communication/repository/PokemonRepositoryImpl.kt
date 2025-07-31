@@ -61,10 +61,14 @@ class PokemonRepositoryImpl @Inject constructor(
     override suspend fun insertPokemonCounter(pokemonDetailInfo: PokemonDetailInfo) =
         client.insertPokemonCounter(pokemonDetailInfo.toPokemonCounterEntity())
 
-    override suspend fun insertPokemonCounter(number: String) {
+    override fun insertPokemonCounter(number: String) = flow {
         client
             .fetchPokemonWithNumber(number)
-            .onSuccess { client.insertPokemonCounter(it.toPokemonCounterEntity()) }
+            .onSuccess {
+                client.insertPokemonCounter(it.toPokemonCounterEntity())
+                    .onSuccess { emit(Unit) }
+                    .getFailureThrow()
+            }
             .getFailureThrow()
     }
 

@@ -21,14 +21,17 @@ enum class TypeInfo (val originalName: String, val koreanName: String, val image
     Dark("dark", "악", R.drawable.img_dark, 0xFF5B5466),
     Steel("steel", "강철", R.drawable.img_steel, 0xFF5A8EA2),
     Fairy("fairy", "페어리", R.drawable.img_fairy, 0xFFFB89EB),
-    Unknown("unknown", "???", R.drawable.img_monsterbal, 0xFF000000)
+    Unknown("unknown", "???", R.drawable.img_monsterbal, 0xFF000000);
+
+    fun getTypeColor() = color.toInt()
 }
 
 fun getTypeKoreaName(originalName: String) =
     TypeInfo.entries.find { it.originalName == originalName }?.koreanName ?: TypeInfo.Unknown.name
 
-fun getTypeInfo(koreanName: String) =
+fun getTypeInfo(koreanName: String) = runCatching {
     TypeInfo.entries.find { it.koreanName == koreanName } ?: TypeInfo.Unknown
+}.getOrElse { TypeInfo.Unknown }
 
 fun getTypeImage(koreanName: String) =
     TypeInfo.entries.find { it.koreanName == koreanName }?.imageRes ?: TypeInfo.Unknown.imageRes

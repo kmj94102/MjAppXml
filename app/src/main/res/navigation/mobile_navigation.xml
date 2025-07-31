@@ -89,6 +89,11 @@
         tools:layout="@layout/fragment_pokemon_search"/>
 
     <fragment
+        android:id="@+id/navigation_pokemon_detail"
+        android:name="com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailFragment"
+        tools:layout="@layout/fragment_pokemon_detail"/>
+
+    <fragment
         android:id="@+id/navigation_pokemon_counter"
         android:name="com.example.mjappxml.ui.game.pokemon.counter.PokemonCountFragment"
         tools:layout="@layout/fragment_pokemon_counter"/>

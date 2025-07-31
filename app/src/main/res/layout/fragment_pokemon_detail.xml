@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailFragment" />
+
+        <variable
+            name="vm"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailViewModel" />
+
+        <variable
+            name="weakAdapter"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonWeakAdapter" />
+
+        <variable
+            name="evolutionAdapter"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonEvolutionAdapter" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient_pokemon"
+        android:paddingHorizontal="24dp">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_back"
+            android:contentDescription="@string/content_description_image"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0001" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/ic_shiny"
+            android:backgroundTint="@{vm.isShiny() ? @color/pink : @color/white_30, default = @color/white_30}"
+            android:contentDescription="@string/content_description_image"
+            android:onClick="@{() -> fragment.updateIsShiny()}"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="20dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@id/btnAddCounter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgPokemon"
+                    android:layout_width="167dp"
+                    android:layout_height="167dp"
+                    android:layout_marginTop="11dp"
+                    android:contentDescription="@string/content_description_image"
+                    app:imageAddress="@{vm.isShiny() ? vm.info.pokemonInfo.shinyImage : vm.info.pokemonInfo.image}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loadingRes="@{@drawable/img_egg}"
+                    tools:src="@drawable/img_egg" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="73dp"
+                    android:background="@drawable/ic_back_big"
+                    android:backgroundTint="@{vm.info.beforeInfo == null ? @color/white_30 : @color/white}"
+                    android:contentDescription="@string/content_description_image"
+                    android:onClick="@{() -> fragment.goToPrevPokemon()}"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgPokemon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgPokemon" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="73dp"
+                    android:background="@drawable/ic_next_big"
+                    android:backgroundTint="@{vm.info.nextInfo == null ? @color/white_30 : @color/white}"
+                    android:contentDescription="@string/content_description_image"
+                    android:onClick="@{() -> fragment.goToNextPokemon()}"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintBottom_toBottomOf="@id/imgPokemon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/imgPokemon" />
+
+                <LinearLayout
+                    android:id="@+id/layoutType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imgPokemon">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@{vm.info.firstType().typeColor}"
+                        app:cardCornerRadius="20dp"
+                        app:strokeWidth="0dp"
+                        tools:backgroundTint="#FF9741">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="12dp"
+                            android:layout_marginVertical="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/content_description_image"
+                                app:imageRes="@{vm.info.firstType().imageRes}"
+                                tools:src="@drawable/img_fire" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{vm.info.firstType().koreanName}"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                tools:text="불꽃" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:backgroundTint="@{vm.info.secondType().typeColor}"
+                        android:visibility="@{vm.info.singleType ? View.GONE: View.VISIBLE}"
+                        app:cardCornerRadius="20dp"
+                        app:strokeWidth="0dp"
+                        tools:backgroundTint="#FF9741">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="12dp"
+                            android:layout_marginVertical="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_marginEnd="4dp"
+                                android:contentDescription="@string/content_description_image"
+                                app:imageRes="@{vm.info.secondType().imageRes}"
+                                tools:src="@drawable/img_fire" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{vm.info.secondType().koreanName}"
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                tools:text="불꽃" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@{vm.info.pokemonInfo.name}"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/layoutType"
+                    tools:text="파이리" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:cardBackgroundColor="@color/white_30"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtName"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginVertical="20dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@{vm.info.pokemonInfo.classification}"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            tools:text="화염포켓몬" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{vm.info.pokemonInfo.description}"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            tools:text="강한 상대를 찾아 하늘을 날아다닌다. 무엇이든 다 녹여버리는 고열의 불꽃을 자신보다 약한 자에게 들이대지 않는다." />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/labelEvolution"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="진화"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardDescription" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEvolution"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:adapter="@{evolutionAdapter}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelEvolution"
+                    app:submitList="@{vm.info.evolutionInfo}" />
+
+                <TextView
+                    android:id="@+id/labelStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="종족값"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvEvolution" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:cardBackgroundColor="@color/white_30"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelStatus"
+                    app:strokeWidth="0dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginVertical="20dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/labelHp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="HP"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/labelAttack"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{vm.info.hp}"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/labelHp"
+                            app:layout_constraintStart_toStartOf="@id/labelHp"
+                            app:layout_constraintTop_toBottomOf="@id/labelHp"
+                            tools:text="39" />
+
+                        <TextView
+                            android:id="@+id/labelAttack"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="공격"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/labelDf"
+                            app:layout_constraintStart_toEndOf="@id/labelHp"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{vm.info.attack}"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/labelAttack"
+                            app:layout_constraintStart_toStartOf="@id/labelAttack"
+                            app:layout_constraintTop_toBottomOf="@id/labelAttack"
+                            tools:text="39" />
+
+                        <TextView
+                            android:id="@+id/labelDf"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="방어"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/labelSa"
+                            app:layout_constraintStart_toEndOf="@id/labelAttack"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{vm.info.defence}"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/labelDf"
+                            app:layout_constraintStart_toStartOf="@id/labelDf"
+                            app:layout_constraintTop_toBottomOf="@id/labelDf"
+                            tools:text="39" />
+
+                        <TextView
+                            android:id="@+id/labelSa"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="특공"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/labelSd"
+                            app:layout_constraintStart_toEndOf="@id/labelDf"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{vm.info.spacialAttack}"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/labelSa"
+                            app:layout_constraintStart_toStartOf="@id/labelSa"
+                            app:layout_constraintTop_toBottomOf="@id/labelSa"
+                            tools:text="39" />
+
+                        <TextView
+                            android:id="@+id/labelSd"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="특방"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toStartOf="@id/labelSp"
+                            app:layout_constraintStart_toEndOf="@id/labelSa"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{vm.info.spacialDefence}"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/labelSd"
+                            app:layout_constraintStart_toStartOf="@id/labelSd"
+                            app:layout_constraintTop_toBottomOf="@id/labelSd"
+                            tools:text="39" />
+
+                        <TextView
+                            android:id="@+id/labelSp"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="스피드"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/labelSd"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{vm.info.speed}"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@id/labelSp"
+                            app:layout_constraintStart_toStartOf="@id/labelSp"
+                            app:layout_constraintTop_toBottomOf="@id/labelSp"
+                            tools:text="39" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/labelWeak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="타입 방어 상성"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardStatus" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvWeak"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:adapter="@{weakAdapter}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/labelWeak"
+                    app:submitList="@{vm.info.weakInfoList}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnAddCounter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:onClick="@{() -> vm.insertCounter()}"
+            app:cardBackgroundColor="#8B8B8B"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:text="카운터 등록"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,77 +1,57 @@
 package com.example.mjappxml.ui.game.pokemon.detail
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.communication.model.GenerationUpdateParam
-import com.example.communication.model.UpdatePokemonCatch
+import com.example.communication.model.NetworkError
+import com.example.communication.model.PokemonDetailInfo
 import com.example.communication.repository.PokemonRepository
 import com.example.mjappxml.BaseViewModel
-import com.example.mjappxml.common.customCatch
+import com.example.mjappxml.common.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class PokemonDetailViewModel @Inject constructor(
-    private val repository: PokemonRepository
-): BaseViewModel(){
+    private val repository: PokemonRepository,
+    savedStateHandle: SavedStateHandle
+): BaseViewModel() {
+
+    private val _info = repository
+        .fetchPokemonDetailInfo(savedStateHandle.get<String>(Constants.NUMBER) ?: "")
+        .setLoadingState()
+        .catch {
+            if (it is NetworkError) updateNetworkErrorState()
+            else updateMessage(it.message ?: "포켓몬 정보를 가져오지 못하였습니다.")
+        }
+        .stateIn(viewModelScope, SharingStarted.Lazily, PokemonDetailInfo())
+
+    val info: StateFlow<PokemonDetailInfo> = _info
 
     private val _isShiny = MutableStateFlow(false)
     val isShiny: StateFlow<Boolean> = _isShiny
 
-    private val _pokemonInfo = MutableStateFlow<List<PokemonDetailItem>>(listOf())
-    val pokemonInfo : StateFlow<List<PokemonDetailItem>> = _pokemonInfo
+    fun updateIsShiny() {
+        _isShiny.value = !_isShiny.value
+    }
 
-    private val _selectPage = MutableStateFlow(0)
-    val selectPage: StateFlow<Int> = _selectPage
-
-    fun fetchPokemonDetailInfo(number: String) {
+    fun insertCounter() {
         repository
-            .fetchPokemonDetailInfo(number)
-            .onEach { _pokemonInfo.value = it.toPokemonDetailItems() }
-            .launchIn(viewModelScope)
-    }
-
-    fun insertPokemonCounter(number: String) = viewModelScope.launch {
-        repository.insertPokemonCounter(number)
-    }
-
-    fun updateIsCatch(
-        number: String,
-        isCatch: Boolean
-    ) = viewModelScope.launch {
-        repository.updatePokemonCatch(
-            UpdatePokemonCatch(number = number, isCatch = isCatch)
-        )
-    }
-
-    fun updateGenerationIsCatch(
-        idx: Int,
-        onUpdate: (Boolean) -> Unit
-    ) {
-        repository
-            .updateGenerationIsCatch(
-                GenerationUpdateParam(idx = idx)
-            )
+            .insertPokemonCounter(info.value.pokemonInfo.number)
             .setLoadingState()
-            .onEach(onUpdate)
-            .customCatch(
-                onNetworkError = { updateNetworkErrorState(true) },
-                onError = { updateMessage(it ?: "업데이트 중 오류가 발생하였습니다.") }
-            )
+            .onEach {
+                updateMessage("${info.value.pokemonInfo.name} 등록 성공")
+            }
+            .catch {
+                updateMessage("${info.value.pokemonInfo.name} 등록 실패")
+            }
             .launchIn(viewModelScope)
-    }
-
-    fun toggleIsShiny(): Boolean {
-        _isShiny.value = _isShiny.value.not()
-        return _isShiny.value
-    }
-
-    fun updatePage(page: Int) {
-        _selectPage.value = page
     }
 
 }

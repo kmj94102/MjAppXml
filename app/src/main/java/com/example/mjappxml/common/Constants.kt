@@ -5,4 +5,5 @@ object Constants {
     const val Date = "date"
     const val INDEX = "index"
     const val RESULT = "result"
+    const val NUMBER = "number"
 }

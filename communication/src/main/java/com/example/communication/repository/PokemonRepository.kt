@@ -32,7 +32,7 @@ interface PokemonRepository {
     /** 포켓몬 카운터 추가 **/
     suspend fun insertPokemonCounter(pokemonDetailInfo: PokemonDetailInfo): Result<Unit>
 
-    suspend fun insertPokemonCounter(number: String)
+    fun insertPokemonCounter(number: String): Flow<Unit>
 
     /** 포켓몬 카운터 조회 **/
     fun fetchPokemonCounter(): Flow<List<PokemonCounter>>

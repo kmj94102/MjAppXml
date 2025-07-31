@@ -7,7 +7,7 @@ import com.example.mjappxml.common.repeatOnStarted
 import com.example.mjappxml.databinding.DialogGenerationInfoBinding
 import com.example.mjappxml.ui.dialog.BaseDialog
 import com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailAdapter
-import com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailViewModel
+import com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailTempViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,7 +17,7 @@ class GenerationDetailDialog(
 
     private var number = "0001"
     private var idx = 0
-    private val viewModel: PokemonDetailViewModel by activityViewModels()
+    private val viewModel: PokemonDetailTempViewModel by activityViewModels()
     private val adapter = PokemonDetailAdapter()
     private var isCatch = false
 

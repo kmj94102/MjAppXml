@@ -16,7 +16,7 @@ class PokemonDetailDialog(
 ) : BaseDialog<DialogPokemonInfoBinding>(R.layout.dialog_pokemon_info) {
 
     private var number = "0001"
-    private val viewModel: PokemonDetailViewModel by activityViewModels()
+    private val viewModel: PokemonDetailTempViewModel by activityViewModels()
     private val adapter = PokemonDetailAdapter()
     private var isCatch = false
 

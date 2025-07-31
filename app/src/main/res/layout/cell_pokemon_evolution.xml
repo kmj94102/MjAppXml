@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="info"
+            type="com.example.communication.model.EvolutionInfo" />
+
+        <variable
+            name="adapter"
+            type="com.example.mjappxml.ui.game.pokemon.detail.PokemonEvolutionAdapter" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        tools:background="@color/dark_blue">
+
+        <ImageView
+            android:id="@+id/imgBefore"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/content_description_image"
+            app:imageAddress="@{adapter.isShiny() ? info.beforeShinyDot : info.beforeDot}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadingRes="@{@drawable/img_egg}"
+            tools:src="@drawable/img_egg" />
+
+        <ImageView
+            android:id="@+id/icNext"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/content_description_image"
+            android:rotation="180"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/imgBefore"
+            app:layout_constraintStart_toEndOf="@id/imgBefore"
+            app:layout_constraintTop_toTopOf="@id/imgBefore" />
+
+        <ImageView
+            android:id="@+id/imgAfter"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/content_description_image"
+            app:imageAddress="@{adapter.isShiny() ? info.afterShinyDot : info.afterDot}"
+            app:layout_constraintStart_toEndOf="@id/icNext"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadingRes="@{@drawable/img_egg}"
+            tools:src="@drawable/img_egg" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@{info.evolutionCondition}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgAfter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgAfter"
+            app:layout_constraintTop_toTopOf="@id/imgAfter"
+            tools:text="Lv.16" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

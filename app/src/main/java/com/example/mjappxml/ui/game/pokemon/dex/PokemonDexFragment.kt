@@ -2,6 +2,7 @@ package com.example.mjappxml.ui.game.pokemon.dex
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mjappxml.BaseViewModelFragment
@@ -10,7 +11,6 @@ import com.example.mjappxml.R
 import com.example.mjappxml.common.Constants
 import com.example.mjappxml.databinding.FragmentPokemonDexBinding
 import com.example.mjappxml.model.PokemonSearchItem
-import com.example.mjappxml.ui.game.pokemon.detail.PokemonDetailDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,11 +51,11 @@ class PokemonDexFragment :
         (activity as? MainActivity)?.goToPage(R.id.navigation_pokemon_search)
     }
 
-    private fun onDetailClick(number: String, isCatch: Boolean) {
-       PokemonDetailDialog(viewModel::updateIsCatch).also {
-           it.setNumber(number)
-           it.show(parentFragmentManager, "$isCatch")
-       }
+    private fun onDetailClick(number: String) {
+        (activity as? MainActivity)?.goToPage(
+            R.id.navigation_pokemon_detail,
+            bundleOf(Constants.NUMBER to number)
+        )
     }
 
     override fun updateNetworkErrorState(value: Boolean) {

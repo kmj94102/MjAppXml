@@ -2,39 +2,27 @@ package com.example.mjappxml.ui.game.pokemon.dex
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.communication.model.PokemonSummary
-import com.example.mjappxml.databinding.CellPokemonSelectBinding
 import com.example.mjappxml.R
+import com.example.mjappxml.databinding.CellPokemonSelectBinding
 
 class PokemonSelectAdapter(
-    val onItemClick: (String, Boolean) -> Unit,
+    val onItemClick: (String) -> Unit,
 ) : ListAdapter<PokemonSummary, PokemonSelectViewHolder>(diffUtil) {
-
-    private val _isShiny = MutableLiveData(false)
-    val isShiny: LiveData<Boolean> = _isShiny
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonSelectViewHolder =
         PokemonSelectViewHolder(
             CellPokemonSelectBinding.bind(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.cell_pokemon_select, null, false)
-            ),
-            parent.findViewTreeLifecycleOwner()
+            )
         )
 
     override fun onBindViewHolder(holder: PokemonSelectViewHolder, position: Int) {
         holder.bind(currentList[position], this)
-    }
-
-    fun onShinyStateChange(value: Boolean) {
-        _isShiny.value = value
     }
 
     companion object {
@@ -55,17 +43,13 @@ class PokemonSelectAdapter(
 }
 
 class PokemonSelectViewHolder(
-    val binding: CellPokemonSelectBinding,
-    private val lifecycleOwner: LifecycleOwner?
+    val binding: CellPokemonSelectBinding
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(
         pokemonSummary: PokemonSummary,
         adapter: PokemonSelectAdapter
     ) {
-        binding.root.setOnClickListener { adapter.onItemClick(pokemonSummary.number, pokemonSummary.isCatch) }
+        binding.root.setOnClickListener { adapter.onItemClick(pokemonSummary.number) }
         binding.pokemon = pokemonSummary
-        lifecycleOwner?.let {
-            adapter.isShiny.observe(it) { binding.invalidateAll() }
-        }
     }
 }
