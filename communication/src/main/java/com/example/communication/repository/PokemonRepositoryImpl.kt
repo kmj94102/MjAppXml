@@ -13,6 +13,8 @@ import com.example.communication.model.getFailureThrow
 import com.example.communication.model.printStackTrace
 import com.example.communication.service.PokemonClient
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -77,6 +79,12 @@ class PokemonRepositoryImpl @Inject constructor(
         client
             .fetchPokemonCounter()
             .getOrThrow()
+
+    /** 포켓몬 카운터 선택 업데이트 **/
+    override suspend fun updateCounterSelect(index: Int) {
+        client.updateCounterAllUnselect()
+        client.updateCounterSelect(index)
+    }
 
     /** 완료된 포켓몬 카운터 조회 **/
     override fun fetchCompletedPokemonCounter(): Flow<List<PokemonCounter>> =

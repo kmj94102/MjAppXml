@@ -13,5 +13,6 @@ data class PokemonCounterEntity(
     val customIncrease: Int = 10,
     val priority: Int = 0,
     val isCatch: Boolean = false,
+    val isSelect: Boolean = false,
     val timestamp: Long
 )

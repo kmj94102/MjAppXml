@@ -14,13 +14,7 @@ class HomeFragment :
     BaseViewModelFragment<FragmentHomeBinding, HomeViewModel>(R.layout.fragment_home) {
 
     override val viewModel: HomeViewModel by viewModels()
-    val adapter = PokemonCounterAdapter(
-        onSetting = { _, _ -> },
-        onDelete = {},
-        onGet = {},
-        onUpdate = { _, _ -> },
-        onAdd = {}
-    )
+    val adapter = PokemonCounterAdapter {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -37,6 +37,9 @@ interface PokemonRepository {
     /** 포켓몬 카운터 조회 **/
     fun fetchPokemonCounter(): Flow<List<PokemonCounter>>
 
+    /** 포켓몬 카운터 선택 업데이트 **/
+    suspend fun updateCounterSelect(index: Int)
+
     /** 완료된 포켓몬 카운터 조회 **/
     fun fetchCompletedPokemonCounter(): Flow<List<PokemonCounter>>
 

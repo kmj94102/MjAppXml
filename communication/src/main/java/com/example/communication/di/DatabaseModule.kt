@@ -20,6 +20,7 @@ object DatabaseModule {
     ): MjDatabase = Room
         .databaseBuilder(application, MjDatabase::class.java, "mj_database.db")
         .fallbackToDestructiveMigration()
+        .addMigrations(MjDatabase.MIGRATION_2_3)
         .build()
 
     @Provides

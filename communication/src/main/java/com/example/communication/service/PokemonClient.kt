@@ -91,6 +91,14 @@ class PokemonClient @Inject constructor(
     suspend fun updateCounter(count: Int, number: String) =
         runCatching { dao.updateCounter(count, number) }
 
+    /** 포켓몬 모든 카운터 선택 해제 업데이트 **/
+    suspend fun updateCounterAllUnselect() =
+        runCatching { dao.updateCounterAllUnselect() }
+
+    /** 포켓몬 카운터 선택 업데이트 **/
+    suspend fun updateCounterSelect(index: Int) =
+        runCatching { dao.updateCounterSelect(index) }
+
     /** 카운터 증가폭 업데이트 **/
     suspend fun updateCustomIncrease(customIncrease: Int, number: String) =
         runCatching { dao.updateCustomIncrease(customIncrease, number) }

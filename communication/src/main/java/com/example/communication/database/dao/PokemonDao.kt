@@ -13,11 +13,17 @@ interface PokemonDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokemonCounter(pokemonCounterEntity: PokemonCounterEntity)
 
-    @Query("SELECT `index`, number, image, shinyImage, count, customIncrease FROM PokemonCounterEntity WHERE isCatch = 0")
+    @Query("SELECT `index`, number, image, shinyImage, count, customIncrease, isSelect FROM PokemonCounterEntity WHERE isCatch = 0")
     fun fetchPokemonCounter(): Flow<List<PokemonCounter>>
 
-    @Query("SELECT `index`, number, image, shinyImage, count, customIncrease FROM PokemonCounterEntity WHERE isCatch = 1")
+    @Query("SELECT `index`, number, image, shinyImage, count, customIncrease, isSelect FROM PokemonCounterEntity WHERE isCatch = 1")
     fun fetchCompletedPokemonCounter(): Flow<List<PokemonCounter>>
+
+    @Query("UPDATE PokemonCounterEntity SET isSelect = 0")
+    suspend fun updateCounterAllUnselect()
+
+    @Query("UPDATE PokemonCounterEntity SET isSelect = 1 WHERE `index` = :index")
+    suspend fun updateCounterSelect(index: Int)
 
     @Query("UPDATE PokemonCounterEntity SET count = :count WHERE number = :number")
     suspend fun updateCounter(count: Int, number: String)

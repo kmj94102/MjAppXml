@@ -21,51 +21,405 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="22dp">
+        android:background="@drawable/bg_gradient_pokemon">
 
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{() -> fragment.onBack()}"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_back" />
-
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnHistory"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{() -> fragment.goToCompleted()}"
-            app:cardBackgroundColor="@color/turquoise"
-            app:cardCornerRadius="5dp"
-            app:iconSize="24dp"
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="포켓몬 카운터"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_history" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="24dp"
+            android:contentDescription="@string/content_description_image"
+            android:onClick="@{() -> fragment.onBack()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+
+        <ImageView
+            android:id="@+id/btnAdd"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/content_description_image"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/content_description_image"
+            android:src="@drawable/ic_history"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintEnd_toStartOf="@id/btnAdd"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
             android:clipToPadding="false"
-            android:paddingTop="15dp"
-            android:paddingBottom="30dp"
+            android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="30dp"
             app:adapter="@{adapter}"
-            app:gridSpacing="@{10}"
-            app:gridSpan="@{2}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnBack"
-            app:spanCount="2"
-            app:submitList="@{vm.counterList}"
-            tools:listitem="@layout/cell_pokemon_counter" />
+            app:layout_constraintTop_toBottomOf="@id/txtTitle"
+            app:submitList="@{vm.list}" />
+
+        <ImageView
+            android:id="@+id/imgNormal"
+            android:layout_width="0dp"
+            android:layout_height="157dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="25dp"
+            android:contentDescription="@string/content_description_image"
+            app:imageAddress="@{vm.selectItem.image}"
+            app:layout_constraintEnd_toStartOf="@id/imgShiny"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvList"
+            app:loadingRes="@{@drawable/img_egg}"
+            tools:src="@drawable/img_egg" />
+
+        <ImageView
+            android:id="@+id/imgShiny"
+            android:layout_width="0dp"
+            android:layout_height="157dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/content_description_image"
+            app:imageAddress="@{vm.selectItem.shinyImage}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgNormal"
+            app:layout_constraintTop_toTopOf="@id/imgNormal"
+            app:loadingRes="@{@drawable/img_egg}"
+            tools:src="@drawable/img_egg" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/editCount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintEnd_toStartOf="@id/btnEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgNormal"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1dp">
+
+            <com.example.mjappxml.custom.CustomEditTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@{vm.selectItem.formatCount}"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:text="10,000">
+
+            </com.example.mjappxml.custom.CustomEditTextView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/white_30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/editCount">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="13dp"
+                android:layout_marginVertical="15dp"
+                android:text="수정"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:cornerRadius="8dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnMinus1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="30dp"
+            android:onClick="@{() -> vm.updateCounter(-1)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnMinus5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editCount"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="-1"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnMinus5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{() -> vm.updateCounter(-5)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnMinus1Box"
+            app:layout_constraintStart_toEndOf="@id/btnMinus1"
+            app:layout_constraintTop_toTopOf="@id/btnMinus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="-5"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnMinus1Box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{() -> vm.updateCounter(-1 * 30)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnMinus5Box"
+            app:layout_constraintStart_toEndOf="@id/btnMinus5"
+            app:layout_constraintTop_toTopOf="@id/btnMinus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="-1Box"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnMinus5Box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="24dp"
+            android:onClick="@{() -> vm.updateCounter(-5 * 30)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnMinus1Box"
+            app:layout_constraintTop_toTopOf="@id/btnMinus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="-5box"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPlus1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:onClick="@{() -> vm.updateCounter(1)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnPlus5"
+            app:layout_constraintStart_toStartOf="@id/btnMinus1"
+            app:layout_constraintTop_toBottomOf="@id/btnMinus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="+1"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPlus5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{() -> vm.updateCounter(5)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnPlus1Box"
+            app:layout_constraintStart_toEndOf="@id/btnPlus1"
+            app:layout_constraintTop_toTopOf="@id/btnPlus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="+5"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPlus1Box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:onClick="@{() -> vm.updateCounter(1 * 30)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toStartOf="@id/btnPlus5Box"
+            app:layout_constraintStart_toEndOf="@id/btnPlus5"
+            app:layout_constraintTop_toTopOf="@id/btnPlus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="+1Box"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPlus5Box"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="24dp"
+            android:onClick="@{() -> vm.updateCounter(5 * 30)}"
+            app:cardBackgroundColor="@color/transparent"
+            app:cardCornerRadius="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnPlus1Box"
+            app:layout_constraintTop_toTopOf="@id/btnPlus1"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="12dp"
+                android:text="+5box"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{() -> vm.deleteCounter()}"
+            app:cardBackgroundColor="@color/gray"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnGet"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:text="삭제"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnGet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="@{() -> vm.updateCatch()}"
+            app:cardBackgroundColor="@color/pink"
+            app:cardCornerRadius="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnDelete"
+            app:strokeColor="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginVertical="10dp"
+                android:text="GET"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

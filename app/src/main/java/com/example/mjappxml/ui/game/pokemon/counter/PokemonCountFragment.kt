@@ -20,32 +20,18 @@ class PokemonCountFragment :
 
         binding.vm = viewModel
         binding.fragment = this
-        binding.adapter = PokemonCounterAdapter(
-            onSetting = { number, increase ->
-                showIncreaseSettingDialog(number, increase)
-            },
-            onDelete = {
-                viewModel.deleteCounter(it)
-            },
-            onUpdate = { number, increase ->
-                viewModel.updateCounter(increase, number)
-            },
-            onGet = {
-                viewModel.updateCatch(it)
-            },
-            onAdd = {}
-        )
+        binding.adapter = PokemonCounterAdapter(viewModel::updateSelect)
     }
 
-    private fun showIncreaseSettingDialog(
-        number: String,
-        customIncrease: Int
-    ) {
-        IncreaseSettingDialog(
-            increase = customIncrease,
-            onSetting = { viewModel.updateCustomIncrease(number, it) }
-        ).show(parentFragmentManager, "IncreaseSettingDialog")
-    }
+//    private fun showIncreaseSettingDialog(
+//        number: String,
+//        customIncrease: Int
+//    ) {
+//        IncreaseSettingDialog(
+//            increase = customIncrease,
+//            onSetting = { viewModel.updateCustomIncrease(number, it) }
+//        ).show(parentFragmentManager, "IncreaseSettingDialog")
+//    }
 
     fun goToCompleted() {
         (activity as? MainActivity)?.goToPage(R.id.navigation_completed_counter)

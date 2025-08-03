@@ -8,227 +8,26 @@
             type="com.example.communication.model.PokemonCounter" />
     </data>
 
-    <com.example.mjappxml.custom.DoubleCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:bottomCardColor="@color/red"
-        app:doubleCardRadius="10">
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:strokeColor="@color/white"
+        app:strokeWidth="1dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginEnd="12dp"
+        app:cardBackgroundColor="@{pokemon.select ? @color/pink : @color/white_30, default = @color/white_30}">
+        
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            tools:src="@drawable/img_egg"
+            android:contentDescription="@string/content_description_image"
+            app:imageAddress="@{pokemon.image}"
+            app:loadingRes="@{@drawable/img_egg}"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.example.mjappxml.custom.IconButton
-                android:id="@+id/btnClose"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="11dp"
-                app:cardBackgroundColor="@color/red"
-                app:cardCornerRadius="12dp"
-                app:iconSize="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:res="@drawable/ic_close" />
-
-            <com.example.mjappxml.custom.IconButton
-                android:id="@+id/btnSetting"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="5dp"
-                app:cardBackgroundColor="@color/turquoise"
-                app:cardCornerRadius="12dp"
-                app:iconSize="16dp"
-                app:layout_constraintEnd_toStartOf="@id/btnClose"
-                app:layout_constraintTop_toTopOf="parent"
-                app:res="@drawable/ic_setting" />
-
-            <ImageView
-                android:id="@+id/imageNormal"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:contentDescription="@string/content_description_pokemon_image"
-                app:imageAddress="@{pokemon.image}"
-                app:layout_constraintEnd_toStartOf="@id/imageShiny"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnClose"
-                app:loadingRes="@{@drawable/img_egg}"
-                tools:src="@drawable/img_egg" />
-
-            <ImageView
-                android:id="@+id/imageShiny"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:contentDescription="@string/content_description_pokemon_image"
-                app:imageAddress="@{pokemon.shinyImage}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageNormal"
-                app:layout_constraintTop_toTopOf="@id/imageNormal"
-                app:loadingRes="@{@drawable/img_egg}"
-                tools:src="@drawable/img_egg" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/editLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintEnd_toEndOf="@id/btnClose"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageNormal"
-                app:strokeColor="@color/black">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="3dp"
-                    android:maxLength="6"
-                    android:maxLines="1"
-                    android:text="@{String.valueOf(pokemon.count)}"
-                    android:textAlignment="textEnd"
-                    android:textColor="@color/red"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    tools:text="999999" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnDecreaseOne"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintEnd_toStartOf="@id/btnDecreaseCustom"
-                app:layout_constraintStart_toStartOf="@id/editLayout"
-                app:layout_constraintTop_toBottomOf="@id/btnIncreaseOne"
-                app:strokeColor="@color/red"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="3dp"
-                    android:text="- 1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnDecreaseCustom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintEnd_toEndOf="@id/btnClose"
-                app:layout_constraintStart_toEndOf="@id/btnDecreaseOne"
-                app:layout_constraintTop_toTopOf="@id/btnDecreaseOne"
-                app:strokeColor="@color/red"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="3dp"
-                    android:text="@{`- `.concat(String.valueOf(pokemon.customIncrease))}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="- 1" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnIncreaseOne"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintEnd_toStartOf="@id/btnIncreaseCustom"
-                app:layout_constraintStart_toStartOf="@id/editLayout"
-                app:layout_constraintTop_toBottomOf="@id/editLayout"
-                app:strokeColor="@color/turquoise"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="3dp"
-                    android:text="+ 1"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnIncreaseCustom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintEnd_toEndOf="@id/btnClose"
-                app:layout_constraintStart_toEndOf="@id/btnIncreaseOne"
-                app:layout_constraintTop_toTopOf="@id/btnIncreaseOne"
-                app:strokeColor="@color/turquoise"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="3dp"
-                    android:text="@{`+ `.concat(String.valueOf(pokemon.customIncrease))}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="+ 1" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/btnGet"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/red"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/editLayout"
-                app:layout_constraintStart_toStartOf="@id/editLayout"
-                app:layout_constraintTop_toBottomOf="@id/btnDecreaseOne"
-                app:strokeColor="@color/black"
-                app:strokeWidth="1dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="3dp"
-                    android:text="GET"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.card.MaterialCardView>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.example.mjappxml.custom.DoubleCardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
