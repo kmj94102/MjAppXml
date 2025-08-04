@@ -14,6 +14,10 @@
             type="com.example.mjappxml.ui.game.pokemon.dex.PokemonSelectAdapter" />
 
         <variable
+            name="conditionAdapter"
+            type="com.example.mjappxml.ui.game.pokemon.dex.PokemonConditionAdapter" />
+
+        <variable
             name="vm"
             type="com.example.mjappxml.ui.game.pokemon.dex.PokemonDexViewModel" />
 
@@ -27,60 +31,79 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="24dp"
         android:background="@drawable/bg_gradient_pokemon">
 
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_back"
-            android:onClick="@{() -> fragment.onBack()}"
+            android:layout_marginStart="24dp"
             android:contentDescription="@string/content_description_image"
+            android:onClick="@{() -> fragment.onBack()}"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtTitle"
-            app:layout_constraintBottom_toBottomOf="@id/txtTitle"/>
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
 
-       <TextView
-           android:id="@+id/txtTitle"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="전국 도감"
-           android:textStyle="bold"
-           android:textColor="@color/white"
-           android:textSize="20sp"
-           app:layout_constraintTop_toTopOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintEnd_toEndOf="parent"
-           android:layout_marginTop="11dp"/>
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:text="전국 도감"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:src="@drawable/ic_search"
-            android:onClick="@{() -> fragment.goToSearch()}"
+            android:layout_marginEnd="24dp"
             android:contentDescription="@string/content_description_image"
+            android:onClick="@{() -> fragment.goToSearch()}"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtTitle"
-            app:layout_constraintBottom_toBottomOf="@id/txtTitle"/>
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCondition"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            android:visibility="@{vm.searchInfo.conditions.empty? View.GONE : View.VISIBLE}"
+            app:adapter="@{conditionAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTitle"
+            app:submitList="@{vm.searchInfo.conditions}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="15dp"
             android:clipToPadding="false"
+            android:paddingHorizontal="24dp"
             android:paddingTop="15dp"
             android:paddingBottom="30dp"
             app:adapter="@{adapter}"
+            app:gridSpacing="@{10}"
+            app:gridSpan="@{4}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtTitle"
-            android:layout_marginTop="11dp"
+            app:layout_constraintTop_toBottomOf="@id/rvCondition"
+            app:layout_goneMarginTop="11dp"
             app:spanCount="4"
             app:submitList="@{vm.pokemonList}"
-            app:gridSpan="@{4}"
-            app:gridSpacing="@{10}"
             tools:listitem="@layout/cell_pokemon_select" />
 
         <include

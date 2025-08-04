@@ -30,6 +30,32 @@ data class PokemonSearchItem(
 
     private fun String.isAllOrElse() = if ("전체" == this) "" else this
 
+    fun getConditions(): List<String> {
+        val results = mutableListOf<String>()
+
+        if (name.isNotEmpty()) {
+            results.add("%$name%")
+        }
+
+        val types = types
+            .filter { it.type != "전체" }
+            .filter { it.isSelect }
+            .map { it.type }
+        val generations = generations
+            .filter { it.generation != "전체" }
+            .filter { it.isSelect }
+            .map { it.generation }
+
+        results.addAll(types)
+        results.addAll(generations)
+
+        if (isCatch.not()) {
+            results.add("안 잡은 포켓몬 만")
+        }
+
+        return results
+    }
+
     companion object {
         fun init() = PokemonSearchItem(
             name = "",

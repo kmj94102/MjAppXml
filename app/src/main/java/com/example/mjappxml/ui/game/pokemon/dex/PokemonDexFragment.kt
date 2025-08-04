@@ -19,6 +19,7 @@ class PokemonDexFragment :
 
     override val viewModel: PokemonDexViewModel by viewModels()
     private var adapter: PokemonSelectAdapter = PokemonSelectAdapter(::onDetailClick)
+    private var conditionAdapter: PokemonConditionAdapter = PokemonConditionAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,6 +29,7 @@ class PokemonDexFragment :
     private fun initViews() = with(binding) {
         fragment = this@PokemonDexFragment
         adapter = this@PokemonDexFragment.adapter
+        conditionAdapter = this@PokemonDexFragment.conditionAdapter
         vm = viewModel
 
         val navBackStackEntry = findNavController().currentBackStackEntry
