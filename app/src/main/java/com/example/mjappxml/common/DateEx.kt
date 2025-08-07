@@ -38,6 +38,27 @@ fun getLastDayOfWeek(dateString: String): Calendar? {
     return calendar
 }
 
+fun getNextMonth(dateString: String, format: String = "yyyy.MM.dd"): String {
+    val format = SimpleDateFormat(format, Locale.getDefault())
+    val date = format.parse(dateString) ?: return ""
+    val calendar = Calendar.getInstance()
+
+    calendar.time = date
+    calendar.add(Calendar.MONTH, 1)
+    return format.format(calendar.time)
+}
+
+fun getPrevMonth(dateString: String, format: String = "yyyy.MM.dd"): String {
+    val format = SimpleDateFormat(format, Locale.getDefault())
+    val date = format.parse(dateString) ?: return ""
+    val calendar = Calendar.getInstance()
+
+    calendar.time = date
+    calendar.add(Calendar.MONTH, -1)
+    calendar.set(Calendar.DAY_OF_MONTH, 1)
+    return format.format(calendar.time)
+}
+
 fun convertStringToDate(dateString: String, format: String = "yyyy.MM.dd"): Date {
     val dateFormat = SimpleDateFormat(format, Locale.KOREA)
     return dateFormat.parse(dateString) ?: Date()

@@ -4,11 +4,10 @@ import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.databinding.BindingAdapter
 import com.example.communication.model.MyCalendar
 import com.example.communication.model.MyCalendarInfo
-import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.custom.CustomBottomNavigationItem
 import com.example.mjappxml.custom.CustomCalendar
@@ -41,12 +40,11 @@ fun setPokemonWeekList(layout: LinearLayout, weekList: List<Int>) {
 @BindingAdapter("dateTextColor")
 fun setDateTextColor(textView: TextView, item: MyCalendar) {
     val color = when {
-        item.isHoliday || item.dayOfWeek == "일" -> R.color.red
-        item.dayOfWeek == "토" -> R.color.blue
-        else -> R.color.black
+        item.isHoliday || item.dayOfWeek == "일" -> "#FFA70303".toColorInt()
+        item.dayOfWeek == "토" -> "#FF0869B3".toColorInt()
+        else -> "#FFFAFAFA".toColorInt()
     }
-    textView.setTextColor(ContextCompat.getColor(textView.context, color))
-    textView.alpha = if (item.itemList.size > 0) 1f else 0.3f
+    textView.setTextColor(color)
 }
 
 @BindingAdapter("calendarInfoList")

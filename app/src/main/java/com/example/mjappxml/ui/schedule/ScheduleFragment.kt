@@ -9,7 +9,6 @@ import com.example.mjappxml.MainActivity
 import com.example.mjappxml.R
 import com.example.mjappxml.common.Constants
 import com.example.mjappxml.databinding.FragmentScheduleBinding
-import com.example.mjappxml.ui.dialog.YearMonthSelectDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,30 +16,22 @@ class ScheduleFragment :
     BaseViewModelFragment<FragmentScheduleBinding, ScheduleViewModel>(R.layout.fragment_schedule) {
 
     override val viewModel: ScheduleViewModel by viewModels()
+    val adapter = ScheduleAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fragment = this
         binding.vm = viewModel
-        binding.adapter = ScheduleAdapter()
         initViews()
     }
 
     fun initViews() {
-        binding.calendar.setOnChangeListener(viewModel::updateSelectDate)
-    }
-
-    fun updateIsCalendar(view: View) {
-        when(view.id) {
-            binding.btnCalendar.id -> viewModel.updateIsCalendar(true)
-            else -> viewModel.updateIsCalendar(false)
+        with(binding.calendar) {
+            setOnChangeListener(viewModel::updateSelectDate)
+            setOnPrevMonthClickListener(viewModel::updatePrevMonth)
+            setOnNextMonthClickListener(viewModel::updateNextMonth)
         }
-    }
-
-    fun updateYearMonth() {
-        YearMonthSelectDialog(viewModel::updateYearMonth)
-            .show(parentFragmentManager, viewModel.selectDate.value)
     }
 
     fun goToAdd() {

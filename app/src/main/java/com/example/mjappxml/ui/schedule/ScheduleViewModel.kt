@@ -7,6 +7,8 @@ import com.example.communication.model.fetchMyCalendarByMonth
 import com.example.communication.repository.CalendarRepository
 import com.example.mjappxml.BaseViewModel
 import com.example.mjappxml.common.customCatch
+import com.example.mjappxml.common.getNextMonth
+import com.example.mjappxml.common.getPrevMonth
 import com.example.mjappxml.common.getToday
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,9 +36,6 @@ class ScheduleViewModel @Inject constructor(
 
     private val _selectItem = MutableStateFlow(MyCalendar())
     val selectItem: StateFlow<MyCalendar> = _selectItem
-
-    private val _isCalendar = MutableStateFlow(true)
-    val isCalendar: StateFlow<Boolean> = _isCalendar
 
     init {
         fetchCalendar()
@@ -89,12 +88,18 @@ class ScheduleViewModel @Inject constructor(
         _selectItem.value = _list.value.find { it.detailDate == _selectDate.value } ?: MyCalendar()
     }
 
-    fun updateIsCalendar(isCalendar: Boolean) {
-        _isCalendar.value = isCalendar
-    }
-
     fun updateYearMonth(year: String, month: String) {
         _selectDate.value = "$year.$month.01"
+        fetchCalendar()
+    }
+
+    fun updatePrevMonth() {
+        _selectDate.value = getPrevMonth(_selectDate.value)
+        fetchCalendar()
+    }
+
+    fun updateNextMonth() {
+        _selectDate.value = getNextMonth(_selectDate.value)
         fetchCalendar()
     }
 

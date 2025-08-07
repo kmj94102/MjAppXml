@@ -25,6 +25,14 @@ data class MyCalendar(
 ) {
     fun getYearMonth() = runCatching { detailDate.substring(0, 7) }.getOrDefault("")
     fun getDateAndDayOfWeek() = "${date.padStart(2, '0')}(${dayOfWeek})"
+    fun getToday() = "${convertFormat(detailDate, "yyyy.MM.dd", "MM월 dd일")} ${dayOfWeek}요일"
+
+    fun convertFormat(dateString: String, fromFormat: String, toFormat: String): String {
+        val inputFormat = SimpleDateFormat(fromFormat, Locale.getDefault())
+        val outputFormat = SimpleDateFormat(toFormat, Locale.getDefault())
+        val date = inputFormat.parse(dateString) ?: return ""
+        return outputFormat.format(date)
+    }
 }
 
 /** 달력 정보 생성 **/

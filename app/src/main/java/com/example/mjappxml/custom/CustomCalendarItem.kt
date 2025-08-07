@@ -1,20 +1,16 @@
 package com.example.mjappxml.custom
 
 import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.example.communication.model.MyCalendar
-import com.example.mjappxml.databinding.CustomCalendarItemBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
-import com.example.mjappxml.model.CustomCalendarInfo
+import com.example.mjappxml.databinding.CustomCalendarItemBinding
 
 class CustomCalendarItem : LinearLayout {
 
@@ -43,7 +39,6 @@ class CustomCalendarItem : LinearLayout {
     private fun initViews() {
         addView(binding.root)
         gravity = Gravity.CENTER
-
         binding.cardView.layoutParams =
             LayoutParams(context.dpToPx(35), context.dpToPx(35))
     }
@@ -67,9 +62,7 @@ class CustomCalendarItem : LinearLayout {
     }
 
     fun updateSelect(isSelect: Boolean) {
-        binding.cardView.setCardBackgroundColor(
-            if (isSelect) primaryColor else ContextCompat.getColor(context, R.color.white)
-        )
+        binding.cardView.strokeWidth = if (isSelect) context.dpToPx(1) else 0
     }
 
     fun updateIsToday(@ColorInt color: Int) {

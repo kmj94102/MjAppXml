@@ -1,7 +1,6 @@
 package com.example.mjappxml.custom
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.Gravity
@@ -11,11 +10,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import com.example.communication.model.MyCalendar
-import com.example.mjappxml.databinding.CustomCalendarBinding
 import com.example.mjappxml.R
 import com.example.mjappxml.common.dpToPx
 import com.example.mjappxml.common.getToday
+import com.example.mjappxml.databinding.CustomCalendarBinding
 
 class CustomCalendar : LinearLayout {
 
@@ -24,6 +24,8 @@ class CustomCalendar : LinearLayout {
     private var selectDate = getToday()
     private var selectItem: CustomCalendarItem? = null
     private var onChangeListener: (String) -> Unit = {}
+    private var onPrevMonthListener: () -> Unit = {}
+    private var onNextMonthListener: () -> Unit = {}
 
     constructor(context: Context) : super(context) {
         initViews()
@@ -31,7 +33,6 @@ class CustomCalendar : LinearLayout {
 
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet) {
         initViews()
-        getAttrs(attributeSet)
     }
 
     constructor(context: Context, attributeSet: AttributeSet, defStyle: Int) : super(
@@ -40,45 +41,29 @@ class CustomCalendar : LinearLayout {
         defStyle
     ) {
         initViews()
-        getAttrs(attributeSet)
     }
 
     private fun initViews() {
         addView(binding.root)
+        binding.btnPrev.setOnClickListener { onPrevMonthListener.invoke() }
+        binding.btnNext.setOnClickListener { onNextMonthListener.invoke() }
+        binding.cardView.layoutParams =
+            LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+
         setDayTitle()
-    }
-
-    private fun getAttrs(attributeSet: AttributeSet) {
-        val typeArray = context.obtainStyledAttributes(attributeSet, R.styleable.CustomCalendar)
-        attributeSetting(typeArray)
-    }
-
-    private fun attributeSetting(typedArray: TypedArray) {
-        primaryColor = typedArray.getColor(
-            R.styleable.CustomCalendar_colorPrimary,
-            ContextCompat.getColor(context, R.color.purple)
-        )
-
-        binding.cardView.setBottomCardColor(primaryColor)
-        typedArray.recycle()
     }
 
     private fun setDayTitle() {
         val dayList = listOf("일", "월", "화", "수", "목", "금", "토")
         dayList.forEachIndexed { index, day ->
-            val color = when (day) {
-                "일" -> R.color.red
-                "토" -> R.color.blue
-                else -> R.color.black
-            }
             val layoutParams = GridLayout.LayoutParams()
             layoutParams.columnSpec = GridLayout.spec(index % 7, 1, 1f)
             layoutParams.bottomMargin = context.dpToPx(5)
 
             val textView = TextView(context).also { view ->
-                view.setTextSize(Dimension.SP, 16f)
-                view.setTypeface(null, Typeface.BOLD)
-                view.setTextColor(ContextCompat.getColor(context, color))
+                view.setTextSize(Dimension.SP, 12f)
+                view.setTypeface(null, Typeface.NORMAL)
+                view.setTextColor("#FF9EA3B2".toColorInt())
                 view.gravity = Gravity.CENTER
                 view.text = day
                 view.layoutParams = layoutParams
@@ -90,6 +75,13 @@ class CustomCalendar : LinearLayout {
     fun setList(list: List<MyCalendar>) {
         binding.gridLayout.removeAllViews()
         setDayTitle()
+
+        runCatching {
+            list.first { it.detailDate.isNotEmpty() }.apply {
+                binding.txtDate.text =
+                    this.convertFormat(this.detailDate, "yyyy.MM.dd", "yyyy년 MM월")
+            }
+        }
 
         list.forEachIndexed { index, item ->
             val layoutParams = GridLayout.LayoutParams()
@@ -125,6 +117,14 @@ class CustomCalendar : LinearLayout {
 
     fun updateSelectDate(date: String) {
         selectDate = date
+    }
+
+    fun setOnPrevMonthClickListener(onClick: () -> Unit) {
+        onPrevMonthListener = onClick
+    }
+
+    fun setOnNextMonthClickListener(onClick: () -> Unit) {
+        onNextMonthListener = onClick
     }
 
 }

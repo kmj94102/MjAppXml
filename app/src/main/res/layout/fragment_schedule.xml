@@ -3,7 +3,8 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
         <variable
             name="fragment"
             type="com.example.mjappxml.ui.schedule.ScheduleFragment" />
@@ -22,132 +23,95 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:paddingStart="20dp"
-        android:paddingTop="22dp"
-        android:paddingEnd="17dp"
+        android:background="@color/black"
+        android:paddingHorizontal="24dp"
         tools:context=".ui.accountbook.AccountBookFragment">
 
         <TextView
+            android:id="@+id/txtTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> fragment.updateYearMonth()}"
-            android:text="@{vm.selectItem.yearMonth, default = ``}"
-            android:textColor="@color/purple"
-            android:textSize="24sp"
+            android:layout_marginTop="11dp"
+            android:text="일정/계획"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="2023.02" />
-
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnCalendar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="5dp"
-            android:onClick="@{fragment.updateIsCalendar}"
-            app:cardBackgroundColor="@{vm.isCalendar() ? @color/purple : @color/white, default = @color/purple}"
-            app:cardCornerRadius="5dp"
-            app:layout_constraintEnd_toStartOf="@id/btnList"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_calendar" />
-
-        <com.example.mjappxml.custom.IconButton
-            android:id="@+id/btnList"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="3dp"
-            android:onClick="@{fragment.updateIsCalendar}"
-            app:cardBackgroundColor="@{vm.isCalendar() ? @color/white : @color/purple, default = @color/white}"
-            app:cardCornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:res="@drawable/ic_lists" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/content_description_image"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/content_description_image"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/txtTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTitle" />
 
         <com.example.mjappxml.custom.CustomCalendar
             android:id="@+id/calendar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="11dp"
             app:calendarInfoList="@{vm.list}"
-            app:selectDate="@{vm.selectDate}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnList" />
+            app:layout_constraintTop_toBottomOf="@id/txtTitle"
+            app:selectDate="@{vm.selectDate}" />
 
         <TextView
-            android:id="@+id/txtSelectDay"
+            android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@{vm.selectItem.dateAndDayOfWeek}"
-            android:textColor="@color/purple"
-            android:textSize="24sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:text="@{vm.selectItem.today}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/calendar"
-            tools:text="13 (목)" />
+            tools:text="5월 6일 화요일" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/txtHoliday"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
+            android:layout_marginTop="8dp"
             android:text="@{vm.selectItem.dateInfo}"
             android:textColor="@color/gray"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/txtSelectDay"
-            app:layout_constraintStart_toEndOf="@id/txtSelectDay"
-            tools:text="공휴일, 특정일" />
-
-        <com.example.mjappxml.custom.IconButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:onClick="@{() -> fragment.goToAdd()}"
-            app:cardBackgroundColor="@color/red"
-            app:cardCornerRadius="5dp"
-            app:layout_constraintBottom_toBottomOf="@id/txtSelectDay"
+            android:textSize="14sp"
+            android:visibility="@{vm.selectItem.dateInfo.empty ? View.GONE : View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtSelectDay"
-            app:res="@drawable/ic_plus" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtDate"
+            tools:text="공휴일, MJ 생일" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingBottom="30dp"
-            app:adapter="@{adapter}"
+            app:adapter="@{fragment.adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtSelectDay"
-            app:submitList="@{vm.selectItem.itemList}"
-            app:linearSpacing="@{10}"
-            tools:listitem="@layout/cell_schedule"/>
-
-        <com.example.mjappxml.custom.DoubleCardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:bottomCardColor="@color/purple"
-            android:visibility="@{vm.selectItem.itemList.empty ? View.VISIBLE : View.GONE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtSelectDay">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginVertical="30dp"
-                android:text="@string/empty_schedule"
-                android:textAlignment="center"
-                android:textColor="@color/gray" />
-
-        </com.example.mjappxml.custom.DoubleCardView>
+            app:layout_constraintTop_toBottomOf="@id/txtHoliday"
+            app:linearSpacing="@{12}"
+            app:submitList="@{vm.selectItem.itemList}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
