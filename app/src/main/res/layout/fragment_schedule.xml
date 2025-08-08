@@ -54,6 +54,7 @@
             android:layout_height="28dp"
             android:contentDescription="@string/content_description_image"
             android:src="@drawable/ic_plus"
+            android:onClick="@{() -> fragment.goToAdd()}"
             app:layout_constraintBottom_toBottomOf="@id/txtTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/txtTitle" />

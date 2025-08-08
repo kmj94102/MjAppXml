@@ -71,4 +71,5 @@
     <string name="add_favorite">즐겨찾기 등록</string>
     <string name="fixed_account_book_register">고정 내역 등록</string>
     <string name="generation_dex_title">타이틀 도감</string>
+    <string name="schedule_select_date">일정 날짜 선택</string>
 </resources>

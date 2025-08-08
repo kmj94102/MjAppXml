@@ -32,7 +32,7 @@ class CustomEditTextView : TextInputEditText {
         setBackgroundResource(android.R.color.transparent)
         setPadding(getPadding(5), getPadding(3), getPadding(3), getPadding(0))
         setTextColor(ContextCompat.getColor(context, R.color.white))
-        setHintTextColor(ContextCompat.getColor(context, R.color.light_gray))
+        setHintTextColor(ContextCompat.getColor(context, R.color.gray))
         compoundDrawablePadding = context.dpToPx(10)
         gravity = Gravity.CENTER_VERTICAL
 

@@ -1,6 +1,7 @@
 package com.example.communication.model
 
 
+import com.example.communication.util.getToday
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,7 +15,7 @@ data class ScheduleItem(
 )
 
 data class ScheduleModifier(
-    val date: String = "",
+    val date: String = getToday(),
     val startTime: String = "00:00",
     val endTime: String = "00:00",
     val recurrenceType: String = "none",
@@ -23,6 +24,8 @@ data class ScheduleModifier(
     var scheduleTitle: String = "",
 ) {
     fun getRecurrenceInfo() = Recurrence.getRecurrenceKoreanName(recurrenceType)
+
+    fun isRepeat() = recurrenceType != Recurrence.NoRecurrence.originName
 
     fun toMyCalendarItem() = ScheduleItem(
         startTime = toDateTimeFormat(date, startTime),

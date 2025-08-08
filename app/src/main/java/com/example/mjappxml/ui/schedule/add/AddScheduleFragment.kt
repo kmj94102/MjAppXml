@@ -2,10 +2,8 @@ package com.example.mjappxml.ui.schedule.add
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.example.mjappxml.BaseViewModelFragment
-import com.example.mjappxml.MainActivity
 import com.example.mjappxml.R
 import com.example.mjappxml.common.Constants
 import com.example.mjappxml.common.getToday
@@ -26,14 +24,11 @@ class AddScheduleFragment :
 
         binding.vm = viewModel
         binding.fragment = this
+        binding.adapter = TaskAdapter(viewModel::removeTaskItem)
 
         arguments?.getString(Constants.StartDate)?.let {
             viewModel.updateDate(it)
         } ?: viewModel.updateDate(getToday())
-    }
-
-    fun insertSchedule() {
-        viewModel.insertSchedule()
     }
 
     fun onDateSelect() {
@@ -63,13 +58,6 @@ class AddScheduleFragment :
         TimeSelectDialog {
             viewModel.updateEndTime(it)
         }.show(parentFragmentManager, viewModel.item.value.endTime)
-    }
-
-    fun goToAddPlan() {
-        (activity as? MainActivity)?.goToPage(
-            R.id.action_add_plan,
-            bundleOf(Constants.StartDate to viewModel.item.value.date)
-        )
     }
 
 }
