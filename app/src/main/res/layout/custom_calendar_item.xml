@@ -2,9 +2,12 @@
 <layout>
 
     <data>
+
         <variable
             name="item"
             type="com.example.communication.model.MyCalendar" />
+
+        <import type="android.view.View" />
     </data>
 
     <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,9 +36,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{item.date}"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/white"
                 app:dateTextColor="@{item}"
                 tools:text="1" />
 
@@ -43,7 +46,35 @@
                 android:id="@+id/layoutDot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" />
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:visibility="@{item.itemList.size() > 1 ? View.VISIBLE: View.GONE, default = gone}"
+                    app:cardBackgroundColor="@color/dark_blue"
+                    app:cardCornerRadius="5dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="3dp"
+                    android:visibility="@{item.itemList.size() > 2 ? View.VISIBLE: View.GONE, default = gone}"
+                    app:cardBackgroundColor="@color/dark_blue"
+                    app:cardCornerRadius="5dp"
+                    app:strokeWidth="0dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="3dp"
+                    android:visibility="@{item.itemList.size() > 3 ? View.VISIBLE: View.GONE, default = gone}"
+                    app:cardBackgroundColor="@color/dark_blue"
+                    app:cardCornerRadius="5dp"
+                    app:strokeWidth="0dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

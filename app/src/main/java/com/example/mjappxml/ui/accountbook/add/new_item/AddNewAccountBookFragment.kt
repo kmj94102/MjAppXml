@@ -63,9 +63,6 @@ class AddNewAccountBookFragment :
         DateSelectDialog{
             viewModel.updateDate(it)
         }.also {
-            it.setPrimaryColor(
-                if (viewModel.item.value.isIncome) R.color.turquoise else R.color.red
-            )
             it.show(parentFragmentManager, viewModel.item.value.date)
         }
     }

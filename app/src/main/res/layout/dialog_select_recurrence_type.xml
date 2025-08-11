@@ -13,46 +13,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="25dp"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="16dp"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.example.mjappxml.custom.IconButton
-                android:id="@+id/btnClose"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="10dp"
-                android:onClick="@{() -> dialog.dismiss()}"
-                app:cardBackgroundColor="@color/red"
-                app:cardCornerRadius="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
+                android:id="@+id/txtTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/setting_recurrence_type"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@id/btnClose"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnClose" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.example.mjappxml.custom.RadioGridGroup
                 android:id="@+id/radioGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="32dp"
                 android:columnCount="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnClose">
+                app:layout_constraintTop_toBottomOf="@id/txtTitle">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioNone"
@@ -67,10 +57,9 @@
                     android:layout_columnWeight="1"
                     android:tag="none"
                     android:text="@string/none_recurrence"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:buttonTint="@color/purple" />
+                    app:buttonTint="@color/dark_blue" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioDaily"
@@ -85,10 +74,9 @@
                     android:layout_columnWeight="1"
                     android:tag="daily"
                     android:text="@string/daily"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:buttonTint="@color/purple" />
+                    app:buttonTint="@color/dark_blue" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioWeekly"
@@ -103,10 +91,9 @@
                     android:layout_columnWeight="1"
                     android:tag="weekly"
                     android:text="@string/weekly"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:buttonTint="@color/purple" />
+                    app:buttonTint="@color/dark_blue" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioMonthly"
@@ -121,10 +108,9 @@
                     android:layout_columnWeight="1"
                     android:tag="monthly"
                     android:text="@string/monthly"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:buttonTint="@color/purple" />
+                    app:buttonTint="@color/dark_blue" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioYearly"
@@ -139,62 +125,63 @@
                     android:layout_columnWeight="1"
                     android:tag="yearly"
                     android:text="@string/yearly"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:buttonTint="@color/purple" />
+                    app:buttonTint="@color/dark_blue" />
 
             </com.example.mjappxml.custom.RadioGridGroup>
 
-            <com.example.mjappxml.custom.DoubleCardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardCancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="24dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="8dp"
                 android:onClick="@{() -> dialog.dismiss()}"
+                app:cardBackgroundColor="@color/light_black"
+                app:cardCornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/cardOk"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radioGroup">
+                app:layout_constraintTop_toBottomOf="@id/radioGroup"
+                app:strokeWidth="0dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
+                    android:paddingVertical="13dp"
                     android:text="@string/cancel"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/gray"
+                    android:textSize="18sp" />
 
-            </com.example.mjappxml.custom.DoubleCardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <com.example.mjappxml.custom.DoubleCardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardOk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="17dp"
+                android:layout_marginEnd="20dp"
                 android:onClick="@{() -> dialog.onSelect()}"
+                app:cardBackgroundColor="@color/dark_blue"
+                app:cardCornerRadius="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/cardCancel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cardCancel"
                 app:layout_constraintTop_toTopOf="@id/cardCancel"
-                app:topCardColor="@color/purple">
+                app:strokeWidth="0dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp"
+                    android:paddingVertical="13dp"
                     android:text="@string/ok"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-            </com.example.mjappxml.custom.DoubleCardView>
+            </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

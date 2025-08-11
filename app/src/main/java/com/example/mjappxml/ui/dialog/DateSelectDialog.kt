@@ -17,8 +17,6 @@ class DateSelectDialog(
     private lateinit var binding: DialogDateSelectBinding
     var title = ""
         private set
-    private val _primaryColor = MutableStateFlow(R.color.red)
-    val primaryColor: StateFlow<Int> = _primaryColor
 
     val yearArray = (2020..2040).map { "$it" }.toTypedArray()
 
@@ -61,10 +59,6 @@ class DateSelectDialog(
 
     fun setTitle(title: String = "날짜 선택") {
         this.title = title
-    }
-
-    fun setPrimaryColor(@ColorRes color: Int) {
-        _primaryColor.value = color
     }
 
     fun onSelect() {
