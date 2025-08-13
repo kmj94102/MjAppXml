@@ -14,176 +14,125 @@
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/black"
         android:clipToPadding="false"
-        android:paddingBottom="70dp">
+        android:paddingBottom="90dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="20dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="17dp"
-            android:paddingBottom="20dp">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/txtTitle"
+                android:id="@+id/txtSchedule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.yearMonth}"
-                android:textColor="@color/purple"
-                android:textSize="24sp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:text="4월 9일 화요일"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="2023년 8월" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.example.mjappxml.custom.DoubleCardView
-                android:id="@+id/cardWeekCalendar"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/labelSchedule"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:bottomCardColor="@color/purple"
-                app:doubleCardRadius="10"
+                android:layout_marginEnd="2dp"
+                android:onClick="@{() -> fragment.goToSchedule()}"
+                android:text="일정 전체보기"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txtSchedule"
+                app:layout_constraintEnd_toStartOf="@id/imgNext"
+                app:layout_constraintTop_toTopOf="@id/txtSchedule" />
+
+            <ImageView
+                android:id="@+id/imgNext"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/content_description_image"
+                android:onClick="@{() -> fragment.goToSchedule()}"
+                android:src="@drawable/ic_next"
+                app:layout_constraintBottom_toBottomOf="@id/txtSchedule"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtTitle">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:orientation="horizontal">
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarSun"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(0).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}"
-                        app:dayOfWeek="일" />
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarMon"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        app:dayOfWeek="월"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(1).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}" />
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarTue"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(2).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}"
-                        app:dayOfWeek="화" />
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarWed"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(3).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}"
-                        app:dayOfWeek="수"/>
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarThu"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(4).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}"
-                        app:dayOfWeek="목" />
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarFri"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
-                        android:layout_weight="1"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(5).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}"
-                        app:dayOfWeek="금" />
-
-                    <com.example.mjappxml.custom.WeekCalendarItem
-                        android:id="@+id/calendarSat"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:weekItem="@{vm.homeInfo.calendarInfo.get(6).toMyCalendarInfo()}"
-                        app:weekToday="@{vm.today}"
-                        app:weekSelectDate="@{vm.selectDate}"
-                        app:dayOfWeek="토" />
-
-                </LinearLayout>
-
-            </com.example.mjappxml.custom.DoubleCardView>
+                app:layout_constraintTop_toTopOf="@id/txtSchedule"
+                app:tint="@color/gray" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerPokemonCounter"
+                android:id="@+id/rvSchedule"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:paddingHorizontal="24dp"
+                app:adapter="@{fragment.scheduleAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardWeekCalendar"
-                app:spanCount="2"
-                app:gridSpacing="@{10}"
-                app:gridSpan="@{4}"
-                tools:listitem="@layout/cell_pokemon_counter" />
+                app:layout_constraintTop_toBottomOf="@id/txtSchedule"
+                app:linearSpacing="@{12}"
+                app:submitList="@{vm.homeInfo.scheduleList}" />
 
-            <com.example.mjappxml.custom.DoubleCardView
+            <TextView
+                android:id="@+id/txtPokemonCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:text="포켓몬 카운트"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvSchedule" />
+
+            <TextView
+                android:id="@+id/labelPokemonCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:onClick="@{() -> fragment.goToPokemonCounter()}"
+                android:text="카운트 상세보기"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@id/txtPokemonCount"
+                app:layout_constraintEnd_toStartOf="@id/imgNext"
+                app:layout_constraintTop_toTopOf="@id/txtPokemonCount" />
+
+            <ImageView
+                android:id="@+id/imgNext2"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginEnd="24dp"
+                android:contentDescription="@string/content_description_image"
+                android:onClick="@{() -> fragment.goToPokemonCounter()}"
+                android:src="@drawable/ic_next"
+                app:layout_constraintBottom_toBottomOf="@id/txtPokemonCount"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtPokemonCount"
+                app:tint="@color/gray" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPokemonCounter"
                 android:layout_width="0dp"
-                android:layout_height="128dp"
-                android:layout_marginTop="15dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                app:adapter="@{fragment.adapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recyclerPokemonCounter"
-                app:topCardColor="#FFA72F38">
+                app:layout_constraintTop_toBottomOf="@id/txtPokemonCount"
+                app:submitList="@{vm.homeInfo.pokemonInfo}" />
 
-                <ImageView
-                    android:layout_width="75dp"
-                    android:contentDescription="@string/content_description_image"
-                    android:layout_height="85dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="25dp"
-                    android:src="@drawable/ic_elsword_counter_empty" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="38dp"
-                    android:text="목표로 할 케릭터를\n선택해 주세요"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-            </com.example.mjappxml.custom.DoubleCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

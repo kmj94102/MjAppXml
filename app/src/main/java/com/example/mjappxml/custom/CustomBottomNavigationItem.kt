@@ -44,8 +44,6 @@ class CustomBottomNavigationItem : LinearLayout {
         val imageRes: Int,
         var isCurrentItem: Boolean
     ) {
-        fun getWeight() = if (isCurrentItem) 5f else 2f
-
         companion object {
             fun init() = NavigationItem(
                 title = "",

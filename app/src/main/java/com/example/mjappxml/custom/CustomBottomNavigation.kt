@@ -98,7 +98,6 @@ class CustomBottomNavigation : LinearLayout {
         item: CustomBottomNavigationItem.NavigationItem
     ) {
         view.setItem(item)
-        setLayoutWeightAnimated(view, item.getWeight())
     }
 
     fun onItemClick(view: View) {
